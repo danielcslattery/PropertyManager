@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"  lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search for Apartment</title>
+</head>
+<body>
+<h1>Form</h1>
+<form action="#" th:action="@{/apartments/byNumber}" method="get">
+    <p>Number: <input type="text" th:name = "number" /></p>
+</form>
+<p>OR</p>
+<form action="#" th:action="@{/apartments/byBuilding}" method="get">
+    <p>Building: <input type="text" th:name = "building" /></p>
+</form>
+
+<form action="#" th:action="@{/apartments/all}" method="get" >
+<button type="submit"> All apartments </button>
+</form>
+
+<!--Add new apartment-->
+<form action="#" th:action="@{/apartments/addNew}" method="post">
+    <p>Building: <input type="text" th:name = "buildingId" /></p>
+    <p>Apartment Number: <input type="text" th:name = "number" /></p>
+    <button type="submit"> Submit New Apartment </button>
+</form>
+
+<!--Add new payment-->
+<form action="#" th:action="@{/payments/addNew}" method="post">
+    <p>Building: <input type="text" th:name = "building" /></p>
+    <p>Apartment Number: <input type="text" th:name = "apartmentNumber" /></p>
+    <p>Payment Amount: <input type="text" th:name = "paymentAmount" /></p>
+    <button type="submit"> Submit New Payment </button>
+</form>
+
+</body>
+</html>
