@@ -33,7 +33,7 @@ public class PropertyManagementApplication {
 			apartmentRepository.save(new Apartment(1L,"2E"));
 			apartmentRepository.save(new Apartment(1L,"2W"));
 			for (Apartment apartment : apartmentRepository.findAll()) {
-				apartment.addPayment(paymentRepository, 1200);
+				apartment.addPayment(paymentRepository, 1200, 10);
 			}
 
 			// fetch all apartments

@@ -28,9 +28,10 @@
 
 <!--Add new payment-->
 <form action="#" th:action="@{/payments/addNew}" method="post">
-    <p>Building: <input type="text" th:name = "building" /></p>
+    <p>Building Id: <input type="text" th:name = "buildingId" /></p>
     <p>Apartment Number: <input type="text" th:name = "apartmentNumber" /></p>
     <p>Payment Amount: <input type="text" th:name = "paymentAmount" /></p>
+    <p>Month: <input type="text" th:name = "month" /></p>
     <button type="submit"> Submit New Payment </button>
 </form>
 

@@ -26,9 +26,10 @@ public class PaymentController {
     @ResponseBody
     public String addNewPayment(@RequestParam long buildingId,
                                 @RequestParam String apartmentNumber,
-                                @RequestParam int paymentAmount){
+                                @RequestParam int paymentAmount,
+                                @RequestParam int month){
         List<Apartment> apt = apartmentRepository.findApartmentByBuildingAndNumber(buildingId, apartmentNumber);
-        paymentRepository.save(new Payment(apt.get(0).getApartmentId(), paymentAmount));
+        paymentRepository.save(new Payment(apt.get(0).getApartmentId(), paymentAmount, month));
         return "payment added";
     }
 

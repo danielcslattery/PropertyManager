@@ -41,8 +41,8 @@ public class Apartment {
         return buildingId;
     }
 
-    public void addPayment(PaymentRepository repository, int paymentAmount){
-        repository.save(new Payment(apartmentId, paymentAmount));
+    public void addPayment(PaymentRepository repository, int paymentAmount, int month){
+        repository.save(new Payment(apartmentId, paymentAmount, month));
     }
 
 }

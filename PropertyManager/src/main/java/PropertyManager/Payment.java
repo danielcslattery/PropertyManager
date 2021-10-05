@@ -10,13 +10,15 @@ public class Payment {
     private long paymentId;
     private long apartmentId;
     private int paymentAmount;
+    private int month;
 
 
     public Payment(){};
 
-    public Payment(long apartmentId, int paymentAmount){
+    public Payment(long apartmentId, int paymentAmount, int month){
         this.apartmentId = apartmentId;
         this.paymentAmount = paymentAmount;
+        this.month = month;
     }
 
     @Override
