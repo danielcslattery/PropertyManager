@@ -25,4 +25,17 @@ public interface ApartmentRepository extends CrudRepository<Apartment, Long> {
             nativeQuery = true)
     public List<Apartment> findApartmentByBuildingAndApartmentId(@Param("building") long building,
                                                             @Param("apartmentId") long apartmentId);
+
+    //Given value for month, returns list of apartment objects
+    // where there is not a corresponding payment for that month
+    @Query(value = "SELECT * " +
+            "FROM apartment " +
+            "LEFT JOIN " +
+            " (SELECT * " +
+            " FROM payment " +
+            " WHERE payment.month = :month) " +
+            "AS month_payments ON apartment.apartment_id = month_payments.apartment_id " +
+            "WHERE month_payments.payment_amount IS NULL",
+            nativeQuery = true)
+    public List<Apartment> findDelinquentApartments(@Param("month") int month);
 }

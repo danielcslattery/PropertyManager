@@ -43,8 +43,11 @@ public class Payment {
         return apartmentId;
     }
 
+    public int getMonth() {
+        return month;
+    }
 
-
-
-
+    public void setMonth(int month) {
+        this.month = month;
+    }
 }

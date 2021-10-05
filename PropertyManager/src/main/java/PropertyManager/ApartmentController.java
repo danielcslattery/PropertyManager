@@ -44,4 +44,10 @@ public class ApartmentController {
         return "Added new apartment.";
     }
 
+    @GetMapping("/delinquent")
+    @ResponseBody
+    public List<Apartment> getDelinquent(@RequestParam int month){
+        return repository.findDelinquentApartments(month);
+    }
+
 }

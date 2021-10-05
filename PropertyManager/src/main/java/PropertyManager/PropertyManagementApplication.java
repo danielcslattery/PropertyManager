@@ -33,8 +33,10 @@ public class PropertyManagementApplication {
 			apartmentRepository.save(new Apartment(1L,"2E"));
 			apartmentRepository.save(new Apartment(1L,"2W"));
 			for (Apartment apartment : apartmentRepository.findAll()) {
-				apartment.addPayment(paymentRepository, 1200, 10);
+				apartment.addPayment(paymentRepository, 1200, 9);
 			}
+			apartmentRepository.findById(2).addPayment(paymentRepository, 1200, 10);
+			apartmentRepository.findById(3).addPayment(paymentRepository, 1200, 10);
 
 			// fetch all apartments
 			log.info("Apartments found with findAll():");
