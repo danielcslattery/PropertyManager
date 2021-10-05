@@ -21,8 +21,8 @@ public interface ApartmentRepository extends CrudRepository<Apartment, Long> {
 
     @Query(value = "SELECT * FROM Apartment " +
             "WHERE Apartment.building_id = :building " +
-            "AND Apartment.apartment_number = :number",
+            "AND Apartment.apartment_id = :apartmentId",
             nativeQuery = true)
-    public List<Apartment> findApartmentByBuildingAndNumber(@Param("building") long building,
-                                                            @Param("number") String number);
+    public List<Apartment> findApartmentByBuildingAndApartmentId(@Param("building") long building,
+                                                            @Param("apartmentId") long apartmentId);
 }
