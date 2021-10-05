@@ -1,6 +1,7 @@
 package PropertyManager;
 
-//import classes.Apartment;
+import PropertyManager.Models.*;
+import PropertyManager.Repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

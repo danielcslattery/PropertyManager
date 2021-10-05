@@ -1,4 +1,6 @@
-package PropertyManager;
+package PropertyManager.Models;
+
+import PropertyManager.Repositories.PaymentRepository;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
