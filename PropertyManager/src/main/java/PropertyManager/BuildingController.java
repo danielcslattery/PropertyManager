@@ -10,28 +10,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequestMapping("/buildings")
 public class BuildingController {
 
     @Autowired
     private BuildingRepository repository;
 
-    @GetMapping("/allBuildings")
+    @GetMapping("/all")
     @ResponseBody
     public Iterable<Building> getAllBuildings(){
         return repository.findAll();
     }
 
-    @GetMapping("/buildingsQuery")
+    @GetMapping("/byAddress")
     @ResponseBody
     public List<Building> getByNumber(@RequestParam String address){
         return repository.findBuildingByAddress(address);
     }
 
 
-    @PostMapping("/addNewBuilding")
-    @ResponseBody
-    public void addNewBuilding(@RequestParam String address){
+    @PostMapping("/addNew")
+    public String addNewBuilding(@RequestParam String address){
         repository.save(new Building(address));
+        return "redirect:all";
     }
 
 }

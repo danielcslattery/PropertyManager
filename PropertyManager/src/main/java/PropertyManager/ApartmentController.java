@@ -35,13 +35,12 @@ public class ApartmentController {
         return repository.findApartmentByBuilding(building);
     }
 
-    //TODO: Change parameters to include buildingId only for simplification
+
     @PostMapping("/addNew")
-    @ResponseBody
     public String addNewApartment(@RequestParam Long buildingId,
                                 @RequestParam String number){
         repository.save(new Apartment(buildingId, number));
-        return "Added new apartment.";
+        return "redirect:all";
     }
 
     @GetMapping("/delinquent")

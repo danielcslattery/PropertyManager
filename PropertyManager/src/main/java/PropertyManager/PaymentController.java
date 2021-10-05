@@ -23,14 +23,13 @@ public class PaymentController {
 
     //TODO: Change parameters to apartmentId to simplify function.
     @PostMapping("/addNew")
-    @ResponseBody
     public String addNewPayment(@RequestParam long buildingId,
                                 @RequestParam long apartmentId,
                                 @RequestParam int paymentAmount,
                                 @RequestParam int month){
         List<Apartment> apt = apartmentRepository.findApartmentByBuildingAndApartmentId(buildingId, apartmentId);
         paymentRepository.save(new Payment(apt.get(0).getApartmentId(), paymentAmount, month));
-        return "payment added";
+        return "redirect:all";
     }
 
     //TODO: Investigate query vs @pathvariable https://spring.io/guides/tutorials/rest/
