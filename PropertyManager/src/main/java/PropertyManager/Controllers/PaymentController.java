@@ -1,9 +1,6 @@
 package PropertyManager.Controllers;
 
-import PropertyManager.Repositories.ApartmentRepository;
-import PropertyManager.Models.Apartment;
 import PropertyManager.Models.Payment;
-import PropertyManager.Repositories.PaymentRepository;
 import PropertyManager.ServiceInterfaces.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +28,7 @@ public class PaymentController {
                                 @RequestParam long apartmentId,
                                 @RequestParam int paymentAmount,
                                 @RequestParam int month){
-        paymentService.addNewPayment(buildingId, apartmentId, paymentAmount, month);
+        paymentService.addNew(buildingId, apartmentId, paymentAmount, month);
         return "redirect:all";
     }
 
@@ -42,5 +39,11 @@ public class PaymentController {
         return paymentService.getAllPaymentsByApartment(apartmentId);
     }
 
+    //TODO Investigate whether this is the right way to delete.
+    @PostMapping("/delete")
+    public String deletePayment(@RequestParam long paymentId){
+        paymentService.delete(paymentId);
+        return "redirect:all";
+    }
 
 }

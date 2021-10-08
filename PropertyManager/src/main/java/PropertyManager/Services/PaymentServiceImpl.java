@@ -23,13 +23,17 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentRepository.findAll();
     }
 
-    public void addNewPayment(long buildingId, long apartmentId, int paymentAmount, int month){
+    public void addNew(long buildingId, long apartmentId, int paymentAmount, int month){
         List<Apartment> apt = apartmentRepository.findApartmentByBuildingAndApartmentId(buildingId, apartmentId);
         paymentRepository.save(new Payment(apt.get(0).getApartmentId(), paymentAmount, month));
     }
 
     public List<Payment> getAllPaymentsByApartment (Long apartmentId){
         return paymentRepository.findPaymentsByApartmentId(apartmentId);
+    }
+
+    public void delete(long paymentId){
+        paymentRepository.deleteById(paymentId);
     }
 
 
