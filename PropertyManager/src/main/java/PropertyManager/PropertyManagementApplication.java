@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 
 
 @SpringBootApplication
-//TODO: Learn how to organize controllers, repositories, and classes into separate packages.
 //@ComponentScan({"classes.Apartment", "repositories.ApartmentRepository"})
 public class PropertyManagementApplication {
 

@@ -4,6 +4,7 @@ import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.Models.Apartment;
 import PropertyManager.Models.Payment;
 import PropertyManager.Repositories.PaymentRepository;
+import PropertyManager.ServiceInterfaces.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +16,13 @@ import java.util.List;
 public class PaymentController {
 
     @Autowired
-    private PaymentRepository paymentRepository;
-    @Autowired
-    private ApartmentRepository apartmentRepository;
+    private PaymentService paymentService;
+
 
     @GetMapping("/all")
     @ResponseBody
     public Iterable<Payment> getAllPayments(){
-        return paymentRepository.findAll();
+        return paymentService.getAll();
     }
 
     //TODO: Change parameters to apartmentId to simplify function.
@@ -31,8 +31,7 @@ public class PaymentController {
                                 @RequestParam long apartmentId,
                                 @RequestParam int paymentAmount,
                                 @RequestParam int month){
-        List<Apartment> apt = apartmentRepository.findApartmentByBuildingAndApartmentId(buildingId, apartmentId);
-        paymentRepository.save(new Payment(apt.get(0).getApartmentId(), paymentAmount, month));
+        paymentService.addNewPayment(buildingId, apartmentId, paymentAmount, month);
         return "redirect:all";
     }
 
@@ -40,7 +39,7 @@ public class PaymentController {
     @GetMapping("/allByApartment")
     @ResponseBody
     public List<Payment> getAllPaymentsByApartment (@RequestParam Long apartmentId){
-        return paymentRepository.findPaymentsByApartmentId(apartmentId);
+        return paymentService.getAllPaymentsByApartment(apartmentId);
     }
 
 
