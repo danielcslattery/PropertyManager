@@ -1,6 +1,6 @@
 package PropertyManager.Controllers;
 
-import PropertyManager.Models.Payment;
+import PropertyManager.Entities.Payment;
 import PropertyManager.ServiceInterfaces.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

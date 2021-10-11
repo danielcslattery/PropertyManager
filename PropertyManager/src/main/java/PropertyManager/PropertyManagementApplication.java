@@ -1,6 +1,6 @@
 package PropertyManager;
 
-import PropertyManager.Models.*;
+import PropertyManager.Entities.*;
 import PropertyManager.Repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

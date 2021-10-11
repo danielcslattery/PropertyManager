@@ -1,7 +1,7 @@
 package PropertyManager.Services;
 
 
-import PropertyManager.Models.Building;
+import PropertyManager.Entities.Building;
 import PropertyManager.Repositories.BuildingRepository;
 import PropertyManager.ServiceInterfaces.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;

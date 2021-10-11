@@ -1,4 +1,4 @@
-package PropertyManager.Models;
+package PropertyManager.Entities;
 
 import javax.persistence.*;
 
@@ -18,7 +18,7 @@ public class Building {
 
     @Override
     public String toString(){
-        return String.format("Payment[buildingId = '%d', buildingAddress= '%s']",
+        return String.format("Building[buildingId = '%d', buildingAddress= '%s']",
                 buildingId, buildingAddress);
     }
 
@@ -26,4 +26,13 @@ public class Building {
         return buildingAddress;
     }
 
+    public void setBuildingAddress(String buildingAddress) { this.buildingAddress = buildingAddress; }
+
+    public void setBuildingId(long buildingId) {
+        this.buildingId = buildingId;
+    }
+
+    public long getBuildingId() {
+        return buildingId;
+    }
 }

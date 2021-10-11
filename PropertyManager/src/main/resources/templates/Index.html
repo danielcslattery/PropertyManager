@@ -19,12 +19,26 @@
 <button type="submit"> All apartments </button>
 </form>
 
+<!--Add new building-->
+<form action="#" th:action="@{/buildings/addNew}" th:object = "${building}" method="post">
+    <p>Building: <input type="text" field = "*{buildingAddress}" name="buildingAddress" /></p>
+    <button type="submit"> Submit New Building </button>
+</form>
+
+<!--Get building-->
+<form action="#" th:action="@{/buildings/getById}" th:object = "${building}" method="get">
+    <p>Building: <input type="text" field = "*{buildingId}" name="buildingId" /></p>
+    <button type="submit"> Get Building </button>
+</form>
+
+
 <!--Add new apartment-->
 <form action="#" th:action="@{/apartments/addNew}" method="post">
     <p>Building: <input type="text" th:name = "buildingId" /></p>
     <p>Apartment Number: <input type="text" th:name = "number" /></p>
     <button type="submit"> Submit New Apartment </button>
 </form>
+
 
 <!--Add new payment-->
 <form action="#" th:action="@{/payments/addNew}" method="post">
@@ -38,6 +52,12 @@
 <form action="#" th:action="@{/payments/delete}" method="post">
     <p>Payment Id: <input type="text" th:name = "paymentId" /></p>
     <button type="submit"> Delete Payment </button>
+</form>
+
+
+<form action="#" th:action="@{/payments/allByApartment}" method="get">
+    <p>Apartment Id: <input type="text" th:name = "apartmentId" /></p>
+    <button type="submit"> Payments By Apartment </button>
 </form>
 
 </body>

@@ -1,7 +1,7 @@
 package PropertyManager.Services;
 
-import PropertyManager.Models.Apartment;
-import PropertyManager.Models.Payment;
+import PropertyManager.Entities.Apartment;
+import PropertyManager.Entities.Payment;
 import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.Repositories.PaymentRepository;
 import PropertyManager.ServiceInterfaces.PaymentService;
@@ -36,5 +36,8 @@ public class PaymentServiceImpl implements PaymentService {
         paymentRepository.deleteById(paymentId);
     }
 
+    public Payment getById(long paymentId){
+        return paymentRepository.findById(paymentId);
+    }
 
 }

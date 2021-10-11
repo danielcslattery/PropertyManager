@@ -1,11 +1,11 @@
 package PropertyManager.Controllers;
 
 import PropertyManager.Repositories.BuildingRepository;
-import PropertyManager.Models.Building;
+import PropertyManager.Entities.Building;
 import PropertyManager.ServiceInterfaces.BuildingService;
-import PropertyManager.Services.BuildingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,15 +35,24 @@ public class BuildingController {
 
 
     @PostMapping("/addNew")
-    public String addNewBuilding(@RequestParam String address){
-        buildingService.addNew(address);
+    public String addNewBuilding(@ModelAttribute Building building, Model model){
+        model.addAttribute("building", building);
+        buildingService.addNew(building.getBuildingAddress());
         return "redirect:all";
     }
 
     @GetMapping("/getById")
     @ResponseBody
-    public Optional<Building> getById(@RequestParam long id){
-        return buildingService.getById(id);
+    public Optional<Building> getBuilding(@RequestParam long buildingId, Model model){
+        Optional<Building> building = buildingService.getById(buildingId);
+        model.addAttribute("building", building);
+        return building;
     }
+
+//    @GetMapping("/getById")
+//    @ResponseBody
+//    public Optional<Building> getById(@RequestParam long id){
+//        return buildingService.getById(id);
+//    }
 
 }
