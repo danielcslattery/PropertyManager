@@ -8,31 +8,31 @@ public class Building {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long buildingId;
-    private String buildingAddress;
+    private String address;
 
     public Building(){};
 
-    public Building(String buildingAddress) {
-        this.buildingAddress = buildingAddress;
+    public Building(String address) {
+        this.address = address;
     }
 
     @Override
     public String toString(){
         return String.format("Building[buildingId = '%d', buildingAddress= '%s']",
-                buildingId, buildingAddress);
+                buildingId, address);
     }
 
-    public String getBuildingAddress() {
-        return buildingAddress;
+    public String getAddress() {
+        return this.address;
     }
 
-    public void setBuildingAddress(String buildingAddress) { this.buildingAddress = buildingAddress; }
+    public void setAddress(String address) { this.address = address; }
 
-    public void setBuildingId(long buildingId) {
-        this.buildingId = buildingId;
-    }
+//    public void setBuildingId(long buildingId) {
+//        this.buildingId = buildingId;
+//    }
 
     public long getBuildingId() {
-        return buildingId;
+        return this.buildingId;
     }
 }

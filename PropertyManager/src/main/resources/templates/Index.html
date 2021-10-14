@@ -20,15 +20,25 @@
 </form>
 
 <!--Add new building-->
-<form action="#" th:action="@{/buildings/addNew}" th:object = "${building}" method="post">
-    <p>Building: <input type="text" field = "*{buildingAddress}" name="buildingAddress" /></p>
+<form action="#"
+      th:action="@{/buildings/addNew}"
+      th:object = "${building}"
+      method="post">
+    <p>Building: <input type="text"
+                        field = "*{address}"
+                        name="address" /></p>
     <button type="submit"> Submit New Building </button>
 </form>
 
 <!--Get building-->
-<form action="#" th:action="@{/buildings/getById}" th:object = "${building}" method="get">
-    <p>Building: <input type="text" field = "*{buildingId}" name="buildingId" /></p>
-    <button type="submit"> Get Building </button>
+<form action="#"
+      th:action="@{/buildings/byAddress}"
+      th:object = "${building}"
+      method="get">
+    <p>Building: <input type="text"
+                        field = "*{address}"
+                        name="address" /></p>
+    <button type="submit"> Get Building By Address </button>
 </form>
 
 

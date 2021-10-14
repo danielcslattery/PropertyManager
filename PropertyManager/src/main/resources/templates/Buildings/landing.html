@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>One Building</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Single Building</h1>
+<tr th:object="${building}">
+    <td th:text="${building.address}" />
+    <br/>
+    <td th:text="${building.buildingId}" />
+
+</tr>
+</body>
+</html>

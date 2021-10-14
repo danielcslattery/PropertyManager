@@ -16,6 +16,6 @@ public interface BuildingService {
 
     public void addNew(String address);
 
-    public Optional<Building> getById(long id);
+    public Optional<Building> getById(Long id);
 
 }

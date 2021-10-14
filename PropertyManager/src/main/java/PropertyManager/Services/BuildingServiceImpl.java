@@ -28,7 +28,7 @@ public class BuildingServiceImpl implements BuildingService {
         buildingRepository.save(new Building(address));
     }
 
-    public Optional<Building> getById(long id){
+    public Optional<Building> getById(Long id){
         return buildingRepository.findById(id);
     }
 

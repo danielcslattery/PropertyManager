@@ -6,6 +6,7 @@ import PropertyManager.ServiceInterfaces.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,37 +23,33 @@ public class BuildingController {
     private BuildingService buildingService;
 
     @GetMapping("/all")
-    @ResponseBody
-    public Iterable<Building> getAllBuildings(){
-        return buildingService.getAll();
+    public String getAllBuildings(Model model){
+        model.addAttribute("buildings", buildingService.getAll());
+        return "/Buildings/all";
     }
 
     @GetMapping("/byAddress")
-    @ResponseBody
-    public List<Building> getByAddress(@RequestParam String address){
-        return buildingService.getByAddress(address);
+    public String getByAddress(@RequestParam String address){
+        Building building = buildingService.getByAddress(address).get(0);
+        return "redirect:" + building.getBuildingId();
     }
 
-
+    // Currently, Model Attribute is not deeply used
     @PostMapping("/addNew")
     public String addNewBuilding(@ModelAttribute Building building, Model model){
+        buildingService.addNew(building.getAddress());
         model.addAttribute("building", building);
-        buildingService.addNew(building.getBuildingAddress());
         return "redirect:all";
     }
 
-    @GetMapping("/getById")
-    @ResponseBody
-    public Optional<Building> getBuilding(@RequestParam long buildingId, Model model){
+    // Other commands are redirected to a landing page for single buildings.
+    @GetMapping("/{buildingId}")
+    public String getBuilding(@PathVariable Long buildingId, Model model){
         Optional<Building> building = buildingService.getById(buildingId);
-        model.addAttribute("building", building);
-        return building;
+        model.addAttribute("building", building.get());
+        return "/Buildings/landing";
     }
 
-//    @GetMapping("/getById")
-//    @ResponseBody
-//    public Optional<Building> getById(@RequestParam long id){
-//        return buildingService.getById(id);
-//    }
+
 
 }
