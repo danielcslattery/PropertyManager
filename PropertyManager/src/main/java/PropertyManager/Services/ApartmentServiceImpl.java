@@ -1,6 +1,7 @@
 package PropertyManager.Services;
 
 import PropertyManager.Entities.Apartment;
+import PropertyManager.Exception.ApartmentNumberNotFound;
 import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.ServiceInterfaces.ApartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,12 @@ public class ApartmentServiceImpl implements ApartmentService {
     }
 
     public List<Apartment> getByNumber(String number){
-        return apartmentRepository.findApartmentByNumber(number);
+        List<Apartment> apartmentList = apartmentRepository.findApartmentByNumber(number);
+        if(apartmentList.size() == 0){
+            throw new ApartmentNumberNotFound(number);
+        }
+
+        return apartmentList;
     }
 
     public List<Apartment> getByBuilding(Long building){

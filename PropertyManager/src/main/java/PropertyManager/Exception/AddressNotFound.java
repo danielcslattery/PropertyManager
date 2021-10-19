@@ -1,10 +1,10 @@
 package PropertyManager.Exception;
 
-public class BuildingNotFound extends RuntimeException {
+public class AddressNotFound extends RuntimeException {
 
     private String address;
 
-    public BuildingNotFound(String address) {
+    public AddressNotFound(String address) {
         this.address = address;
     }
 
