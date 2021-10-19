@@ -2,6 +2,7 @@ package PropertyManager.Services;
 
 
 import PropertyManager.Entities.Building;
+import PropertyManager.Exception.BuildingNotFound;
 import PropertyManager.Repositories.BuildingRepository;
 import PropertyManager.ServiceInterfaces.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,11 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     public List<Building> getByAddress(String address){
-        return buildingRepository.findBuildingByAddress(address);
+        List<Building> buildings = buildingRepository.findBuildingByAddress(address);
+        if (buildings.size() == 0){
+            throw new BuildingNotFound(address);
+        }
+        return buildings;
     }
 
     public void addNew(String address){
