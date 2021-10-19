@@ -8,11 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-//@ComponentScan({"classes.Apartment", "repositories.ApartmentRepository"})
 public class PropertyManagementApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(PropertyManagementApplication.class);

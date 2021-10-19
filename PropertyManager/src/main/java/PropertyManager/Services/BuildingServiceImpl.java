@@ -2,8 +2,9 @@ package PropertyManager.Services;
 
 
 import PropertyManager.Entities.Building;
-import PropertyManager.Exception.AddressNotFound;
+import PropertyManager.Exception.BuildingAddressNotFound;
 import PropertyManager.Exception.BuildingIdNotFound;
+import PropertyManager.Exception.NoBuildingsInDatabase;
 import PropertyManager.Repositories.BuildingRepository;
 import PropertyManager.ServiceInterfaces.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,20 @@ public class BuildingServiceImpl implements BuildingService {
     @Autowired
     private BuildingRepository buildingRepository;
 
-    public Iterable<Building> getAll(){
-        return buildingRepository.findAll();
+    public List<Building> getAll(){
+        List<Building> buildingIter = (List<Building>) buildingRepository.findAll();
+
+        if (buildingIter.size() == 0){
+            throw new NoBuildingsInDatabase();
+        }
+
+        return buildingIter;
     }
 
     public List<Building> getByAddress(String address){
         List<Building> buildings = buildingRepository.findBuildingByAddress(address);
         if (buildings.size() == 0){
-            throw new AddressNotFound(address);
+            throw new BuildingAddressNotFound(address);
         }
         return buildings;
     }

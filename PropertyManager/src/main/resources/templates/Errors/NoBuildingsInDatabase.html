@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>No Building</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>No Building</h1>
+<tr th:object="${mav}">
+    <td th:text="${exception}" />
+    <br/>
+    <td th:text="${url}" />
+<!--    <br/>-->
+<!--    Could not find building with Id of:  <td th:text="${id}">-->
+
+</tr>
+</body>
+</html>

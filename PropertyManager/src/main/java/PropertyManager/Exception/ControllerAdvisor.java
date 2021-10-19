@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(AddressNotFound.class)
-    public ModelAndView handleAddressNotFound(HttpServletRequest req, AddressNotFound ex) {
+    @ExceptionHandler(BuildingAddressNotFound.class)
+    public ModelAndView handleAddressNotFound(HttpServletRequest req, BuildingAddressNotFound ex) {
         logger.error("Request: " + req.getRequestURL() + " raised " + ex);
 
         ModelAndView mav = new ModelAndView();
@@ -36,6 +36,17 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
 
     //TODO Add handler for no buildings in database here
+    @ExceptionHandler(NoBuildingsInDatabase.class)
+    public ModelAndView handleNoBuildingsInDatabase(HttpServletRequest req, NoBuildingsInDatabase ex) {
+        logger.error("Request: " + req.getRequestURL() + " raised " + ex);
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", ex);
+        mav.addObject("url", req.getRequestURL());
+        //mav.addObject("message", ex.getMessage());
+        mav.setViewName("Errors/NoBuildingsInDatabase");
+        return mav;
+    }
 
     @ExceptionHandler(ApartmentNumberNotFound.class)
     public ModelAndView handleApartmentNumberNotFound(HttpServletRequest req, ApartmentNumberNotFound ex) {
