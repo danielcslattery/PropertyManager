@@ -18,4 +18,6 @@ public interface BuildingService {
 
     public Optional<Building> getById(Long id);
 
+    public void delete(Long id);
+
 }

@@ -12,7 +12,6 @@ public class Payment {
     private int paymentAmount;
     private int month;
 
-    //TODO Add static method to get the total number of Payments
 
     public Payment(){};
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public interface ApartmentService {
@@ -13,10 +14,12 @@ public interface ApartmentService {
 
     List<Apartment> getByNumber(String number);
 
-    List<Apartment> getByBuilding(Long building);
+    List<Apartment> getByBuildingId(Long building);
 
     void addNewApartment(Long buildingId, String number);
 
     List<Apartment> getDelinquent(int month);
+
+    Optional<Apartment> getById(long id);
 
 }

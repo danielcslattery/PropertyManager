@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>One Apartment</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Single Apartment</h1>
+<tr th:object="${apartment}">
+    <td th:text="${apartment.apartmentId}" />
+    <br/>
+    <td th:text="${apartment.apartmentNumber}" />
+
+</tr>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Delinquent Apartments</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>  Delinquent Buildings in month: </h1>
+<h1  th:text = "${month}"> </h1>
+<tr th:each="apartment: ${apartments}">
+    <a th:href="@{/apartments/{id}(id = ${apartment.apartmentId})}" >
+        Id: <td th:text="${apartment.apartmentId}" />,
+        Number: <td th:text="${apartment.apartmentNumber}" /> <br/>
+    </a>
+</tr>
+
+
+</body>
+</html>

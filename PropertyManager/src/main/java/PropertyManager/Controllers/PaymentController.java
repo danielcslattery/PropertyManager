@@ -32,7 +32,6 @@ public class PaymentController {
         return "redirect:all";
     }
 
-    //TODO: Investigate query vs @pathvariable https://spring.io/guides/tutorials/rest/
     @GetMapping("/allByApartment")
     @ResponseBody
     public List<Payment> getAllPaymentsByApartment (@RequestParam Long apartmentId){

@@ -33,8 +33,10 @@ public class PropertyManagementApplication {
 			for (Apartment apartment : apartmentRepository.findAll()) {
 				apartment.addPayment(paymentRepository, 1200, 9);
 			}
-			apartmentRepository.findById(2).addPayment(paymentRepository, 1200, 10);
-			apartmentRepository.findById(3).addPayment(paymentRepository, 1200, 10);
+
+			// Add payment to apartments.  findById returns an Apartment Optional, so get() retrieves the apartment instance.
+			apartmentRepository.findById(2L).get().addPayment(paymentRepository, 1200, 10);
+			apartmentRepository.findById(3L).get().addPayment(paymentRepository, 1200, 10);
 
 			// fetch all apartments
 			log.info("Apartments found with findAll():");
@@ -45,7 +47,7 @@ public class PropertyManagementApplication {
 			log.info("");
 
 			// fetch an individual Apartment by ID
-			Apartment apartment = apartmentRepository.findById(2L);
+			Apartment apartment = apartmentRepository.findById(2L).get();
 			log.info("Apartment found with findById(1L):");
 			log.info("--------------------------------");
 			log.info(apartment.toString());

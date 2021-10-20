@@ -54,5 +54,10 @@ public class BuildingServiceImpl implements BuildingService {
 
     }
 
+    public void delete(Long id){
+        Optional<Building> buildingOpt = buildingRepository.findById(id);
+        buildingRepository.delete(buildingOpt.get());
+    }
+
 
 }

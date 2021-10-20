@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ApartmentRepository extends CrudRepository<Apartment, Long> {
 
-    Apartment findById(long id);
+    //Apartment findById(long id);
 
     @Query(value = "SELECT * FROM Apartment WHERE Apartment.apartment_number = :number",
     nativeQuery = true)

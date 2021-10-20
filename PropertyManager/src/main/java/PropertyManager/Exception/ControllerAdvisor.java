@@ -35,7 +35,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return mav;
     }
 
-    //TODO Add handler for no buildings in database here
     @ExceptionHandler(NoBuildingsInDatabase.class)
     public ModelAndView handleNoBuildingsInDatabase(HttpServletRequest req, NoBuildingsInDatabase ex) {
         logger.error("Request: " + req.getRequestURL() + " raised " + ex);
