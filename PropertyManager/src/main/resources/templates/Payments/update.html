@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"  lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Update Apartment</title>
+</head>
+<body>
+
+<!--Update payment-->
+<h1>  Updating payment: </h1>
+<h1  th:text = "${payment.paymentId}"> </h1>
+
+<form action="#"
+      th:action="@{/payments/update/{id}(id=${payment.paymentId})}"
+      th:object = "${payment}"
+      method="post">
+    <p>Payment Address: <input type="text"
+                                th:field = "*{paymentAmount}"
+                                id="amount">
+    </p>
+
+    <p>Payment Month: <input type="text"
+                               th:field = "*{month}"
+                               id="month">
+    </p>
+    <button type="submit"> Update Payment </button>
+</form>
+
+</body>
+</html>

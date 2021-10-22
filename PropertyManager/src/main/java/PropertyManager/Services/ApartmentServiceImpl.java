@@ -22,14 +22,6 @@ public class ApartmentServiceImpl implements ApartmentService {
         return apartmentRepository.findAll();
     }
 
-    public List<Apartment> getByNumber(String number){
-        List<Apartment> apartmentList = apartmentRepository.findApartmentByNumber(number);
-        if(apartmentList.size() == 0){
-            throw new ApartmentNumberNotFound(number);
-        }
-
-        return apartmentList;
-    }
 
     public List<Apartment> getByBuildingId(Long building){
         return apartmentRepository.findApartmentByBuilding(building);

@@ -15,6 +15,8 @@ public class Payment {
 
     public Payment(){};
 
+
+
     public Payment(long apartmentId, int paymentAmount, int month){
         this.apartmentId = apartmentId;
         this.paymentAmount = paymentAmount;
@@ -49,5 +51,13 @@ public class Payment {
 
     public void setMonth(int month) {
         this.month = month;
+    }
+
+    public void setPaymentId(long paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public void setApartmentId(long apartmentId) {
+        this.apartmentId = apartmentId;
     }
 }

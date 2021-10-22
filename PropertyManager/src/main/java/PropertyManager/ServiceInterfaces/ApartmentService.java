@@ -12,8 +12,6 @@ public interface ApartmentService {
 
     Iterable<Apartment> getAll();
 
-    List<Apartment> getByNumber(String number);
-
     List<Apartment> getByBuildingId(Long building);
 
     void addNewApartment(Long buildingId, String number);

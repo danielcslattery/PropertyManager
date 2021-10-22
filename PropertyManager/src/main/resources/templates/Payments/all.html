@@ -10,12 +10,22 @@
     <a th:href="@{/payments/{id}(id = ${payment.paymentId})}" >
         Id: <td th:text="${payment.paymentId}" />,
         Apartment Id: <td th:text="${payment.apartmentId}" />
-        Month: <td th:text="payment.month" />
+        Month: <td th:text="${payment.month}" />
         Amount: <td th:text="${payment.paymentAmount}" />
-<!--        <td> <a th:href="@{/payments/delete/{id}(id=${payment.paymentId})}"> Delete </a> </td>-->
-<!--        <td> <a th:href="@{/payments/edit/{id}(id=${payment.paymentId})}"> Edit </a> </td>-->
+        <td> <a th:href="@{/payments/delete/{id}(id=${payment.paymentId})}"> Delete </a> </td>
+        <td> <a th:href="@{/payments/edit/{id}(id=${payment.paymentId})}"> Edit </a> </td>
     </a>
     <br/>
 </tr>
+
+<!--Add new payment-->
+<form action="#" th:action="@{/payments/addNew}" method="post">
+    <p>Building Id: <input type="text" th:name = "buildingId" /></p>
+    <p>Apartment Id: <input type="text" th:name = "apartmentId" /></p>
+    <p>Payment Amount: <input type="text" th:name = "paymentAmount" /></p>
+    <p>Month: <input type="text" th:name = "month" /></p>
+    <button type="submit"> Submit New Payment </button>
+</form>
+
 </body>
 </html>

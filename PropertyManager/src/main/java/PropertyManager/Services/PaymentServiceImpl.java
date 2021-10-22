@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -38,6 +39,10 @@ public class PaymentServiceImpl implements PaymentService {
 
     public Payment getById(long paymentId){
         return paymentRepository.findById(paymentId);
+    }
+
+    public void update(Payment payment){
+        paymentRepository.save(payment);
     }
 
 }

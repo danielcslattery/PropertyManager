@@ -15,5 +15,16 @@
     </a>
     <br/>
 </tr>
+
+<form action="#"
+      th:action="@{/buildings/addNew}"
+      th:object = "${building}"
+      method="post">
+    <p>Building: <input type="text"
+                        field = "*{address}"
+                        name="address" /></p>
+    <button type="submit"> Submit New Building </button>
+</form>
+
 </body>
 </html>

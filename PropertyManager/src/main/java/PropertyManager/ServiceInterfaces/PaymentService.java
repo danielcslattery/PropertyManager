@@ -1,5 +1,6 @@
 package PropertyManager.ServiceInterfaces;
 
+import PropertyManager.Entities.Apartment;
 import PropertyManager.Entities.Payment;
 import org.springframework.stereotype.Component;
 
@@ -17,5 +18,7 @@ public interface PaymentService {
     List<Payment> getAllPaymentsByApartment (Long apartmentId);
 
     Payment getById(long paymentId);
+
+    void update(Payment payment);
 
 }
