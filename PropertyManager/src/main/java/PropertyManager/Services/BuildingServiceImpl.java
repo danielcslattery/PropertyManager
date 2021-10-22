@@ -50,8 +50,6 @@ public class BuildingServiceImpl implements BuildingService {
         }
 
         return buildingOpt;
-
-
     }
 
     public void delete(Long id){
@@ -59,5 +57,8 @@ public class BuildingServiceImpl implements BuildingService {
         buildingRepository.delete(buildingOpt.get());
     }
 
+    public void update(Building building){
+        buildingRepository.save(building);
+    }
 
 }

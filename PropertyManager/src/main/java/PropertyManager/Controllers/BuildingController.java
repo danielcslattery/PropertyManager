@@ -53,4 +53,19 @@ public class BuildingController {
         return "redirect:../all";
     }
 
+    @GetMapping("/edit/{buildingId}")
+    public String showUpdateForm(@PathVariable Long buildingId, Model model){
+        Optional<Building> building = buildingService.getById(buildingId);
+        model.addAttribute("building", building.get());
+        System.out.println("edit" + model.getAttribute("building").toString());
+        return "Buildings/update";
+    }
+
+    @PostMapping("/update/{buildingId}")
+    public String updateBuilding(@PathVariable Long buildingId, Building building, Model model){
+        System.out.println("update" + model.getAttribute("building").toString());
+        buildingService.update(building);
+        return "redirect:../all";
+    }
+
 }

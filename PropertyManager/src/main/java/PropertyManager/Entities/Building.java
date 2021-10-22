@@ -29,9 +29,9 @@ public class Building {
 
     public void setAddress(String address) { this.address = address; }
 
-//    public void setBuildingId(long buildingId) {
-//        this.buildingId = buildingId;
-//    }
+    public void setBuildingId(long buildingId) {
+        this.buildingId = buildingId;
+    }
 
     public long getBuildingId() {
         return this.buildingId;

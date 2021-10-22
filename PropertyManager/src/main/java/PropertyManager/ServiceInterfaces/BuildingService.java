@@ -20,4 +20,6 @@ public interface BuildingService {
 
     public void delete(Long id);
 
+    public void update(Building building);
+
 }
