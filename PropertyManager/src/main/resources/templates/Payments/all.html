@@ -6,14 +6,14 @@
 </head>
 <body>
 <h1>List All Payments</h1>
-<tr th:each="payment: ${payment}">
+<tr th:each="payment: ${payments}">
     <a th:href="@{/payments/{id}(id = ${payment.paymentId})}" >
         Id: <td th:text="${payment.paymentId}" />,
-        Apartment Id: <td th:text="${apartmentId.address}" />
+        Apartment Id: <td th:text="${payment.apartmentId}" />
         Month: <td th:text="payment.month" />
         Amount: <td th:text="${payment.paymentAmount}" />
-        <td> <a th:href="@{/buildings/delete/{id}(id=${building.buildingId})}"> Delete </a> </td>
-        <td> <a th:href="@{/buildings/edit/{id}(id=${building.buildingId})}"> Edit </a> </td>
+<!--        <td> <a th:href="@{/payments/delete/{id}(id=${payment.paymentId})}"> Delete </a> </td>-->
+<!--        <td> <a th:href="@{/payments/edit/{id}(id=${payment.paymentId})}"> Edit </a> </td>-->
     </a>
     <br/>
 </tr>

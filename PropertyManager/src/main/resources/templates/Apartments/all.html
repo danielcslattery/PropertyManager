@@ -9,8 +9,12 @@
 <tr th:each="apartment: ${apartments}">
     <a th:href="@{/apartments/{id}(id = ${apartment.apartmentId})}" >
         Id: <td th:text="${apartment.apartmentId}" />,
-        Number: <td th:text="${apartment.apartmentNumber}" /> <br/>
+        Number: <td th:text="${apartment.apartmentNumber}" />
+        Building Id: <td th:text="${apartment.buildingId}" />
+        <td> <a th:href="@{/apartments/delete/{id}(id=${apartment.apartmentId})}"> Delete </a> </td>
+        <td> <a th:href="@{/apartments/edit/{id}(id=${apartment.apartmentId})}"> Edit </a> </td>
     </a>
+    <br/>
 </tr>
 
 

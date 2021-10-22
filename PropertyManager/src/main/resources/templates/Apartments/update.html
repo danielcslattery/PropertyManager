@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"  lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Update Apartment</title>
+</head>
+<body>
+
+<!--Update apartment-->
+<h1>  Updating apartment: </h1>
+<h1  th:text = "${apartment.apartmentId}"> </h1>
+
+<form action="#"
+      th:action="@{/apartments/update/{id}(id=${apartment.apartmentId})}"
+      th:object = "${apartment}"
+      method="post">
+    <p>Apartment Number: <input type="text"
+                                th:field = "*{apartmentNumber}"
+                                id="apartmentNumber">
+    </p>
+    <button type="submit"> Update Apartment </button>
+</form>
+
+</body>
+</html>

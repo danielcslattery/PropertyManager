@@ -22,4 +22,8 @@ public interface ApartmentService {
 
     Optional<Apartment> getById(long id);
 
+    void delete(Long id);
+
+    void update(Apartment apartment);
+
 }

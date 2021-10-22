@@ -1,5 +1,6 @@
 package PropertyManager.Controllers;
 
+import PropertyManager.Entities.Building;
 import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.Entities.Apartment;
 import PropertyManager.ServiceInterfaces.ApartmentService;
@@ -25,13 +26,6 @@ public class ApartmentController {
     public String getAllApartments(Model model){
         model.addAttribute("apartments", apartmentService.getAll());
         return "/Apartments/all";
-    }
-
-    // TODO I don't see a reason to keep this.
-    @GetMapping("/byNumber")
-    @ResponseBody
-    public List<Apartment> getByNumber(@RequestParam String number){
-        return apartmentService.getByNumber(number);
     }
 
     @GetMapping("/byBuilding")
@@ -65,7 +59,27 @@ public class ApartmentController {
         return "/Apartments/landing";
     }
 
+    @GetMapping("/delete/{apartmentId}")
+    public String deleteApartment(@PathVariable Long apartmentId, Model model){
+        apartmentService.delete(apartmentId);
+        return "redirect:../all";
+    }
 
 
+    @GetMapping("/edit/{apartmentId}")
+    public String showUpdateForm(@PathVariable Long apartmentId, Model model){
+        Optional<Apartment> apartment = apartmentService.getById(apartmentId);
+        model.addAttribute("apartment", apartment.get());
+        System.out.println("edit" + model.getAttribute("apartment").toString());
+        return "Apartments/update";
+    }
+
+    @PostMapping("/update/{apartmentId}")
+    public String updateApartment(@PathVariable Long apartmentId, Apartment apartment, Model model){
+        System.out.println("update" + model.getAttribute("apartment").toString());
+        apartmentService.update(apartment);
+        return "redirect:../all";
+    }
 
 }
+

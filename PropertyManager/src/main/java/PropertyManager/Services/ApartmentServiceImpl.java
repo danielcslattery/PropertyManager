@@ -52,8 +52,16 @@ public class ApartmentServiceImpl implements ApartmentService {
 //        }
 
         return apartmentOpt;
-
-
     }
+
+    public void delete(Long id){
+        Optional<Apartment> apartmentOpt = apartmentRepository.findById(id);
+        apartmentRepository.delete(apartmentOpt.get());
+    }
+
+    public void update(Apartment apartment){
+        apartmentRepository.save(apartment);
+    }
+
 
 }
