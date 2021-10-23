@@ -2,6 +2,7 @@ package PropertyManager.Services;
 
 import PropertyManager.Entities.Apartment;
 import PropertyManager.Entities.Building;
+import PropertyManager.Exception.ApartmentIdNotFound;
 import PropertyManager.Exception.ApartmentNumberNotFound;
 import PropertyManager.Exception.BuildingIdNotFound;
 import PropertyManager.Repositories.ApartmentRepository;
@@ -47,9 +48,9 @@ public class ApartmentServiceImpl implements ApartmentService {
 
         Optional<Apartment> apartmentOpt = apartmentRepository.findById(id);
 
-//        if (apartmentOpt.isEmpty()){
-//            throw new ApartmentIdNotFound(id);
-//        }
+        if (apartmentOpt.isEmpty()){
+            throw new ApartmentIdNotFound(id);
+        }
 
         return apartmentOpt;
     }
