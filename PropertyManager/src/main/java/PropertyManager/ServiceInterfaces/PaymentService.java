@@ -5,6 +5,7 @@ import PropertyManager.Entities.Payment;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public interface PaymentService {
@@ -17,7 +18,7 @@ public interface PaymentService {
 
     List<Payment> getAllPaymentsByApartment (Long apartmentId);
 
-    Payment getById(long paymentId);
+    Optional<Payment> getById(long paymentId);
 
     void update(Payment payment);
 

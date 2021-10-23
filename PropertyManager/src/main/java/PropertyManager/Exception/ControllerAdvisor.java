@@ -59,5 +59,17 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return mav;
     }
 
+    @ExceptionHandler(PaymentIdNotFound.class)
+    public ModelAndView handlePaymentIdNotFound(HttpServletRequest req, PaymentIdNotFound ex) {
+        logger.error("Request: " + req.getRequestURL() + " raised " + ex);
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", ex);
+        mav.addObject("url", req.getRequestURL());
+        mav.addObject("id", ex.getId());
+        mav.setViewName("Errors/NoPaymentId");
+        return mav;
+    }
+
 
 }

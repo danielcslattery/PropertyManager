@@ -1,6 +1,7 @@
 package PropertyManager.Controllers;
 
 import PropertyManager.Entities.Apartment;
+import PropertyManager.Entities.Building;
 import PropertyManager.Entities.Payment;
 import PropertyManager.ServiceInterfaces.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,17 @@ public class PaymentController {
         return paymentService.getAllPaymentsByApartment(apartmentId);
     }
 
-    //TODO Investigate whether this is the right way to delete.
+    @GetMapping("/{paymentId}")
+    public String getPayment(@PathVariable Long paymentId, Model model){
+        Optional<Payment> payment = paymentService.getById(paymentId);
+        System.out.println("Here!");
+        model.addAttribute("payment", payment.get());
+        return "/Payments/landing";
+    }
+
 
     @GetMapping("/delete/{paymentId}")
-    public String deletepayment(@PathVariable Long paymentId, Model model){
+    public String deletePayment(@PathVariable Long paymentId, Model model){
         paymentService.delete(paymentId);
         return "redirect:../all";
     }
@@ -52,8 +60,8 @@ public class PaymentController {
 
     @GetMapping("/edit/{paymentId}")
     public String showUpdateForm(@PathVariable Long paymentId, Model model){
-        Payment payment = paymentService.getById(paymentId);
-        model.addAttribute("payment", payment);
+        Optional<Payment> payment = paymentService.getById(paymentId);
+        model.addAttribute("payment", payment.get());
         System.out.println("edit" + model.getAttribute("payment").toString());
         return "payments/update";
     }

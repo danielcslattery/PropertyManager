@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>One Payment</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Single Payment</h1>
+<tr th:object="${payment}">
+    <td th:text="${payment.paymentId}" />
+    <br/>
+    <td th:text="${payment.paymentAmount}" />
+    <br/>
+    <td th:text="${payment.month}" />
+
+</tr>
+</body>
+</html>
