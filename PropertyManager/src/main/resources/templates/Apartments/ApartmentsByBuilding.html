@@ -5,10 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>  Apartments in Building with id: </h1>
-<h1  th:text = "${buildingId}"> </h1>
+<h1>  Apartments at : </h1>
+<h1  th:text = "${building.address}"> </h1>
 <tr th:each="apartment: ${apartments}">
-    <a th:href="@{/apartments/{id}(id = ${apartment.apartmentId})}" >
+    <a th:href="@{/payments/byApartment/{id}(id = ${apartment.apartmentId})}" >
         Id: <td th:text="${apartment.apartmentId}" />,
         Number: <td th:text="${apartment.apartmentNumber}" /> <br/>
     </a>

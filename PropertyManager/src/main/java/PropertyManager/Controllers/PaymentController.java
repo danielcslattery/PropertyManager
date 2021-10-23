@@ -3,6 +3,7 @@ package PropertyManager.Controllers;
 import PropertyManager.Entities.Apartment;
 import PropertyManager.Entities.Building;
 import PropertyManager.Entities.Payment;
+import PropertyManager.ServiceInterfaces.ApartmentService;
 import PropertyManager.ServiceInterfaces.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
+    @Autowired
+    private ApartmentService apartmentService;
 
     @GetMapping("/all")
     public String getAllPayments(Model model){
@@ -36,10 +39,12 @@ public class PaymentController {
         return "redirect:all";
     }
 
-    @GetMapping("/allByApartment")
-    @ResponseBody
-    public List<Payment> getAllPaymentsByApartment (@RequestParam Long apartmentId){
-        return paymentService.getAllPaymentsByApartment(apartmentId);
+    @GetMapping("/byApartment/{apartmentId}")
+    public String getAllPaymentsByApartment (@PathVariable Long apartmentId, Model model){
+        model.addAttribute("payments", paymentService.getAllPaymentsByApartment(apartmentId));
+        model.addAttribute("apartment", apartmentService.getById(apartmentId).get());
+
+        return "/Payments/paymentsByApartment";
     }
 
     @GetMapping("/{paymentId}")

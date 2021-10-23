@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>All Payments by an Apartment</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>  Payments By : </h1>
+<h1  th:text = "${apartment.apartmentNumber}"> </h1>
+<tr th:each="payment: ${payments}">
+    <a th:href="@{/payments/{id}(id = ${payment.paymentId})}" >
+        Id: <td th:text="${payment.paymentId}" />
+    </a>
+</tr>
+
+
+</body>
+</html>

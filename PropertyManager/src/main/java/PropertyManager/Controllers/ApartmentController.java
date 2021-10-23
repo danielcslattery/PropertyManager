@@ -4,6 +4,7 @@ import PropertyManager.Entities.Building;
 import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.Entities.Apartment;
 import PropertyManager.ServiceInterfaces.ApartmentService;
+import PropertyManager.ServiceInterfaces.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,21 +23,24 @@ public class ApartmentController {
     @Autowired
     private ApartmentService apartmentService;
 
+    @Autowired
+    private BuildingService buildingService;
+
     @GetMapping("/all")
     public String getAllApartments(Model model){
         model.addAttribute("apartments", apartmentService.getAll());
         return "/Apartments/all";
     }
 
-    @GetMapping("/byBuilding")
-    public String getByBuilding(Model model, @RequestParam Long buildingId){
+    @GetMapping("/byBuilding/{buildingId}")
+    public String getByBuilding(Model model, @PathVariable Long buildingId){
         model.addAttribute("apartments", apartmentService.getByBuildingId(buildingId));
-        model.addAttribute("buildingId", buildingId);
+        model.addAttribute("building", buildingService.getById(buildingId).get());
         return "/Apartments/ApartmentsByBuilding";
     }
 
 
-    @PostMapping("/addNew")
+    @PostMapping("/add")
     public String addNewApartment(@ModelAttribute Apartment apartment,
                                   Model model){
         apartmentService.addNewApartment(apartment.getBuildingId(), apartment.getApartmentNumber());
