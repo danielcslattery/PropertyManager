@@ -1,10 +1,8 @@
 package PropertyManager.Services;
 
 import PropertyManager.Entities.Apartment;
-import PropertyManager.Entities.Building;
-import PropertyManager.Exception.ApartmentIdNotFound;
 import PropertyManager.Exception.ApartmentNumberNotFound;
-import PropertyManager.Exception.BuildingIdNotFound;
+import PropertyManager.Exception.EntityIdNotFound;
 import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.ServiceInterfaces.ApartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +47,7 @@ public class ApartmentServiceImpl implements ApartmentService {
         Optional<Apartment> apartmentOpt = apartmentRepository.findById(id);
 
         if (apartmentOpt.isEmpty()){
-            throw new ApartmentIdNotFound(id);
+            throw new EntityIdNotFound(id, "apartment");
         }
 
         return apartmentOpt;

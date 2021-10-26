@@ -14,6 +14,21 @@
     </a>
 </tr>
 
+<form action="#"
+      th:action="@{/apartments/byBuilding/add}"
+      th:object = "${apartment}"
+      method="post"
+      field = "*{buildingId = building.buildingId}">
+<!--    <p>Building Id:-->
+<!--        <input type="text"-->
+<!--               field = "*{buildingId}"-->
+<!--               name="buildingId"/></p>-->
+    <p>Apartment Number:
+        <input type="text"
+               field = "*{apartmentNumber}"
+               name="apartmentNumber"/></p>
+    <button type="submit"> Submit New Apartment </button>
+</form>
 
 </body>
 </html>

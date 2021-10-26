@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>No Apartment</title>
+    <title>No Such Id</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>No Apartment</h1>
+<h1>No Such <td th:text="${entityType}"/> Id </h1>
 <tr th:object="${mav}">
     <td th:text="${exception}" />
     <br/>
     <td th:text="${url}" />
     <br/>
-    Could not find Apartment with Id of:  <td th:text="${id}">
+    Could not find <td th:text="${entityType}"/> with id of:  <td th:text="${id}"/>
 
 </tr>
 </body>

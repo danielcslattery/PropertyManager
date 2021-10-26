@@ -30,7 +30,7 @@ public class PaymentController {
     }
 
     //TODO: Change parameters to apartmentId to simplify function.
-    @PostMapping("/addNew")
+    @PostMapping("/add")
     public String addNewPayment(@RequestParam long buildingId,
                                 @RequestParam long apartmentId,
                                 @RequestParam int paymentAmount,

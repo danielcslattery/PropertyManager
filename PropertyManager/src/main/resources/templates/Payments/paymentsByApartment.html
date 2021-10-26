@@ -13,6 +13,15 @@
     </a>
 </tr>
 
+<!--Add new payment-->
+<form action="#" th:action="@{/payments/add}" method="post">
+    <p>Building Id: <input type="text" th:name = "buildingId" /></p>
+    <p>Apartment Id: <input type="text" th:name = "apartmentId" /></p>
+    <p>Payment Amount: <input type="text" th:name = "paymentAmount" /></p>
+    <p>Month: <input type="text" th:name = "month" /></p>
+    <button type="submit"> Submit New Payment </button>
+</form>
+
 
 </body>
 </html>

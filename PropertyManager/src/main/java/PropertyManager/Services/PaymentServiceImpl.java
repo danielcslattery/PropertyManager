@@ -2,7 +2,7 @@ package PropertyManager.Services;
 
 import PropertyManager.Entities.Apartment;
 import PropertyManager.Entities.Payment;
-import PropertyManager.Exception.PaymentIdNotFound;
+import PropertyManager.Exception.EntityIdNotFound;
 import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.Repositories.PaymentRepository;
 import PropertyManager.ServiceInterfaces.PaymentService;
@@ -42,7 +42,7 @@ public class PaymentServiceImpl implements PaymentService {
     public Optional<Payment>  getById(long paymentId){
         Optional<Payment> paymentOpt = paymentRepository.findById(paymentId);
         if (paymentOpt.isEmpty()){
-            throw new PaymentIdNotFound(paymentId);
+            throw new EntityIdNotFound(paymentId, "payment");
         }
         return paymentOpt;
     }

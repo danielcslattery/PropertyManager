@@ -3,7 +3,7 @@ package PropertyManager.Services;
 
 import PropertyManager.Entities.Building;
 import PropertyManager.Exception.BuildingAddressNotFound;
-import PropertyManager.Exception.BuildingIdNotFound;
+import PropertyManager.Exception.EntityIdNotFound;
 import PropertyManager.Exception.NoBuildingsInDatabase;
 import PropertyManager.Repositories.BuildingRepository;
 import PropertyManager.ServiceInterfaces.BuildingService;
@@ -46,7 +46,7 @@ public class BuildingServiceImpl implements BuildingService {
         Optional<Building> buildingOpt = buildingRepository.findById(id);
 
         if (buildingOpt.isEmpty()){
-            throw new BuildingIdNotFound(id);
+            throw new EntityIdNotFound(id, "building");
         }
 
         return buildingOpt;

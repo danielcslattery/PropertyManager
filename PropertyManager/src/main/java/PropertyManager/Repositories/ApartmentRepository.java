@@ -27,7 +27,7 @@ public interface ApartmentRepository extends CrudRepository<Apartment, Long> {
     public List<Apartment> findApartmentByBuildingAndApartmentId(@Param("building") long building,
                                                             @Param("apartmentId") long apartmentId);
 
-    //Given value for month, returns list of apartment objects
+    // Given value for month, returns list of apartment objects
     // where there is not a corresponding payment for that month
     @Query(value = "SELECT * " +
             "FROM apartment " +
