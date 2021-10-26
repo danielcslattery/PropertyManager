@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>No Building</title>
+    <title>Empty Return From Query</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>No Building</h1>
+<h1>Empty Return From "<td th:text="${queryType}"/>" Query</h1>
 <tr th:object="${mav}">
     <td th:text="${exception}" />
     <br/>
     <td th:text="${url}" />
-<!--    <br/>-->
-<!--    Could not find building with Id of:  <td th:text="${id}">-->
+    <br/>
+    Could not find any <td th:text="${entityType}"/> after "<td th:text="${queryType}"/>" query.
 
 </tr>
 </body>

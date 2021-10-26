@@ -2,6 +2,7 @@ package PropertyManager.Services;
 
 import PropertyManager.Entities.Apartment;
 import PropertyManager.Exception.ApartmentNumberNotFound;
+import PropertyManager.Exception.EmptyReturnFromQuery;
 import PropertyManager.Exception.EntityIdNotFound;
 import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.ServiceInterfaces.ApartmentService;
@@ -17,8 +18,14 @@ public class ApartmentServiceImpl implements ApartmentService {
     @Autowired
     private ApartmentRepository apartmentRepository;
 
-    public Iterable<Apartment> getAll(){
-        return apartmentRepository.findAll();
+    public List<Apartment> getAll(){
+        List<Apartment> apartments = (List<Apartment>) apartmentRepository.findAll();
+
+        if (apartments.size() == 0){
+            throw new EmptyReturnFromQuery("apartment", "getAll");
+        }
+
+        return apartments;
     }
 
     public List<Apartment> getByNumber(String number){

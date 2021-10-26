@@ -10,7 +10,7 @@ import java.util.Optional;
 @Component
 public interface PaymentService {
 
-    Iterable<Payment> getAll();
+    List<Payment> getAll();
 
     void addNew(long buildingId, long apartmentId, int paymentAmount, int month);
 

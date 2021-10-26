@@ -10,7 +10,7 @@ import java.util.Optional;
 @Component
 public interface ApartmentService {
 
-    Iterable<Apartment> getAll();
+    List<Apartment> getAll();
 
     List<Apartment> getByBuildingId(Long building);
 

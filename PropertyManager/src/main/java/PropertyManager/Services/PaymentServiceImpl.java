@@ -2,6 +2,7 @@ package PropertyManager.Services;
 
 import PropertyManager.Entities.Apartment;
 import PropertyManager.Entities.Payment;
+import PropertyManager.Exception.EmptyReturnFromQuery;
 import PropertyManager.Exception.EntityIdNotFound;
 import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.Repositories.PaymentRepository;
@@ -21,8 +22,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     ApartmentRepository apartmentRepository;
 
-    public Iterable<Payment> getAll(){
-        return paymentRepository.findAll();
+    public List<Payment> getAll(){
+        List<Payment> payments = (List<Payment>) paymentRepository.findAll();
+
+        if (payments.size() == 0){
+            throw new EmptyReturnFromQuery("payment", "findAll");
+        }
+
+        return payments;
     }
 
     public void addNew(long buildingId, long apartmentId, int paymentAmount, int month){

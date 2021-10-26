@@ -35,15 +35,16 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 //        return mav;
 //    }
 
-    @ExceptionHandler(NoBuildingsInDatabase.class)
-    public ModelAndView handleNoBuildingsInDatabase(HttpServletRequest req, NoBuildingsInDatabase ex) {
+    @ExceptionHandler(EmptyReturnFromQuery.class)
+    public ModelAndView handleEmptyReturnFromQuery(HttpServletRequest req, EmptyReturnFromQuery ex) {
         logger.error("Request: " + req.getRequestURL() + " raised " + ex);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", ex);
         mav.addObject("url", req.getRequestURL());
-        //mav.addObject("message", ex.getMessage());
-        mav.setViewName("Errors/NoBuildingsInDatabase");
+        mav.addObject("entityType", ex.getEntityType());
+        mav.addObject("queryType", ex.getQueryType());
+        mav.setViewName("Errors/EmptyReturnFromQuery");
         return mav;
     }
 
