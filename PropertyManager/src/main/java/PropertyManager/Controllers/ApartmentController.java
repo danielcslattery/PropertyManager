@@ -42,11 +42,12 @@ public class ApartmentController {
 
     // Add new apartment from a byBuilding page and redirect to that same page
     // rather than redirect to /apartments/all.  Redirect Attributes allows this dynamically.
-    @PostMapping("/byBuilding/add")
+    @PostMapping("/byBuilding/{buildingId}/add")
     public String addNewToBuilding(@ModelAttribute Apartment apartment,
+                                   @PathVariable Long buildingId,
                                    RedirectAttributes redirectAttributes){
-        apartmentService.addNewApartment(apartment.getBuildingId(), apartment.getApartmentNumber());
-        redirectAttributes.addAttribute("buildingId", apartment.getBuildingId());
+        apartmentService.addNewApartment(buildingId, apartment.getApartmentNumber());
+        redirectAttributes.addAttribute("buildingId", buildingId);
         return "redirect:/apartments/byBuilding/{buildingId}";
     }
 
@@ -96,6 +97,37 @@ public class ApartmentController {
         apartmentService.update(apartment);
         return "redirect:../all";
     }
+
+
+    @GetMapping("/byBuilding/{buildingId}/delete/{apartmentId}")
+    public String byBuildingDeleteApartment(@PathVariable("buildingId") String buildingId,
+                                            @PathVariable("apartmentId") Long apartmentId,
+                                            Model model,
+                                            RedirectAttributes redirectAttributes){
+        apartmentService.delete(apartmentId);
+        redirectAttributes.addAttribute("buildingId", buildingId);
+        return "redirect:/apartments/byBuilding/{buildingId}";
+    }
+
+//    @GetMapping("/byBuilding/edit/{apartmentId}")
+//    public String byBuildingShowUpdateForm(@PathVariable Long apartmentId, Model model){
+//        Optional<Apartment> apartment = apartmentService.getById(apartmentId);
+//        model.addAttribute("apartment", apartment.get());
+//        System.out.println("edit" + model.getAttribute("apartment").toString());
+//        return "Apartments/update";
+//    }
+//
+//    @PostMapping("/byBuilding/update/{apartmentId}")
+//    public String byBuildingUpdate(@PathVariable Long apartmentId,
+//                                   Apartment apartment,
+//                                   Model model,
+//                                   RedirectAttributes redirectAttributes){
+//        System.out.println("update" + model.getAttribute("apartment").toString());
+//        apartmentService.update(apartment);
+//        redirectAttributes.addAttribute("buildingId", apartment.getBuildingId());
+//        return "redirect:../byBuilding/{buildingId}";
+//    }
+
 
 }
 
