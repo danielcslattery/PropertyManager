@@ -43,10 +43,15 @@ public class Apartment {
         return buildingId;
     }
 
+    public void setBuildingId(Long buildingId) {
+        this.buildingId = buildingId;
+    }
+
     public void setApartmentId(Long apartmentId){this.apartmentId = apartmentId;}
 
     public void addPayment(PaymentRepository repository, int paymentAmount, int month){
         repository.save(new Payment(apartmentId, paymentAmount, month));
     }
+
 
 }

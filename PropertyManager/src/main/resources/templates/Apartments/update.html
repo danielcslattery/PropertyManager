@@ -9,15 +9,18 @@
 
 <!--Update apartment-->
 <h1>  Updating apartment: </h1>
-<h1  th:text = "${apartment.apartmentId}"> </h1>
+<h1  th:text = "${apartment.apartmentId}"> With Building ID: </h1>
+<h1  th:text = "${apartment.buildingId}"> </h1>
 
 <form action="#"
-      th:action="@{/apartments/update/{id}(id=${apartment.apartmentId})}"
+      th:action="@{/apartments/byBuilding/update/{id}(id=${apartment.apartmentId})}"
       th:object = "${apartment}"
       method="post">
-    <p>Apartment Number: <input type="text"
-                                th:field = "*{apartmentNumber}"
-                                id="apartmentNumber">
+    <p>Apartment Number:
+        <input type="text"
+               th:field = "*{apartmentNumber}"
+               id="apartmentNumber"
+        >
     </p>
     <button type="submit"> Update Apartment </button>
 </form>
