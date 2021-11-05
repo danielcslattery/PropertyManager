@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -76,6 +77,42 @@ public class PaymentController {
         System.out.println("update" + model.getAttribute("payment").toString());
         paymentService.update(payment);
         return "redirect:../all";
+    }
+
+
+    @GetMapping("/byApartment/{apartmentId}/delete/{paymentId}")
+    public String byApartmentDeleteApartment(@PathVariable("apartmentId") String apartmentId,
+                                            @PathVariable("paymentId") Long paymentId,
+                                            Model model,
+                                            RedirectAttributes redirectAttributes){
+        //TODO change this to deleteById
+        paymentService.delete(paymentId);
+        redirectAttributes.addAttribute("apartmentId", apartmentId);
+        return "redirect:/payments/byApartment/{apartmentId}";
+    }
+
+    //TODO figure out how to pass the apartment id properly
+    @GetMapping("/byApartment/edit/{paymentId}")
+    public String byApartmentShowUpdateForm(@PathVariable("paymentId") Long paymentId, Model model){
+        Optional<Payment> payment = paymentService.getById(paymentId);
+        model.addAttribute("payment", payment.get());
+        System.out.println("edit" + model.getAttribute("payment").toString());
+        return "Payments/update";
+    }
+
+    @PostMapping("/byApartment/update/{paymentId}")
+    public String byApartmentUpdate(@PathVariable Long paymentId,
+                                   Payment payment,
+                                   Model model,
+                                   RedirectAttributes redirectAttributes){
+        // Retrieve apartmentId from the database and add it to the apartment object.
+        long apartmentId = paymentService.getById(paymentId).get().getApartmentId();
+        payment.setApartmentId(apartmentId);
+
+        System.out.println("update model" + payment.toString());
+        paymentService.update(payment);
+        redirectAttributes.addAttribute("apartmentId", apartmentId);
+        return "redirect:../{apartmentId}";
     }
 
 }

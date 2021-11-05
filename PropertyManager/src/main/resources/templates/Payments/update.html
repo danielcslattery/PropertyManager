@@ -12,10 +12,10 @@
 <h1  th:text = "${payment.paymentId}"> </h1>
 
 <form action="#"
-      th:action="@{/payments/update/{id}(id=${payment.paymentId})}"
+      th:action="@{/payments/byApartment/update/{id}(id=${payment.paymentId})}"
       th:object = "${payment}"
       method="post">
-    <p>Payment Address: <input type="text"
+    <p>Payment Amount: <input type="text"
                                 th:field = "*{paymentAmount}"
                                 id="amount">
     </p>
