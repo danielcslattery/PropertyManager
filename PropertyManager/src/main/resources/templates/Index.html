@@ -3,53 +3,101 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Search for Apartment</title>
+    <title>Property Manager</title>
+    <link rel="stylesheet" type="text/css" th:href="@{index.css}" />
 </head>
+
 <body>
-<h1>Form</h1>
-<form action="#" th:action="@{/apartments/byNumber}" method="get">
-    <p>Number: <input type="text" th:name = "number" /></p>
-</form>
-<p>OR</p>
-<form action="#" th:action="@{/apartments/byBuilding}" method="get">
-    <p>Building: <input type="text" th:name = "building" /></p>
-</form>
 
-<form action="#" th:action="@{/buildings/all}" method="get" >
-<button type="submit"> All Buildings </button>
-</form>
+<header id = "navbar">
+    <nav class="nav-container">
+        <p id = "navbar-title">Property Manager</p>
+    </nav>
+</header>
 
-<form action="#" th:action="@{/apartments/all}" method="get" >
-    <button type="submit"> All Apartments </button>
-</form>
+<main>
+    <section>
+        Instructions:
+    </section>
 
-<form action="#" th:action="@{/payments/all}" method="get" >
-    <button type="submit"> All Payments </button>
-</form>
+    <section id="forms-container">
+        <form action="#" th:action="@{/buildings/all}" method="get" >
+            <button type="submit"> All Buildings </button>
+        </form>
+
+        <form action="#" th:action="@{/apartments/all}" method="get" >
+            <button type="submit"> All Apartments </button>
+        </form>
+
+        <form action="#" th:action="@{/payments/all}" method="get" >
+            <button type="submit"> All Payments </button>
+        </form>
+    </section>
+
+    <table id="content-display">
+        <thead>
+            <tr>
+                <th  class="table-header">
+                    Id
+                </th>
+                <th  class="table-header">
+                    Address
+                </th>
+                <th  class="table-header">
+                    Delete
+                </th>
+                <th  class="table-header">
+                    Edit
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="building: ${buildings}">
+                <td >
+                    <a th:href="@{/apartments/byBuilding/{id}(id = ${building.buildingId})}" th:text="${building.buildingId}" > </a>
+                </td>
+                <td >
+                    <a th:href="@{/apartments/byBuilding/{id}(id = ${building.buildingId})}" th:text="${building.address}"  > </a>
+                </td>
+                <td> <a th:href="@{/buildings/delete/{id}(id=${building.buildingId})}"> X </a> </td>
+                <td> <a th:href="@{/buildings/edit/{id}(id=${building.buildingId})}"> O </a> </td>
+
+                <br/>
+            </tr>
+        </tbody>
+    </table>
+
+</main>
+
+<footer id="sign-off">
+    <span id="sign-off-text">
+        <p>&#169 Daniel Slattery &#8226 St. Louis, MO</p>
+    </span>
+</footer>
+
+<!--&lt;!&ndash;Get building&ndash;&gt;-->
+<!--<form action="#"-->
+<!--      th:action="@{/buildings/byAddress}"-->
+<!--      th:object = "${building}"-->
+<!--      method="get">-->
+<!--    <p>Building: <input type="text"-->
+<!--                        field = "*{address}"-->
+<!--                        name="address" /></p>-->
+<!--    <button type="submit"> Get Building By Address </button>-->
+<!--</form>-->
 
 
-<!--Get building-->
-<form action="#"
-      th:action="@{/buildings/byAddress}"
-      th:object = "${building}"
-      method="get">
-    <p>Building: <input type="text"
-                        field = "*{address}"
-                        name="address" /></p>
-    <button type="submit"> Get Building By Address </button>
-</form>
 
 
 
 
 
 
+<!--<form action="#" th:action="@{/payments/allByApartment}" method="get">-->
+<!--    <p>Apartment Id: <input type="text" th:name = "apartmentId" /></p>-->
+<!--    <button type="submit"> Payments By Apartment </button>-->
+<!--</form>-->
 
-
-<form action="#" th:action="@{/payments/allByApartment}" method="get">
-    <p>Apartment Id: <input type="text" th:name = "apartmentId" /></p>
-    <button type="submit"> Payments By Apartment </button>
-</form>
-
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->
