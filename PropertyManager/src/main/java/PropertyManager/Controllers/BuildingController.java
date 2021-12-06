@@ -33,10 +33,10 @@ public class BuildingController {
 
     // Currently, Model Attribute is not deeply used
     @PostMapping("/addNew")
-    public String addNewBuilding(@ModelAttribute Building building, Model model){
+    public void addNewBuilding(@ModelAttribute Building building, Model model){
         buildingService.addNew(building.getAddress());
         model.addAttribute("building", building);
-        return "redirect:all";
+//        return "redirect:all";
     }
 
     // Other commands are redirected to a landing page for single buildings.
@@ -48,9 +48,9 @@ public class BuildingController {
     }
 
     @GetMapping("/delete/{buildingId}")
-    public String deleteBuilding(@PathVariable Long buildingId, Model model){
+    public void deleteBuilding(@PathVariable Long buildingId, Model model){
         buildingService.delete(buildingId);
-        return "redirect:../all";
+//        return "redirect:../all";
     }
 
     @GetMapping("/edit/{buildingId}")

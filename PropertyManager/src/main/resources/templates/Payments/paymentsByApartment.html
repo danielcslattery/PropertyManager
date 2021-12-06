@@ -14,7 +14,23 @@
         , Payment Amount: <td th:text="${payment.paymentAmount}" />
         , Month: <td th:text="${payment.month}" />
     <br/>
-    <td> <a th:href="@{/payments/byApartment/{apartmentId}/delete/{paymentId}(apartmentId=${payment.apartmentId}, paymentId=${payment.paymentId})}"> Delete </a> </td>
+    <td>
+        <button th:onclick = deletePayment([[${payment.paymentId}]])>
+<!--           th:href="@{/payments/byApartment/{apartmentId}/delete/{paymentId}(apartmentId=${payment.apartmentId}, paymentId=${payment.paymentId})}"> -->
+        Delete
+        </button>
+        <script>
+            function deletePayment(number) {
+            console.log("Success")
+            let xhr = new XMLHttpRequest()
+            xhr.open("Get", `/payments/delete/${number}`, true)
+            xhr.onload = function(){
+                location.reload();
+            }
+            xhr.send()
+            }
+        </script>
+    </td>
     <td> <a th:href="@{/payments/byApartment/edit/{id}(id=${payment.paymentId})}"> Edit </a> </td>
     <br/>
 </tr>

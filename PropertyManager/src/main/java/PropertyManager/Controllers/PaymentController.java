@@ -58,9 +58,9 @@ public class PaymentController {
 
 
     @GetMapping("/delete/{paymentId}")
-    public String deletePayment(@PathVariable Long paymentId, Model model){
+    @ResponseBody
+    public void deletePayment(@PathVariable Long paymentId, Model model){
         paymentService.delete(paymentId);
-        return "redirect:../all";
     }
 
 

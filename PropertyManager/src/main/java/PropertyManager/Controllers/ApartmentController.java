@@ -54,9 +54,10 @@ public class ApartmentController {
 
 
     @PostMapping("/add")
-    public void addNewApartment(@ModelAttribute Apartment apartment,
+    public String addNewApartment(@ModelAttribute Apartment apartment,
                                   Model model){
         apartmentService.addNewApartment(apartment.getBuildingId(), apartment.getApartmentNumber());
+        return "redirect:all";
     }
 
     @GetMapping("/delinquent")
@@ -76,8 +77,9 @@ public class ApartmentController {
     }
 
     @GetMapping("/delete/{apartmentId}")
-    public void deleteApartment(@PathVariable Long apartmentId, Model model){
+    public String deleteApartment(@PathVariable Long apartmentId, Model model){
         apartmentService.delete(apartmentId);
+        return "redirect:../all";
     }
 
 

@@ -14,7 +14,7 @@ public class Building {
 
     public Building(String address) {
         this.address = address;
-        System.out.printf(this.toString());
+        System.out.println(this.toString());
     }
 
     @Override

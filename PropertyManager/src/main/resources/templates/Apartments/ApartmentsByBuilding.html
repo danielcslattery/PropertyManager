@@ -13,7 +13,23 @@
         Number: <td th:text="${apartment.apartmentNumber}" />
     </a>
     <br/>
-        <td> <a th:href="@{/apartments/byBuilding/{buildingId}/delete/{apartmentId}(buildingId=${apartment.buildingId}, apartmentId=${apartment.apartmentId})}"> Delete </a> </td>
+    <td>
+        <button th:onclick = deleteApartment([[${apartment.apartmentId}]])>
+            <!--           th:href="@{/payments/byApartment/{apartmentId}/delete/{paymentId}(apartmentId=${payment.apartmentId}, paymentId=${payment.paymentId})}"> -->
+            Delete
+        </button>
+        <script>
+            function deleteApartment(number) {
+            console.log("Success")
+            let xhr = new XMLHttpRequest()
+            xhr.open("Get", `/Apartments/delete/${number}`, true)
+            xhr.onload = function(){
+                location.reload();
+            }
+            xhr.send()
+            }
+        </script>
+    </td>
         <td> <a th:href="@{/apartments/byBuilding/edit/{id}(id=${apartment.apartmentId})}"> Edit </a> </td>
     <br/>
 </tr>
