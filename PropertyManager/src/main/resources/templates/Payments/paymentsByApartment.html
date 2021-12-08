@@ -35,12 +35,40 @@
 </tr>
 
 <!--Add new payment-->
-<form action="#" th:action="@{/payments/add}" method="post">
-    <p>Building Id: <input type="text" th:name = "buildingId" /></p>
-    <p>Apartment Id: <input type="text" th:name = "apartmentId" /></p>
-    <p>Payment Amount: <input type="text" th:name = "paymentAmount" /></p>
-    <p>Month: <input type="text" th:name = "month" /></p>
-    <button type="submit"> Submit New Payment </button>
+<form>
+    <p>Payment Amount: <input type="text" id = "paymentAmount" /></p>
+    <p>Month: <input type="text" id = "month" /></p>
+    <button type="submit" id = "submitNewPayment"> Submit New Payment </button>
+    <script>
+            button = document.getElementById('submitNewPayment');
+
+            //event is automatically passed into the listener function, addApartment
+            button.addEventListener("click", addPayment);
+
+            function addPayment(event) {
+            paymentAmount = document.getElementById('paymentAmount').value;
+            month = document.getElementById('month').value;
+
+            console.log("Success:", [[${apartment.buildingId}]], [[${apartment.apartmentId}]])
+            event.preventDefault();
+
+            let xhr = new XMLHttpRequest()
+            xhr.open("Post", `/payments/add`, true)
+            let formData = new FormData();
+            formData.append("buildingId",[[${apartment.buildingId}]]);
+            formData.append("apartmentId",[[${apartment.apartmentId}]]);
+            formData.append("paymentAmount", paymentAmount);
+            formData.append("month", month);
+
+            xhr.onload = function(){
+                location.reload();
+            }
+            xhr.send(formData)
+
+            }
+
+
+    </script>
 </form>
 
 

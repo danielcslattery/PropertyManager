@@ -32,12 +32,11 @@ public class PaymentController {
 
     //TODO: Change parameters to apartmentId to simplify function.
     @PostMapping("/add")
-    public String addNewPayment(@RequestParam long buildingId,
+    public void addNewPayment(@RequestParam long buildingId,
                                 @RequestParam long apartmentId,
                                 @RequestParam int paymentAmount,
                                 @RequestParam int month){
         paymentService.addNew(buildingId, apartmentId, paymentAmount, month);
-        return "redirect:all";
     }
 
     @GetMapping("/byApartment/{apartmentId}")
