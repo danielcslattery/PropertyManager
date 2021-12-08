@@ -8,6 +8,7 @@ import PropertyManager.ServiceInterfaces.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -54,10 +55,10 @@ public class ApartmentController {
 
 
     @PostMapping("/add")
-    public String addNewApartment(@ModelAttribute Apartment apartment,
-                                  Model model){
-        apartmentService.addNewApartment(apartment.getBuildingId(), apartment.getApartmentNumber());
-        return "redirect:all";
+    public void addNewApartment(@RequestParam long buildingId,
+                                @RequestParam String apartmentNumber,
+                                Model model){
+        apartmentService.addNewApartment(buildingId, apartmentNumber);
     }
 
     @GetMapping("/delinquent")
@@ -99,15 +100,15 @@ public class ApartmentController {
     }
 
 
-    @GetMapping("/byBuilding/{buildingId}/delete/{apartmentId}")
-    public String byBuildingDeleteApartment(@PathVariable("buildingId") String buildingId,
-                                            @PathVariable("apartmentId") Long apartmentId,
-                                            Model model,
-                                            RedirectAttributes redirectAttributes){
-        apartmentService.delete(apartmentId);
-        redirectAttributes.addAttribute("buildingId", buildingId);
-        return "redirect:/apartments/byBuilding/{buildingId}";
-    }
+//    @GetMapping("/byBuilding/{buildingId}/delete/{apartmentId}")
+//    public String byBuildingDeleteApartment(@PathVariable("buildingId") String buildingId,
+//                                            @PathVariable("apartmentId") Long apartmentId,
+//                                            Model model,
+//                                            RedirectAttributes redirectAttributes){
+//        apartmentService.delete(apartmentId);
+//        redirectAttributes.addAttribute("buildingId", buildingId);
+//        return "redirect:/apartments/byBuilding/{buildingId}";
+//    }
 
     //TODO figure out how to pass the building id properly
     @GetMapping("/byBuilding/edit/{apartmentId}")

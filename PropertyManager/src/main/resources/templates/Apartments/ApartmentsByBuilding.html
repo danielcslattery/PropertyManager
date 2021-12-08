@@ -15,7 +15,6 @@
     <br/>
     <td>
         <button th:onclick = deleteApartment([[${apartment.apartmentId}]])>
-            <!--           th:href="@{/payments/byApartment/{apartmentId}/delete/{paymentId}(apartmentId=${payment.apartmentId}, paymentId=${payment.paymentId})}"> -->
             Delete
         </button>
         <script>
@@ -33,17 +32,43 @@
         <td> <a th:href="@{/apartments/byBuilding/edit/{id}(id=${apartment.apartmentId})}"> Edit </a> </td>
     <br/>
 </tr>
-
-<form action="#"
-      th:action="@{/apartments/byBuilding/{buildingId}/add(buildingId = ${building.buildingId})}"
-      th:object = "${apartment}"
-      method="post"
-      field = "*{buildingId = building.buildingId}">
+<!--      th:action="@{/apartments/byBuilding/{buildingId}/add(buildingId = ${building.buildingId})}"-->
+<form >
     <p>Apartment Number:
         <input type="text"
-               field = "*{apartmentNumber}"
-               name="apartmentNumber"/></p>
-    <button type="submit"> Submit New Apartment </button>
+               id="apartmentNumber"
+               name="apartmentNumber"
+        />
+    </p>
+<!--    onclick function activated. "return false" prevents form from reloading page".-->
+    <button id="submitNewApartment">
+        Submit New Apartment
+    </button>
+        <script>
+            button = document.getElementById('submitNewApartment');
+
+            //event is automatically passed into the listener function, addApartment
+            button.addEventListener("click", addApartment);
+
+            function addApartment(event) {
+            apartmentNumber = document.getElementById('apartmentNumber').value;
+            console.log("Success:", [[${building.buildingId}]], apartmentNumber)
+            event.preventDefault();
+
+            let xhr = new XMLHttpRequest()
+            xhr.open("Post", `/apartments/add`, true)
+            let formData = new FormData();
+            formData.append("buildingId",[[${building.buildingId}]]);
+            formData.append("apartmentNumber", apartmentNumber);
+
+            xhr.onload = function(){
+                location.reload();
+            }
+            xhr.send(formData)
+
+            }
+
+        </script>
 </form>
 
 </body>
