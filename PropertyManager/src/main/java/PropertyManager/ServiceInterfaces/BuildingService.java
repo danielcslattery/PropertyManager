@@ -10,16 +10,16 @@ import java.util.Optional;
 @Component
 public interface BuildingService {
 
-    public Iterable<Building> getAll();
+    Iterable<Building> getAll();
 
-    public List<Building> getByAddress(String address);
+    List<Building> getByAddress(String address);
 
-    public void addNew(String address);
+    void addNew(String address);
 
-    public Optional<Building> getById(Long id);
+    Optional<Building> getById(Long id);
 
-    public void delete(Long id);
+    void delete(Long id);
 
-    public void update(Building building);
+    void update(Building building);
 
 }

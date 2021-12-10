@@ -78,9 +78,8 @@ public class ApartmentController {
     }
 
     @GetMapping("/delete/{apartmentId}")
-    public String deleteApartment(@PathVariable Long apartmentId, Model model){
+    public void deleteApartment(@PathVariable Long apartmentId, Model model){
         apartmentService.delete(apartmentId);
-        return "redirect:../all";
     }
 
 

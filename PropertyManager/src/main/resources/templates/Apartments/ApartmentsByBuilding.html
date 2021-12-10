@@ -21,7 +21,7 @@
             function deleteApartment(number) {
             console.log("Success")
             let xhr = new XMLHttpRequest()
-            xhr.open("Get", `/Apartments/delete/${number}`, true)
+            xhr.open("Get", `/apartments/delete/${number}`, true)
             xhr.onload = function(){
                 location.reload();
             }
@@ -33,7 +33,7 @@
     <br/>
 </tr>
 <!--      th:action="@{/apartments/byBuilding/{buildingId}/add(buildingId = ${building.buildingId})}"-->
-<form >
+<form>
     <p>Apartment Number:
         <input type="text"
                id="apartmentNumber"
