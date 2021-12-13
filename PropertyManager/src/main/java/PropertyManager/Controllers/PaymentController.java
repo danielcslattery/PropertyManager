@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,13 +28,20 @@ public class PaymentController {
         return "Payments/all";
     }
 
+    @GetMapping("/allRest")
+    @ResponseBody
+    public List<Payment> getAllRest(){
+        List<Payment> payments = paymentService.getAll();
+        return payments;
+    }
+
     // Adds new payment to database without returning a new view.  Used with AJAX requests.
     //TODO: Change parameters to apartmentId to simplify function.
     @PostMapping("/add")
-    public void addNew(@RequestParam long buildingId,
-                                @RequestParam long apartmentId,
-                                @RequestParam int paymentAmount,
-                                @RequestParam int month){
+    public void addNew( @RequestParam long buildingId,
+                        @RequestParam long apartmentId,
+                        @RequestParam int paymentAmount,
+                        @RequestParam int month){
         paymentService.addNew(buildingId, apartmentId, paymentAmount, month);
     }
 
@@ -42,6 +50,12 @@ public class PaymentController {
         model.addAttribute("payments", paymentService.getAllPaymentsByApartment(apartmentId));
         model.addAttribute("apartment", apartmentService.getById(apartmentId).get());
         return "/Payments/paymentsByApartment";
+    }
+
+    @GetMapping("/byApartmentRest/{apartmentId}")
+    public List<Payment> getAllPaymentsByApartmentRent (@PathVariable Long apartmentId, Model model){
+        List<Payment> payments = paymentService.getAllPaymentsByApartment(apartmentId);
+        return payments;
     }
 
     @GetMapping("/{paymentId}")

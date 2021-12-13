@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,6 +25,13 @@ public class BuildingController {
     public String getAll(Model model){
         model.addAttribute("buildings", buildingService.getAll());
         return "/Buildings/all";
+    }
+
+    @GetMapping("/allRest")
+    @ResponseBody
+    public List<Building> getAllRest(Model model){
+        List<Building> buildings = buildingService.getAll();
+        return buildings;
     }
 
     // Allows search by address

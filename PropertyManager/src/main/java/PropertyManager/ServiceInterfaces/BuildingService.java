@@ -10,7 +10,7 @@ import java.util.Optional;
 @Component
 public interface BuildingService {
 
-    Iterable<Building> getAll();
+    List<Building> getAll();
 
     List<Building> getByAddress(String address);
 
