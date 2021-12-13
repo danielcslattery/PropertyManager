@@ -22,51 +22,57 @@ public class PropertyManagementApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(BuildingServiceImpl buildingRepository,
-								  ApartmentServiceImpl apartmentRepository,
-								  PaymentRepository paymentRepository){
+	public CommandLineRunner demo(BuildingServiceImpl buildingService,
+								  ApartmentServiceImpl apartmentService,
+								  PaymentRepository paymentService){
 		return args -> {
-			//save a few apartments
-			buildingRepository.addNew("6114 Washington");
-			buildingRepository.addNew("5943 Kingsbury");
 
-			apartmentRepository.addNewApartment(1L, "1E");
-			apartmentRepository.addNewApartment(1L,"1W");
-			apartmentRepository.addNewApartment(1L,"2E");
-			apartmentRepository.addNewApartment(1L,"2W");
-
-			apartmentRepository.addNewApartment(2L, "1E");
-			apartmentRepository.addNewApartment(2L,"1W");
-			apartmentRepository.addNewApartment(2L,"2E");
-			apartmentRepository.addNewApartment(2L,"2W");
-
-			for (Apartment apartment : apartmentRepository.getByBuildingId(1L)) {
-				apartment.addPayment(paymentRepository, 1200, 9);
-			}
-
-			for (Apartment apartment : apartmentRepository.getByBuildingId(1L)) {
-				apartment.addPayment(paymentRepository, 1200, 9);
-			}
-
-			// Add payment to apartments.  findById returns an Apartment Optional, so get() retrieves the apartment instance.
-			apartmentRepository.getById(3L).get().addPayment(paymentRepository, 1200, 10);
-			apartmentRepository.getById(4L).get().addPayment(paymentRepository, 1200, 10);
-
+			AddDefaultData(buildingService, apartmentService, paymentService);
 			// fetch all apartments
 //			log.info("Apartments found with findAll():");
 //			log.info("-------------------------------");
-//			for (Apartment apartment : apartmentRepository.findAll()) {
+//			for (Apartment apartment : apartmentService.findAll()) {
 //				log.info(apartment.toString());
 //			}
 //			log.info("");
 //
 //			// fetch an individual Apartment by ID
-//			Apartment apartment = apartmentRepository.findById(3L).get();
+//			Apartment apartment = apartmentService.findById(3L).get();
 //			log.info("Apartment found with findById(1L):");
 //			log.info("--------------------------------");
 //			log.info(apartment.toString());
 //			log.info("");
 
 		};
+	}
+
+	private static void AddDefaultData(BuildingServiceImpl buildingService,
+									   ApartmentServiceImpl apartmentService,
+									   PaymentRepository paymentService){
+		//save a few apartments
+		buildingService.addNew("6114 Washington");
+		buildingService.addNew("5943 Kingsbury");
+
+		apartmentService.addNewApartment(1L, "1E");
+		apartmentService.addNewApartment(1L,"1W");
+		apartmentService.addNewApartment(1L,"2E");
+		apartmentService.addNewApartment(1L,"2W");
+
+		apartmentService.addNewApartment(2L, "1E");
+		apartmentService.addNewApartment(2L,"1W");
+		apartmentService.addNewApartment(2L,"2E");
+		apartmentService.addNewApartment(2L,"2W");
+
+		for (Apartment apartment : apartmentService.getByBuildingId(1L)) {
+			apartment.addPayment(paymentService, 1200, 9);
+		}
+
+		for (Apartment apartment : apartmentService.getByBuildingId(1L)) {
+			apartment.addPayment(paymentService, 1200, 9);
+		}
+
+		// Add payment to apartments.  findById returns an Apartment Optional, so get() retrieves the apartment instance.
+		apartmentService.getById(3L).get().addPayment(paymentService, 1200, 10);
+		apartmentService.getById(4L).get().addPayment(paymentService, 1200, 10);
 	}
 }

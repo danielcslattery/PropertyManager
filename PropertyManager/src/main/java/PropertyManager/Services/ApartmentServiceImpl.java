@@ -45,8 +45,8 @@ public class ApartmentServiceImpl implements ApartmentService {
         apartmentRepository.save(new Apartment(buildingId, number));
     }
 
-    public List<Apartment> getDelinquent(int month){
-        return apartmentRepository.findDelinquentApartments(month);
+    public List<Apartment> getLatePayments(int month){
+        return apartmentRepository.findLatePayments(month);
     }
 
     public Optional<Apartment> getById(long id){

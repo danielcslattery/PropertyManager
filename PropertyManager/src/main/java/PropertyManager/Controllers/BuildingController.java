@@ -20,23 +20,22 @@ public class BuildingController {
     private BuildingService buildingService;
 
     @GetMapping("/all")
-    public String getAllBuildings(Model model){
+    public String getAll(Model model){
         model.addAttribute("buildings", buildingService.getAll());
         return "/Buildings/all";
     }
 
+    // Allows search by address
     @GetMapping("/byAddress")
     public String getByAddress(@RequestParam String address){
         Building building = buildingService.getByAddress(address).get(0);
         return "redirect:" + building.getBuildingId();
     }
 
-    // Currently, Model Attribute is not deeply used
+    // Adds new building to database without returning a new view.  Used with AJAX requests.
     @PostMapping("/addNew")
-    public void addNewBuilding(@ModelAttribute Building building, Model model){
+    public void addNew(@ModelAttribute Building building){
         buildingService.addNew(building.getAddress());
-        model.addAttribute("building", building);
-//        return "redirect:all";
     }
 
     // Other commands are redirected to a landing page for single buildings.
@@ -47,10 +46,10 @@ public class BuildingController {
         return "/Buildings/landing";
     }
 
+    // Adds new apartment to database without returning a new view.  Used with AJAX requests.
     @GetMapping("/delete/{buildingId}")
-    public void deleteBuilding(@PathVariable Long buildingId, Model model){
+    public void deleteBuilding(@PathVariable Long buildingId){
         buildingService.delete(buildingId);
-//        return "redirect:../all";
     }
 
     @GetMapping("/edit/{buildingId}")

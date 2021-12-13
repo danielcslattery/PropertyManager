@@ -1,7 +1,5 @@
 package PropertyManager.Controllers;
 
-import PropertyManager.Entities.Apartment;
-import PropertyManager.Entities.Building;
 import PropertyManager.Entities.Payment;
 import PropertyManager.ServiceInterfaces.ApartmentService;
 import PropertyManager.ServiceInterfaces.PaymentService;
@@ -11,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -25,14 +22,15 @@ public class PaymentController {
     private ApartmentService apartmentService;
 
     @GetMapping("/all")
-    public String getAllPayments(Model model){
+    public String getAll(Model model){
         model.addAttribute("payments", paymentService.getAll());
         return "Payments/all";
     }
 
+    // Adds new payment to database without returning a new view.  Used with AJAX requests.
     //TODO: Change parameters to apartmentId to simplify function.
     @PostMapping("/add")
-    public void addNewPayment(@RequestParam long buildingId,
+    public void addNew(@RequestParam long buildingId,
                                 @RequestParam long apartmentId,
                                 @RequestParam int paymentAmount,
                                 @RequestParam int month){
@@ -43,7 +41,6 @@ public class PaymentController {
     public String getAllPaymentsByApartment (@PathVariable Long apartmentId, Model model){
         model.addAttribute("payments", paymentService.getAllPaymentsByApartment(apartmentId));
         model.addAttribute("apartment", apartmentService.getById(apartmentId).get());
-
         return "/Payments/paymentsByApartment";
     }
 
@@ -56,6 +53,7 @@ public class PaymentController {
     }
 
 
+    // Delete payment from database without returning a new view.  Used with AJAX requests.
     @GetMapping("/delete/{paymentId}")
     @ResponseBody
     public void deletePayment(@PathVariable Long paymentId, Model model){
@@ -79,16 +77,16 @@ public class PaymentController {
     }
 
 
-    @GetMapping("/byApartment/{apartmentId}/delete/{paymentId}")
-    public String byApartmentDeleteApartment(@PathVariable("apartmentId") String apartmentId,
-                                            @PathVariable("paymentId") Long paymentId,
-                                            Model model,
-                                            RedirectAttributes redirectAttributes){
-        //TODO change this to deleteById
-        paymentService.delete(paymentId);
-        redirectAttributes.addAttribute("apartmentId", apartmentId);
-        return "redirect:/payments/byApartment/{apartmentId}";
-    }
+//    @GetMapping("/byApartment/{apartmentId}/delete/{paymentId}")
+//    public String byApartmentDeleteApartment(@PathVariable("apartmentId") String apartmentId,
+//                                            @PathVariable("paymentId") Long paymentId,
+//                                            Model model,
+//                                            RedirectAttributes redirectAttributes){
+//        //TODO change this to deleteById
+//        paymentService.delete(paymentId);
+//        redirectAttributes.addAttribute("apartmentId", apartmentId);
+//        return "redirect:/payments/byApartment/{apartmentId}";
+//    }
 
     //TODO figure out how to pass the apartment id properly
     @GetMapping("/byApartment/edit/{paymentId}")

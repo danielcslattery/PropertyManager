@@ -10,22 +10,23 @@ import java.util.List;
 
 public interface ApartmentRepository extends CrudRepository<Apartment, Long> {
 
-    //Apartment findById(long id);
 
     @Query(value = "SELECT * FROM Apartment WHERE Apartment.apartment_number = :number",
     nativeQuery = true)
     public List<Apartment> findApartmentByNumber(@Param("number") String number);
 
+    // Return list of apartments within a specific building
     @Query(value = "SELECT * FROM Apartment WHERE Apartment.building_id = :building",
             nativeQuery = true)
     public List<Apartment> findApartmentByBuilding(@Param("building") Long building);
 
+    // Used to find apartment object to add payment to
     @Query(value = "SELECT * FROM Apartment " +
             "WHERE Apartment.building_id = :building " +
-            "AND Apartment.apartment_id = :apartmentId",
+            "AND Apartment.apartment_id = :apartment",
             nativeQuery = true)
     public List<Apartment> findApartmentByBuildingAndApartmentId(@Param("building") long building,
-                                                            @Param("apartmentId") long apartmentId);
+                                                            @Param("apartment") long apartment);
 
     // Given value for month, returns list of apartment objects
     // where there is not a corresponding payment for that month
@@ -38,5 +39,5 @@ public interface ApartmentRepository extends CrudRepository<Apartment, Long> {
             "AS month_payments ON apartment.apartment_id = month_payments.apartment_id " +
             "WHERE month_payments.payment_amount IS NULL",
             nativeQuery = true)
-    public List<Apartment> findDelinquentApartments(@Param("month") int month);
+    public List<Apartment> findLatePayments(@Param("month") int month);
 }

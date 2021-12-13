@@ -1,6 +1,5 @@
 package PropertyManager.Controllers;
 
-import PropertyManager.Entities.Building;
 import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.Entities.Apartment;
 import PropertyManager.ServiceInterfaces.ApartmentService;
@@ -8,7 +7,6 @@ import PropertyManager.ServiceInterfaces.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -34,6 +32,13 @@ public class ApartmentController {
         return "/Apartments/all";
     }
 
+    @GetMapping("/allRest")
+    @ResponseBody
+    public List<Apartment> getAllApartmentsRest(){
+        List<Apartment> apartments = apartmentService.getAll();
+        return apartments;
+    }
+
     @GetMapping("/byBuilding/{buildingId}")
     public String getByBuilding(Model model, @PathVariable Long buildingId){
         model.addAttribute("apartments", apartmentService.getByBuildingId(buildingId));
@@ -41,32 +46,29 @@ public class ApartmentController {
         return "/Apartments/ApartmentsByBuilding";
     }
 
-    // Add new apartment from a byBuilding page and redirect to that same page
-    // rather than redirect to /apartments/all.  Redirect Attributes allows this dynamically.
-    @PostMapping("/byBuilding/{buildingId}/add")
-    public String addNewToBuilding(@ModelAttribute Apartment apartment,
-                                   @PathVariable Long buildingId,
-                                   RedirectAttributes redirectAttributes){
-        apartmentService.addNewApartment(buildingId, apartment.getApartmentNumber());
-        redirectAttributes.addAttribute("buildingId", buildingId);
-        return "redirect:/apartments/byBuilding/{buildingId}";
+    @GetMapping("/byBuildingRest/{buildingId}")
+    @ResponseBody
+    public List<Apartment> getByBuildingRest(@PathVariable Long buildingId){
+        List<Apartment> apartments = apartmentService.getByBuildingId(buildingId);
+        return apartments;
     }
 
 
-
+    // Adds new apartment to database without returning a new view.  Used with AJAX requests.
     @PostMapping("/add")
     public void addNewApartment(@RequestParam long buildingId,
-                                @RequestParam String apartmentNumber,
-                                Model model){
+                                @RequestParam String apartmentNumber){
         apartmentService.addNewApartment(buildingId, apartmentNumber);
     }
 
-    @GetMapping("/delinquent")
-    public String getDelinquent(Model model, @RequestParam int month){
-        model.addAttribute("apartments", apartmentService.getDelinquent(month));
+
+    // Returns apartments where the rents have not been paid for inputted month
+    @GetMapping("/latePayments")
+    public String getLatePayments(Model model, @RequestParam int month){
+        model.addAttribute("apartments", apartmentService.getLatePayments(month));
         model.addAttribute("month", month);
 
-        return "/Apartments/Delinquent";
+        return "/Apartments/LatePayments";
     }
 
     // Other commands are redirected to a landing page for single buildings.
@@ -77,12 +79,13 @@ public class ApartmentController {
         return "/Apartments/landing";
     }
 
+    // Deletes apartment from database without returning a new view.  Used with AJAX requests.
     @GetMapping("/delete/{apartmentId}")
     public void deleteApartment(@PathVariable Long apartmentId, Model model){
         apartmentService.delete(apartmentId);
     }
 
-
+    //
     @GetMapping("/edit/{apartmentId}")
     public String showUpdateForm(@PathVariable Long apartmentId, Model model){
         Optional<Apartment> apartment = apartmentService.getById(apartmentId);
@@ -97,17 +100,6 @@ public class ApartmentController {
         apartmentService.update(apartment);
         return "redirect:../all";
     }
-
-
-//    @GetMapping("/byBuilding/{buildingId}/delete/{apartmentId}")
-//    public String byBuildingDeleteApartment(@PathVariable("buildingId") String buildingId,
-//                                            @PathVariable("apartmentId") Long apartmentId,
-//                                            Model model,
-//                                            RedirectAttributes redirectAttributes){
-//        apartmentService.delete(apartmentId);
-//        redirectAttributes.addAttribute("buildingId", buildingId);
-//        return "redirect:/apartments/byBuilding/{buildingId}";
-//    }
 
     //TODO figure out how to pass the building id properly
     @GetMapping("/byBuilding/edit/{apartmentId}")
