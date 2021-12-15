@@ -1,6 +1,6 @@
 package PropertyManager.Services;
 
-import PropertyManager.Entities.Apartment;
+import PropertyManager.Model.Apartment;
 import PropertyManager.Exception.ApartmentNumberNotFound;
 import PropertyManager.Exception.EmptyReturnFromQuery;
 import PropertyManager.Exception.EntityIdNotFound;

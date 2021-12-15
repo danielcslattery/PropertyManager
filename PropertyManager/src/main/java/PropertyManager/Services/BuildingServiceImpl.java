@@ -1,7 +1,7 @@
 package PropertyManager.Services;
 
 
-import PropertyManager.Entities.Building;
+import PropertyManager.Model.Building;
 import PropertyManager.Exception.BuildingAddressNotFound;
 import PropertyManager.Exception.EntityIdNotFound;
 import PropertyManager.Exception.EmptyReturnFromQuery;

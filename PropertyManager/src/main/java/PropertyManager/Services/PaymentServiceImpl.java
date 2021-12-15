@@ -1,7 +1,7 @@
 package PropertyManager.Services;
 
-import PropertyManager.Entities.Apartment;
-import PropertyManager.Entities.Payment;
+import PropertyManager.Model.Apartment;
+import PropertyManager.Model.Payment;
 import PropertyManager.Exception.EmptyReturnFromQuery;
 import PropertyManager.Exception.EntityIdNotFound;
 import PropertyManager.Repositories.ApartmentRepository;

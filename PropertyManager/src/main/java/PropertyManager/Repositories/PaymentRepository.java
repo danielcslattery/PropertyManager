@@ -1,6 +1,6 @@
 package PropertyManager.Repositories;
 
-import PropertyManager.Entities.Payment;
+import PropertyManager.Model.Payment;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

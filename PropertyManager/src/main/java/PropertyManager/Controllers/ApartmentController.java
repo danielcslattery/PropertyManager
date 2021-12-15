@@ -1,7 +1,7 @@
 package PropertyManager.Controllers;
 
 import PropertyManager.Repositories.ApartmentRepository;
-import PropertyManager.Entities.Apartment;
+import PropertyManager.Model.Apartment;
 import PropertyManager.ServiceInterfaces.ApartmentService;
 import PropertyManager.ServiceInterfaces.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;

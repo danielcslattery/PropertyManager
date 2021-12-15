@@ -1,4 +1,4 @@
-package PropertyManager.Entities;
+package PropertyManager.Model;
 
 import javax.persistence.*;
 

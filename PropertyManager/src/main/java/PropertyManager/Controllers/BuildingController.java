@@ -1,7 +1,7 @@
 package PropertyManager.Controllers;
 
 import PropertyManager.Repositories.BuildingRepository;
-import PropertyManager.Entities.Building;
+import PropertyManager.Model.Building;
 import PropertyManager.ServiceInterfaces.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

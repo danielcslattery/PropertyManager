@@ -1,6 +1,6 @@
 package PropertyManager.Controllers;
 
-import PropertyManager.Entities.Payment;
+import PropertyManager.Model.Payment;
 import PropertyManager.ServiceInterfaces.ApartmentService;
 import PropertyManager.ServiceInterfaces.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class PaymentController {
     @Autowired
     private ApartmentService apartmentService;
 
-    @GetMapping("/all")
+    @GetMapping
     public String getAll(Model model){
         model.addAttribute("payments", paymentService.getAll());
         return "Payments/all";

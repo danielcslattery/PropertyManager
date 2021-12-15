@@ -1,6 +1,6 @@
 package PropertyManager;
 
-import PropertyManager.Entities.*;
+import PropertyManager.Model.*;
 import PropertyManager.Repositories.*;
 import PropertyManager.Services.ApartmentServiceImpl;
 import PropertyManager.Services.BuildingServiceImpl;

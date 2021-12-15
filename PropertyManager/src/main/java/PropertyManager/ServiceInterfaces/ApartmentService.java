@@ -1,6 +1,6 @@
 package PropertyManager.ServiceInterfaces;
 
-import PropertyManager.Entities.Apartment;
+import PropertyManager.Model.Apartment;
 import org.springframework.stereotype.Component;
 
 

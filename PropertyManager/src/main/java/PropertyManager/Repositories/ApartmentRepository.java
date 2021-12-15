@@ -1,7 +1,7 @@
 package PropertyManager.Repositories;
 
 //import classes.Apartment;
-import PropertyManager.Entities.Apartment;
+import PropertyManager.Model.Apartment;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

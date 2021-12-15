@@ -1,7 +1,6 @@
 package PropertyManager.ServiceInterfaces;
 
-import PropertyManager.Entities.Apartment;
-import PropertyManager.Entities.Payment;
+import PropertyManager.Model.Payment;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

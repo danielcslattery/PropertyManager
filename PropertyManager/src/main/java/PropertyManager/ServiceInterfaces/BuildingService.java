@@ -1,7 +1,7 @@
 package PropertyManager.ServiceInterfaces;
 
 
-import PropertyManager.Entities.Building;
+import PropertyManager.Model.Building;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
