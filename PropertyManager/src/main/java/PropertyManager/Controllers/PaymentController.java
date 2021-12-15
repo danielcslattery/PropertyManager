@@ -37,7 +37,7 @@ public class PaymentController {
 
     // Adds new payment to database without returning a new view.  Used with AJAX requests.
     //TODO: Change parameters to apartmentId to simplify function.
-    @PostMapping("/add")
+    @PostMapping
     public void addNew( @RequestParam long buildingId,
                         @RequestParam long apartmentId,
                         @RequestParam int paymentAmount,
@@ -68,7 +68,7 @@ public class PaymentController {
 
 
     // Delete payment from database without returning a new view.  Used with AJAX requests.
-    @GetMapping("/delete/{paymentId}")
+    @DeleteMapping("/{paymentId}")
     @ResponseBody
     public void deletePayment(@PathVariable Long paymentId, Model model){
         paymentService.delete(paymentId);

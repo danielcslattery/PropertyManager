@@ -22,7 +22,7 @@
             function deletePayment(number) {
             console.log("Success")
             let xhr = new XMLHttpRequest()
-            xhr.open("Get", `/payments/delete/${number}`, true)
+            xhr.open("Delete", `/payments/${number}`, true)
             xhr.onload = function(){
                 location.reload();
             }
@@ -53,7 +53,7 @@
             event.preventDefault();
 
             let xhr = new XMLHttpRequest()
-            xhr.open("Post", `/payments/add`, true)
+            xhr.open("Post", `/payments`, true)
             let formData = new FormData();
             formData.append("buildingId",[[${apartment.buildingId}]]);
             formData.append("apartmentId",[[${apartment.apartmentId}]]);

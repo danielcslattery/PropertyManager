@@ -26,7 +26,7 @@ public class ApartmentController {
     @Autowired
     private BuildingService buildingService;
 
-    @GetMapping("/all")
+    @GetMapping
     public String getAllApartments(Model model){
         model.addAttribute("apartments", apartmentService.getAll());
         return "/Apartments/all";
@@ -55,7 +55,7 @@ public class ApartmentController {
 
 
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.
-    @PostMapping("/add")
+    @PostMapping
     public void addNewApartment(@RequestParam long buildingId,
                                 @RequestParam String apartmentNumber){
         apartmentService.addNewApartment(buildingId, apartmentNumber);
@@ -80,7 +80,7 @@ public class ApartmentController {
     }
 
     // Deletes apartment from database without returning a new view.  Used with AJAX requests.
-    @GetMapping("/delete/{apartmentId}")
+    @DeleteMapping("/{apartmentId}")
     public void deleteApartment(@PathVariable Long apartmentId, Model model){
         apartmentService.delete(apartmentId);
     }

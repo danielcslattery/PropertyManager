@@ -21,7 +21,7 @@
             function deleteApartment(number) {
             console.log("Success")
             let xhr = new XMLHttpRequest()
-            xhr.open("Get", `/apartments/delete/${number}`, true)
+            xhr.open("Delete", `/apartments/${number}`, true)
             xhr.onload = function(){
                 location.reload();
             }
@@ -55,7 +55,7 @@
             event.preventDefault();
 
             let xhr = new XMLHttpRequest()
-            xhr.open("Post", `/apartments/add`, true)
+            xhr.open("Post", `/apartments`, true)
             let formData = new FormData();
             formData.append("buildingId",[[${building.buildingId}]]);
             formData.append("apartmentNumber", apartmentNumber);

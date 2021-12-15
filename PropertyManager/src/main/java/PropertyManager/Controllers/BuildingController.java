@@ -21,7 +21,7 @@ public class BuildingController {
     @Autowired
     private BuildingService buildingService;
 
-    @GetMapping("/all")
+    @GetMapping
     public String getAll(Model model){
         model.addAttribute("buildings", buildingService.getAll());
         return "/Buildings/all";
@@ -42,7 +42,7 @@ public class BuildingController {
     }
 
     // Adds new building to database without returning a new view.  Used with AJAX requests.
-    @PostMapping("/addNew")
+    @PostMapping
     public void addNew(@ModelAttribute Building building){
         buildingService.addNew(building.getAddress());
     }
@@ -56,7 +56,7 @@ public class BuildingController {
     }
 
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.
-    @GetMapping("/delete/{buildingId}")
+    @DeleteMapping("/{buildingId}")
     public void deleteBuilding(@PathVariable Long buildingId){
         buildingService.delete(buildingId);
     }

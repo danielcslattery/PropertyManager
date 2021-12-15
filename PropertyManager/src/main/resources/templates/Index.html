@@ -21,15 +21,15 @@
     </section>
 
     <section id="forms-container">
-        <form action="#" th:action="@{/buildings/all}" method="get" >
+        <form action="#" th:action="@{/buildings}" method="get" >
             <button type="submit"> All Buildings </button>
         </form>
 
-        <form action="#" th:action="@{/apartments/all}" method="get" >
+        <form action="#" th:action="@{/apartments}" method="get" >
             <button type="submit"> All Apartments </button>
         </form>
 
-        <form action="#" th:action="@{/payments/all}" method="get" >
+        <form action="#" th:action="@{/payments}" method="get" >
             <button type="submit"> All Payments </button>
         </form>
     </section>
@@ -68,8 +68,9 @@
                         function deleteBuilding(number) {
                         console.log("Success")
                         let xhr = new XMLHttpRequest()
-                        xhr.open("Get", `/buildings/delete/${number}`, true)
+                        xhr.open("Delete", `/buildings/${number}`, true)
                         xhr.onload = function(){
+                            console.log("Reloading")
                             location.reload();
                         }
                         xhr.send()
