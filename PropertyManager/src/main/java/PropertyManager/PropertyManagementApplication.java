@@ -53,15 +53,15 @@ public class PropertyManagementApplication {
 		buildingService.addNew("6114 Washington");
 		buildingService.addNew("5943 Kingsbury");
 
-		apartmentService.addNewApartment(1L, "1E");
-		apartmentService.addNewApartment(1L,"1W");
-		apartmentService.addNewApartment(1L,"2E");
-		apartmentService.addNewApartment(1L,"2W");
+		apartmentService.add(1L, "1E");
+		apartmentService.add(1L,"1W");
+		apartmentService.add(1L,"2E");
+		apartmentService.add(1L,"2W");
 
-		apartmentService.addNewApartment(2L, "1E");
-		apartmentService.addNewApartment(2L,"1W");
-		apartmentService.addNewApartment(2L,"2E");
-		apartmentService.addNewApartment(2L,"2W");
+		apartmentService.add(2L, "1E");
+		apartmentService.add(2L,"1W");
+		apartmentService.add(2L,"2E");
+		apartmentService.add(2L,"2W");
 
 		for (Apartment apartment : apartmentService.getByBuildingId(1L)) {
 			apartment.addPayment(paymentService, 1200, 9);

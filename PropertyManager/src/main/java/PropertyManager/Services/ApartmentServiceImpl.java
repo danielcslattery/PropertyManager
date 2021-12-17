@@ -41,7 +41,7 @@ public class ApartmentServiceImpl implements ApartmentService {
         return apartmentRepository.findApartmentByBuilding(building);
     }
 
-    public void addNewApartment(Long buildingId, String number){
+    public void add(Long buildingId, String number){
         apartmentRepository.save(new Apartment(buildingId, number));
     }
 

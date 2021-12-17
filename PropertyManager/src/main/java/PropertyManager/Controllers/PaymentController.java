@@ -83,7 +83,7 @@ public class PaymentController {
         return "payments/update";
     }
 
-    @PostMapping("/update/{paymentId}")
+    @PutMapping("/{paymentId}")
     public String updatepayment(@PathVariable Long paymentId, Payment payment, Model model){
         System.out.println("update" + model.getAttribute("payment").toString());
         paymentService.update(payment);

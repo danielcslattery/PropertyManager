@@ -14,7 +14,7 @@ public interface ApartmentService {
 
     List<Apartment> getByBuildingId(Long building);
 
-    void addNewApartment(Long buildingId, String number);
+    void add(Long buildingId, String number);
 
     List<Apartment> getLatePayments(int month);
 

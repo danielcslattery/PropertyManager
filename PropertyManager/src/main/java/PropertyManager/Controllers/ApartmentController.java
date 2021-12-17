@@ -58,7 +58,7 @@ public class ApartmentController {
     @PostMapping
     public void addNewApartment(@RequestParam long buildingId,
                                 @RequestParam String apartmentNumber){
-        apartmentService.addNewApartment(buildingId, apartmentNumber);
+        apartmentService.add(buildingId, apartmentNumber);
     }
 
 
