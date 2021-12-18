@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/payments")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PaymentController {
 
     @Autowired
@@ -53,6 +54,7 @@ public class PaymentController {
     }
 
     @GetMapping("/byApartmentRest/{apartmentId}")
+    @ResponseBody
     public List<Payment> getAllPaymentsByApartmentRent (@PathVariable Long apartmentId, Model model){
         List<Payment> payments = paymentService.getAllPaymentsByApartment(apartmentId);
         return payments;

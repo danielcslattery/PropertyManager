@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/buildings")
+@CrossOrigin(origins = "http://localhost:4200")
 public class BuildingController {
 
     @Autowired
@@ -52,6 +53,7 @@ public class BuildingController {
     public String getBuilding(@PathVariable Long buildingId, Model model){
         Optional<Building> building = buildingService.getById(buildingId);
         model.addAttribute("building", building.get());
+        System.out.println("Getting");
         return "/Buildings/landing";
     }
 
