@@ -1,0 +1,18 @@
+<h2>The Payments</h2>
+
+<ul>
+    <li *ngFor = "let payment of payments">
+        <span>
+            {{payment.paymentId}}
+        </span>  
+        Amount:
+        {{payment.paymentAmount}}   
+        Month: 
+        {{payment.month}}
+        
+        <button (click) = "delete(payment)">
+            Delete
+        </button>
+    </li>
+
+</ul>

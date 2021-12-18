@@ -1,0 +1,23 @@
+<h2>The Apartments</h2>
+
+<ul>
+    <li *ngFor = "let apartment of apartments">
+
+        <nav>
+            <a [routerLink] = "['/byApartment', apartment.apartmentId]" >
+                <span>
+                    {{apartment.apartmentId}}
+                </span>  
+                {{apartment.apartmentNumber}}
+            </a>
+        </nav>
+
+
+        
+        <button (click) = "delete(apartment)">
+            Delete
+        </button>
+    </li>
+
+</ul>
+

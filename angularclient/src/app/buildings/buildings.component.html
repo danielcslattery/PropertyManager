@@ -1,0 +1,20 @@
+<h2>The Buildings</h2>
+
+<ul>
+    <li *ngFor = "let building of buildings">
+        <nav>
+            <a [routerLink] = "['/byBuilding', building.buildingId]" >
+                <span>
+                    {{building.buildingId}}
+                </span>  
+                {{building.address}}
+            </a>
+        </nav>
+        
+        <button (click) = "delete(building)">
+            Delete
+        </button>
+    </li>
+
+</ul>
+
