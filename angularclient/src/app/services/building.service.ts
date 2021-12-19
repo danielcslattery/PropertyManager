@@ -28,6 +28,7 @@ export class BuildingService {
   }
 
   addBuilding(addressStr: string): void {
+    console.log("Adding address: ", addressStr)
     this.http.post('http://localhost:8080/buildings/', { address: addressStr}).subscribe();
   }
 

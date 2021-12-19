@@ -8,6 +8,7 @@ import { BuildingsComponent } from './buildings/buildings.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ApartmentsComponent } from './apartments/apartments.component';
 import { PaymentsComponent } from './payments/payments.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PaymentsComponent } from './payments/payments.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

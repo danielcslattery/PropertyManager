@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Building } from '../models/building';
 import { BuildingService } from '../services/building.service';
-
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-buildings',
@@ -17,6 +17,8 @@ export class BuildingsComponent implements OnInit {
   }
 
 
+  addressForm = new FormControl("");
+
   buildings: Building[] = [];
 
   getBuildings(): void {
@@ -28,8 +30,8 @@ export class BuildingsComponent implements OnInit {
     this.buildingService.deleteBuilding(building);
   }
 
-  add(addressStr: string): void {
-    this.buildingService.addBuilding(addressStr);
+  add(): void {
+    this.buildingService.addBuilding(this.addressForm.value);
   }
 
 

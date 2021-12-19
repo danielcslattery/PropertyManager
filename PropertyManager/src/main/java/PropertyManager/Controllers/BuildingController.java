@@ -44,7 +44,7 @@ public class BuildingController {
 
     // Adds new building to database without returning a new view.  Used with AJAX requests.
     @PostMapping
-    public void addNew(@ModelAttribute Building building){
+    public void addNew(@RequestBody Building building){
         buildingService.addNew(building.getAddress());
     }
 
