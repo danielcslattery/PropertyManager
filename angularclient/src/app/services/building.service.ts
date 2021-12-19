@@ -27,9 +27,9 @@ export class BuildingService {
     this.http.delete(`http://localhost:8080/buildings/${building.buildingId}`).subscribe();
   }
 
-  addBuilding(addressStr: string): void {
-    console.log("Adding address: ", addressStr)
-    this.http.post('http://localhost:8080/buildings/', { address: addressStr}).subscribe();
+  addBuilding(formSubmission: FormData): void {
+    console.log("Adding address: ", formSubmission)
+    this.http.post('http://localhost:8080/buildings/', formSubmission).subscribe();
   }
 
 

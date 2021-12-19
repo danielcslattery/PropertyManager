@@ -31,8 +31,9 @@ export class ApartmentService {
     this.http.delete(`http://localhost:8080/apartments/${apartment.apartmentId}`).subscribe();
   }
 
-  addApartment(addressStr: string): void {
-    this.http.post('http://localhost:8080/apartments/', { address: addressStr}).subscribe();
+  addApartment(formSubmission: FormData): void {
+    console.log(formSubmission)
+    this.http.post('http://localhost:8080/apartments/', formSubmission).subscribe();
   }
 
 

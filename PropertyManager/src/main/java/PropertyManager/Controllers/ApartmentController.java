@@ -57,9 +57,8 @@ public class ApartmentController {
 
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.
     @PostMapping
-    public void addNewApartment(@RequestParam long buildingId,
-                                @RequestParam String apartmentNumber){
-        apartmentService.add(buildingId, apartmentNumber);
+    public void addNewApartment(@RequestBody Apartment apartment){
+        apartmentService.add(apartment.getBuildingId(), apartment.getApartmentNumber());
     }
 
 

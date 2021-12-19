@@ -21,3 +21,12 @@
 
 </ul>
 
+
+<form [formGroup]="apartmentForm" (ngSubmit)="add()">
+    Add New Building<br>
+    <label>Apartment Number: </label>
+    <input type = "text" formControlName = "apartmentNumber">
+    <input type = "submit" value = "Add Apartment">
+
+</form>
+

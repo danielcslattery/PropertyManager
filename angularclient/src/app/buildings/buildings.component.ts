@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Building } from '../models/building';
 import { BuildingService } from '../services/building.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-buildings',
@@ -16,9 +16,10 @@ export class BuildingsComponent implements OnInit {
     this.getBuildings();
   }
 
-
-  addressForm = new FormControl("");
-
+  buildingForm = new FormGroup ({
+    address: new FormControl("")
+  })
+ 
   buildings: Building[] = [];
 
   getBuildings(): void {
@@ -30,8 +31,10 @@ export class BuildingsComponent implements OnInit {
     this.buildingService.deleteBuilding(building);
   }
 
+
+  // Do not need to pass parameters to add()
   add(): void {
-    this.buildingService.addBuilding(this.addressForm.value);
+    this.buildingService.addBuilding(this.buildingForm.value);
   }
 
 
