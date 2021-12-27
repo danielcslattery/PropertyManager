@@ -1,1 +1,120 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+    margin: 0px;
+    height: 100%;
+    background-color: rgb(221, 221, 221);
+    font-family: "Barlow", sans-serif;
+}
+
+#navbar{
+    background-color: #022f34;
+    margin: 0px;
+    padding: 0px;
+    height: 80px;
+    left: 0;
+    right: 0;
+}
+
+#navbar-title {
+    color: white;
+    padding: 5px;
+    font-size: 3rem;
+    margin: 0px;
+}
+
+
+button {
+    border-width: 0;
+    font-weight: 30;
+    background-color: #EBEAEA;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    /* padding: 5px 10px;
+    margin: 5px; */
+}
+
+form {
+    display: inline-block;
+}
+
+#sign-off {
+     position:fixed;
+     bottom:0;
+     width: 100vw;
+     background-color: #022f34;
+}
+
+#sign-off-text {
+    text-align: center;
+    color: white;
+}
+
+#forms-container {
+    align-content: center;
+}
+
+
+
+#content-display {
+    border-spacing: 0px;
+}
+
+****************************
+
+nav {
+    float: left;
+    font-size: 1.5rem;
+}
+
+.delete-btn {
+    width: 50%;
+    height: 100%;
+}
+
+.delete-btn:hover {
+    color: white;
+    background-color: red;
+}
+
+a:visited, a:link, a:active {
+    color: rgb(22, 22, 22);
+    text-decoration: none;
+}
+
+li {
+    margin: 3px;
+}
+
+ol {
+    list-style-type: none;
+}
+
+th {
+    font-size: 1.25rem;
+    background-color: #EEEEEE;
+    padding: 5px 20px;
+    border-bottom: 2px solid #7B7B7B;
+
+}
+
+tr {
+    background-color: #f9f9f9a2;
+    text-align: center;
+}
+
+tr:hover {
+    background-color: #022f34;
+    color: white;
+}
+
+td {
+    padding: 0.25rem 0rem;
+}
+
+table {
+    background-color: #f9f9f9;
+    margin: 10px auto;
+    border: 3px solid darkgrey;
+    width: 90%;
+    border-collapse: collapse;
+
+}

@@ -1,22 +1,36 @@
 <h2>The Buildings</h2>
 
-<ul>
-    <li *ngFor = "let building of buildings">
-        <nav>
-            <a [routerLink] = "['/byBuilding', building.buildingId]" >
-                <span>
-                    {{building.buildingId}}
-                </span>  
-                {{building.address}}
-            </a>
-        </nav>
-        
-        <button (click) = "delete(building)">
-            Delete
-        </button>
-    </li>
+<table>
+    <th>
+        Id
+    </th>
 
-</ul>
+    <th>
+        Address
+    </th>
+
+    <th>
+        Delete
+    </th>
+
+    <tr *ngFor = "let building of buildings" >
+            <td [routerLink] = "['/byBuilding', building.buildingId]">
+                {{building.buildingId}}
+            </td>
+            <td [routerLink] = "['/byBuilding', building.buildingId]">
+                {{building.address}}
+            </td>  
+
+        <td>
+            <button class = "delete-btn"
+                    (click) = "delete(building)">
+                X
+            </button>
+        </td>
+
+    </tr>
+
+</table>
 
 <form [formGroup]="buildingForm" (ngSubmit)="add()">
     Add New Building

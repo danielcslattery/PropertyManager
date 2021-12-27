@@ -1,18 +1,32 @@
 <h2>The Payments</h2>
 
-<ul>
-    <li *ngFor = "let payment of payments">
-        <span>
+<table>
+    <th>
+        Id
+    </th>
+    <th>
+        Amount
+    </th>
+    <th>
+        Month
+    </th>
+    <th>
+        Delete
+    </th>
+    <tr *ngFor = "let payment of payments">
+        <td>
             {{payment.paymentId}}
-        </span>  
-        Amount:
-        {{payment.paymentAmount}}   
-        Month: 
-        {{payment.month}}
+        </td>
+        <td>
+            {{payment.paymentAmount}}  
+        </td>
+        <td>
+            {{payment.month}}
+        </td>        
         
-        <button (click) = "delete(payment)">
-            Delete
+        <button class = "delete-btn" (click) = "delete(payment)">
+            X
         </button>
-    </li>
+    </tr>
 
-</ul>
+</table>

@@ -1,25 +1,33 @@
 <h2>The Apartments</h2>
 
-<ul>
-    <li *ngFor = "let apartment of apartments">
+<table>
+    <th>
+        Id
+    </th>
 
-        <nav>
-            <a [routerLink] = "['/byApartment', apartment.apartmentId]" >
-                <span>
-                    {{apartment.apartmentId}}
-                </span>  
-                {{apartment.apartmentNumber}}
-            </a>
-        </nav>
+    <th>
+        Number
+    </th>
 
+    <th>
+        Delete
+    </th>
 
+    <tr *ngFor = "let apartment of apartments">
+
+        <td [routerLink] = "['/byApartment', apartment.apartmentId]">
+            {{apartment.apartmentId}}
+        </td>
+        <td [routerLink] = "['/byApartment', apartment.apartmentId]">
+            {{apartment.apartmentNumber}}
+        </td>
         
-        <button (click) = "delete(apartment)">
-            Delete
+        <button class = "delete-btn" (click) = "delete(apartment)">
+            X
         </button>
-    </li>
+    </tr>
 
-</ul>
+</table>
 
 
 <form [formGroup]="apartmentForm" (ngSubmit)="add()">
