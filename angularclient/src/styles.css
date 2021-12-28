@@ -1,9 +1,11 @@
-html, body {
+body {
     margin: 0px;
-    height: 100%;
     background-color: rgb(221, 221, 221);
     font-family: "Barlow", sans-serif;
+
 }
+
+
 
 #navbar{
     background-color: #022f34;
@@ -32,15 +34,13 @@ button {
     margin: 5px; */
 }
 
-form {
-    display: inline-block;
-}
 
 #sign-off {
      position:fixed;
      bottom:0;
      width: 100vw;
      background-color: #022f34;
+     height: 50px;
 }
 
 #sign-off-text {
@@ -99,6 +99,8 @@ th {
 tr {
     background-color: #f9f9f9a2;
     text-align: center;
+    height: 35px;
+    border-bottom: 0.25px solid rgb(218, 218, 218);
 }
 
 tr:hover {
@@ -108,6 +110,7 @@ tr:hover {
 
 td {
     padding: 0.25rem 0rem;
+    vertical-align: middle;
 }
 
 table {
@@ -116,5 +119,10 @@ table {
     border: 3px solid darkgrey;
     width: 90%;
     border-collapse: collapse;
+    border-radius: 25px;
 
+}
+
+.submit-row {
+    border-top: 0.75px solid rgb(117, 117, 117);
 }

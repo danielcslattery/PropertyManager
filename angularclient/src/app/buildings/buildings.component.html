@@ -1,5 +1,6 @@
 <h2>The Buildings</h2>
 
+<form [formGroup]="buildingForm" (ngSubmit)="add()">
 <table>
     <th>
         Id
@@ -14,9 +15,11 @@
     </th>
 
     <tr *ngFor = "let building of buildings" >
+
             <td [routerLink] = "['/byBuilding', building.buildingId]">
                 {{building.buildingId}}
             </td>
+            
             <td [routerLink] = "['/byBuilding', building.buildingId]">
                 {{building.address}}
             </td>  
@@ -30,13 +33,21 @@
 
     </tr>
 
+        <tr class = "submit-row">
+            <td></td>
+
+            <td>
+                <input type = "text" formControlName = "address">
+            </td>
+            <td>
+                <input type = "submit" value = "Add Building">
+            </td>
+
+        </tr>
+ 
+
 </table>
-
-<form [formGroup]="buildingForm" (ngSubmit)="add()">
-    Add New Building
-    <label>Address: </label>
-    <input type = "text" formControlName = "address">
-    <input type = "submit" value = "Add Building">
-
 </form>
+
+
 

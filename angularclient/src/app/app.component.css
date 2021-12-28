@@ -1,9 +1,13 @@
 body {
     border: 5px solid #022f34;
-    border-radius: 10px;
-    padding: 3px;
+    border-bottom: 0px;
+    border-radius: 10px 10px 0px 0px;
+    /* padding: 3px; */
     background-color: rgb(247, 244, 244);
     text-align: center;
     width: 600px;
     margin: 10px auto;
+    margin-bottom: 50px;
+    padding-bottom: 5px;
+    min-height: 74.5vh;
 }

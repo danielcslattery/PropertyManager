@@ -1,5 +1,7 @@
 <h2>The Apartments</h2>
 
+
+<form [formGroup]="apartmentForm" (ngSubmit)="add()">
 <table>
     <th>
         Id
@@ -21,20 +23,28 @@
         <td [routerLink] = "['/byApartment', apartment.apartmentId]">
             {{apartment.apartmentNumber}}
         </td>
-        
-        <button class = "delete-btn" (click) = "delete(apartment)">
-            X
-        </button>
+        <td>
+            <button class = "delete-btn" 
+                    (click) = "delete(apartment)">
+                X
+            </button>
+        </td>
+
+    </tr>
+
+    <tr class = "submit-row">
+        <td></td>
+
+        <td>
+            <input type = "text" formControlName = "apartmentNumber">
+        </td>
+        <td>
+            <input type = "submit" value = "Add Apartment">
+        </td>
+
     </tr>
 
 </table>
-
-
-<form [formGroup]="apartmentForm" (ngSubmit)="add()">
-    Add New Building<br>
-    <label>Apartment Number: </label>
-    <input type = "text" formControlName = "apartmentNumber">
-    <input type = "submit" value = "Add Apartment">
 
 </form>
 
