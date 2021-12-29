@@ -111,6 +111,7 @@ tr:hover {
 td {
     padding: 0.25rem 0rem;
     vertical-align: middle;
+    min-width: 0px;
 }
 
 table {
@@ -121,8 +122,4 @@ table {
     border-collapse: collapse;
     border-radius: 25px;
 
-}
-
-.submit-row {
-    border-top: 0.75px solid rgb(117, 117, 117);
-}
+}   

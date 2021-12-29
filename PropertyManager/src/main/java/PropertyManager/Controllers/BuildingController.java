@@ -78,4 +78,10 @@ public class BuildingController {
         return "redirect:../all";
     }
 
+    @PutMapping
+    public void updateBuildingDirect(@RequestBody Building building){
+        System.out.println("update" + building.toString());
+        buildingService.update(building);
+    }
+
 }

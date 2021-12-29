@@ -1,6 +1,6 @@
 <h2>The Buildings</h2>
 
-<form [formGroup]="buildingForm" (ngSubmit)="add()">
+<form [formGroup]="buildingForm" #postform="ngForm">
 <table>
     <th>
         Id
@@ -14,36 +14,79 @@
         Delete
     </th>
 
-    <tr *ngFor = "let building of buildings" >
+    <th>
+        Edit
+    </th>
 
-            <td [routerLink] = "['/byBuilding', building.buildingId]">
-                {{building.buildingId}}
-            </td>
-            
-            <td [routerLink] = "['/byBuilding', building.buildingId]">
-                {{building.address}}
-            </td>  
+    <ng-container *ngIf="buildings.length; else noEntries">
+        <tr *ngFor = "let building of buildings">
+            <ng-container *ngIf="building == selectedBuilding; else notSelected">
+                <td></td>
+                <td>
+                    <input type = "text" formControlName = "address">
+                </td>
+                <td>
+                    <input  type = "submit" 
+                            name="edit" 
+                            value = "submit edit"
+                            (click) = "handleFormSubmission('edit', postform, building)">
+                </td>
+            </ng-container>
 
-        <td>
-            <button class = "delete-btn"
-                    (click) = "delete(building)">
-                X
-            </button>
-        </td>
+            <ng-template #notSelected>
+                <td [routerLink] = "['/byBuilding', building.buildingId]">
+                    {{building.buildingId}}
+                </td>
+                
+                <td [routerLink] = "['/byBuilding', building.buildingId]">
+                    {{building.address}}
+                </td>  
+                <td>
+                    <button type = "button"
+                            class = "delete-btn"
+                            (click) = "delete(building)">
+                        X
+                    </button>
+                </td>
+        
+                <td>
+                    <button type = "button"
+                            class = "edit-btn"
+                            (click) = "selectForEditing(building)"
+                            name = "edit">
+                            O
+                    </button>
+                </td>
+            </ng-template>
+
+
+
+
 
     </tr>
 
         <tr class = "submit-row">
-            <td></td>
-
             <td>
-                <input type = "text" formControlName = "address">
+                <input type = "submit" value = "+" (click) = "handleFormSubmission('add', postform)">
             </td>
             <td>
-                <input type = "submit" value = "Add Building">
+                <input  type = "text" 
+                        formControlName = "address"
+                        placeholder = "Add Building">
+            </td>
+            <td>
+                
             </td>
 
         </tr>
+    </ng-container>
+
+    <ng-template #noEntries>
+        <tr class = "no-entries">
+            <td colspan="3">No Entries</td>
+        </tr>
+    </ng-template>
+
  
 
 </table>

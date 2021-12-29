@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Building } from '../models/building';
 import { BuildingService } from '../services/building.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'app-buildings',
@@ -19,6 +19,9 @@ export class BuildingsComponent implements OnInit {
   buildingForm = new FormGroup ({
     address: new FormControl("")
   })
+
+  // Takes in selected building when edit button is hit.
+  selectedBuilding?: Building;
  
   buildings: Building[] = [];
 
@@ -31,10 +34,34 @@ export class BuildingsComponent implements OnInit {
     this.buildingService.deleteBuilding(building);
   }
 
+  handleFormSubmission( buttonClicked: string,
+                        postform: FormGroupDirective,
+                        building?: Building): void{
+    let submissionFormData = postform.form;
+
+    console.log("Form Data: ", submissionFormData)
+
+    if (buttonClicked == "add"){
+      this.add(postform.form);
+    } else if (buttonClicked == "edit"){
+      submissionFormData.addControl("buildingId", new FormControl(building?.buildingId))
+      this.edit(postform.form);
+    }
+  }
 
   // Do not need to pass parameters to add()
-  add(): void {
-    this.buildingService.addBuilding(this.buildingForm.value);
+  add(postform: FormGroup): void {
+    this.buildingService.addBuilding(postform.value);
+  }
+
+  edit(postform: FormGroup): void {
+    this.buildingService.editBuilding(postform.value);
+  }
+
+  selectForEditing(building: Building): void {
+    this.buildingForm.get("address")?.setValue(building.address)
+    this.selectedBuilding = building;
+    console.log("Editing: ", this.selectedBuilding.address)
   }
 
 

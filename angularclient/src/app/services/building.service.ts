@@ -32,5 +32,10 @@ export class BuildingService {
     this.http.post('http://localhost:8080/buildings/', formSubmission).subscribe();
   }
 
+  editBuilding(formSubmission: FormData): void {
+    console.log("Adding address: ", formSubmission)
+    this.http.put(`http://localhost:8080/buildings/`, formSubmission).subscribe();
+  }
+
 
 }

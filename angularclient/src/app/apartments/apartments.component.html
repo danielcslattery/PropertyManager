@@ -24,7 +24,8 @@
             {{apartment.apartmentNumber}}
         </td>
         <td>
-            <button class = "delete-btn" 
+            <button type = "button" 
+                    class = "delete-btn" 
                     (click) = "delete(apartment)">
                 X
             </button>
@@ -33,13 +34,14 @@
     </tr>
 
     <tr class = "submit-row">
-        <td></td>
+        <td>
+            <input type = "submit" value = "+">
+        </td>
 
         <td>
             <input type = "text" formControlName = "apartmentNumber">
         </td>
         <td>
-            <input type = "submit" value = "Add Apartment">
         </td>
 
     </tr>
