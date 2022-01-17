@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Building } from '../models/building';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root'
@@ -21,20 +21,19 @@ export class BuildingService {
     return this.http.get<Building[]>(this.urls["all"])
   }
 
-  deleteBuilding(building: Building): void {
-
+  deleteBuilding(building: Building): Observable<HttpResponse<any>> {
     // Still must subscribe for the delete request to go through
-    this.http.delete(`http://localhost:8080/buildings/${building.buildingId}`).subscribe();
+    return this.http.delete<any>(`http://localhost:8080/buildings/${building.buildingId}`, {observe: 'response'});
   }
 
-  addBuilding(formSubmission: FormData): void {
+  addBuilding(formSubmission: FormData): Observable<HttpResponse<any>> {
     console.log("Adding address: ", formSubmission)
-    this.http.post('http://localhost:8080/buildings/', formSubmission).subscribe();
+    return this.http.post<any>('http://localhost:8080/buildings/', formSubmission, {observe: 'response'})
   }
 
-  editBuilding(formSubmission: FormData): void {
-    console.log("Adding address: ", formSubmission)
-    this.http.put(`http://localhost:8080/buildings/`, formSubmission).subscribe();
+  editBuilding(formSubmission: FormData): Observable<HttpResponse<any>> {
+    console.log("Editing address: ", formSubmission)
+    return this.http.put(`http://localhost:8080/buildings/`, formSubmission, {observe: 'response'});
   }
 
 

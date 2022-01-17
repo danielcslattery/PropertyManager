@@ -23,13 +23,14 @@
             <ng-container *ngIf="building == selectedBuilding; else notSelected">
                 <td></td>
                 <td>
-                    <input type = "text" formControlName = "address">
+                    <input type = "text" formControlName = "editaddress">
                 </td>
                 <td>
                     <input  type = "submit" 
                             name="edit" 
                             value = "submit edit"
-                            (click) = "handleFormSubmission('edit', postform, building)">
+                            (click) = "buildingForm.controls['editaddress'].valid ? handleFormSubmission('edit', postform, building) : null">
+
                 </td>
             </ng-container>
 
@@ -67,18 +68,24 @@
 
         <tr class = "submit-row">
             <td>
-                <input type = "submit" value = "+" (click) = "handleFormSubmission('add', postform)">
+                <input type = "submit" value = "+" (click) = "buildingForm.valid ? handleFormSubmission('add', postform) : null">
             </td>
             <td>
                 <input  type = "text" 
                         formControlName = "address"
                         placeholder = "Add Building">
+
+
             </td>
             <td>
                 
             </td>
+            <td>
+
+            </td>
 
         </tr>
+
     </ng-container>
 
     <ng-template #noEntries>
@@ -90,6 +97,29 @@
  
 
 </table>
+
+<!-- Error messages if add button is pressed -->
+<div *ngIf="buildingForm.controls['address'].invalid && postform.submitted  && !buildingForm.contains('editaddress')">
+    <span *ngIf="buildingForm.controls['address'].errors?.['required']">
+        Address is Required
+    </span>
+    <span *ngIf="buildingForm.controls['address'].errors?.['minlength']">
+        Address must be at least 4 characters long.
+    </span>
+</div>
+
+<!-- Error message if submitting edit -->
+<div *ngIf="buildingForm.contains('editaddress')">
+    <div *ngIf="buildingForm.controls['address'].invalid && postform.submitted">
+    <span *ngIf="buildingForm.controls['editaddress'].errors?.['required']">
+        Name is required!
+    </span>
+    <span *ngIf="buildingForm.controls['editaddress'].errors?.['minlength']">
+        Address must be at least 4 characters long.
+    </span>
+    </div>
+</div>
+
 </form>
 
 

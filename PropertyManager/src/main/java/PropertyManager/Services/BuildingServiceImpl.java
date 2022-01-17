@@ -37,8 +37,9 @@ public class BuildingServiceImpl implements BuildingService {
         return buildings;
     }
 
-    public void addNew(String address){
-        buildingRepository.save(new Building(address));
+    public Building addNew(String address){
+        Building building = buildingRepository.save(new Building(address));
+        return building;
     }
 
     public Optional<Building> getById(Long id){
@@ -52,13 +53,15 @@ public class BuildingServiceImpl implements BuildingService {
         return buildingOpt;
     }
 
-    public void delete(Long id){
+    // Returns the deleted building so the front end can delete it from the list.
+    public Building delete(Long id){
         Optional<Building> buildingOpt = buildingRepository.findById(id);
         buildingRepository.delete(buildingOpt.get());
+        return buildingOpt.get();
     }
 
-    public void update(Building building){
-        buildingRepository.save(building);
+    public Building update(Building building){
+        return buildingRepository.save(building);
     }
 
 }

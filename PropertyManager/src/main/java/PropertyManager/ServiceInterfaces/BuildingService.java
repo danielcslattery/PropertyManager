@@ -14,12 +14,12 @@ public interface BuildingService {
 
     List<Building> getByAddress(String address);
 
-    void addNew(String address);
+    Building addNew(String address);
 
     Optional<Building> getById(Long id);
 
-    void delete(Long id);
+    Building delete(Long id);
 
-    void update(Building building);
+    Building update(Building building);
 
 }

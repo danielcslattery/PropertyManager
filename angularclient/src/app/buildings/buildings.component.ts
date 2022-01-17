@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Building } from '../models/building';
 import { BuildingService } from '../services/building.service';
-import { FormControl, FormGroup, FormGroupDirective } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-buildings',
@@ -17,7 +17,10 @@ export class BuildingsComponent implements OnInit {
   }
 
   buildingForm = new FormGroup ({
-    address: new FormControl("")
+    address: new FormControl("",[
+      Validators.required,
+      Validators.minLength(4)
+    ])
   })
 
   // Takes in selected building when edit button is hit.
@@ -26,45 +29,103 @@ export class BuildingsComponent implements OnInit {
   buildings: Building[] = [];
 
   getBuildings(): void {
-    this.buildingService.getBuildings().subscribe(buildings => this.buildings = buildings)
+    this.buildingService.getBuildings().subscribe(buildings => {
+      this.buildings = buildings;
+      })
+    
   }
 
   delete(building: Building): void {
-    console.log("Deleting!" + building.buildingId)
-    this.buildingService.deleteBuilding(building);
+    this.buildingService.deleteBuilding(building).subscribe(response => {
+      if (response.status == 200) {
+        // The for loop is slow but ensures the correct building is deleted.
+        for(let i = 0; i < this.buildings.length; i++){
+          if (this.buildings[i].buildingId == response.body.buildingId){
+            console.log(this.buildings[i]);
+            this.buildings.splice(i, 1);
+          }
+
+        }
+      } else {
+        // Do nothing
+      }
+    });
+
   }
 
   handleFormSubmission( buttonClicked: string,
                         postform: FormGroupDirective,
                         building?: Building): void{
-    let submissionFormData = postform.form;
-
-    console.log("Form Data: ", submissionFormData)
 
     if (buttonClicked == "add"){
-      this.add(postform.form);
+      this.add(postform);
     } else if (buttonClicked == "edit"){
-      submissionFormData.addControl("buildingId", new FormControl(building?.buildingId))
-      this.edit(postform.form);
+      postform.form.addControl("buildingId", new FormControl(building?.buildingId))
+      
+      this.edit(postform);
+
+      // Close form
+      this.selectedBuilding = undefined;
+
+
     }
+
   }
 
-  // Do not need to pass parameters to add()
-  add(postform: FormGroup): void {
-    this.buildingService.addBuilding(postform.value);
+  // When 201 response is received, adds the model to the model list.
+  add(postform: FormGroupDirective): void {
+    this.buildingService.addBuilding(postform.form.value).subscribe(response => {
+      if (response.status == 201) {
+        this.buildings.push(response.body);
+    // Return form to empty
+    postform.resetForm();
+      } else {
+        // Do nothing
+      }
+    });
+
   }
 
-  edit(postform: FormGroup): void {
-    this.buildingService.editBuilding(postform.value);
+  edit(postform: FormGroupDirective): void {
+
+    // Edited address is only necessary so that the add address portion 
+    // of the form isn't populated with existing address when editing.
+    let editedAddress: string = this.buildingForm.get("editaddress")?.value;
+    postform.form.get("address")?.setValue(editedAddress);
+    postform.form.removeControl("editaddress");
+
+    this.buildingService.editBuilding(postform.value).subscribe(response => {
+      if (response.status == 200) {
+        // The for loop is slow but ensures the correct building is updated.
+        for(let i = 0; i < this.buildings.length; i++){
+          if (this.buildings[i].buildingId == response.body.buildingId){
+            this.buildings.splice(i, 1);
+            this.buildings.push(response.body);
+          }
+
+        }
+      } else {
+        // Do nothing
+      }
+    });
+
+    // Return form to empty
+    postform.resetForm();
+
+    // postform.form.get("address")?.setValue("");
+
   }
 
   selectForEditing(building: Building): void {
-    this.buildingForm.get("address")?.setValue(building.address)
+
+    // Edited address is only necessary so that the add address portion 
+    // of the form isn't populated with existing address when editing.
+    this.buildingForm.setControl("editaddress", new FormControl(building.address))
+    this.buildingForm.get("editaddress")?.setValidators( 
+      [Validators.required,
+        Validators.minLength(4)])
+    // this.buildingForm.get("editaddress")?.setValue(building.address)
     this.selectedBuilding = building;
-    console.log("Editing: ", this.selectedBuilding.address)
   }
-
-
-
 
 }

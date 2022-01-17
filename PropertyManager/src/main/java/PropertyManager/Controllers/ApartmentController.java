@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +58,7 @@ public class ApartmentController {
 
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.
     @PostMapping
-    public void addNewApartment(@RequestBody Apartment apartment){
+    public void addNewApartment(@Valid @RequestBody Apartment apartment){
         apartmentService.add(apartment.getBuildingId(), apartment.getApartmentNumber());
     }
 

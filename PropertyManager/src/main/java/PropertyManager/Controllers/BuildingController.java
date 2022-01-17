@@ -4,6 +4,8 @@ import PropertyManager.Repositories.BuildingRepository;
 import PropertyManager.Model.Building;
 import PropertyManager.ServiceInterfaces.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +46,11 @@ public class BuildingController {
 
     // Adds new building to database without returning a new view.  Used with AJAX requests.
     @PostMapping
-    public void addNew(@RequestBody Building building){
-        buildingService.addNew(building.getAddress());
+    public ResponseEntity addNew(@RequestBody Building building){
+        Building buildingAdded = buildingService.addNew(building.getAddress());
+        ResponseEntity responseEntity = new ResponseEntity(buildingAdded, HttpStatus.CREATED);
+        System.out.println(responseEntity);
+        return responseEntity;
     }
 
     // Other commands are redirected to a landing page for single buildings.
@@ -59,8 +64,11 @@ public class BuildingController {
 
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.
     @DeleteMapping("/{buildingId}")
-    public void deleteBuilding(@PathVariable Long buildingId){
-        buildingService.delete(buildingId);
+    public ResponseEntity deleteBuilding(@PathVariable Long buildingId){
+        Building buildingDeleted = buildingService.delete(buildingId);
+        ResponseEntity responseEntity = new ResponseEntity(buildingDeleted, HttpStatus.OK);
+        System.out.println(responseEntity);
+        return responseEntity;
     }
 
     @GetMapping("/edit/{buildingId}")
@@ -79,9 +87,13 @@ public class BuildingController {
     }
 
     @PutMapping
-    public void updateBuildingDirect(@RequestBody Building building){
+    public ResponseEntity updateBuildingDirect(@RequestBody Building building){
         System.out.println("update" + building.toString());
-        buildingService.update(building);
+        Building buildingUpdated = buildingService.update(building);
+
+        ResponseEntity responseEntity = new ResponseEntity(buildingUpdated, HttpStatus.OK);
+        System.out.println(responseEntity);
+        return responseEntity;
     }
 
 }
