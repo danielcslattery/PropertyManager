@@ -41,8 +41,8 @@ public class ApartmentServiceImpl implements ApartmentService {
         return apartmentRepository.findApartmentByBuilding(building);
     }
 
-    public void add(Long buildingId, String number){
-        apartmentRepository.save(new Apartment(buildingId, number));
+    public Apartment add(Long buildingId, String number){
+        return apartmentRepository.save(new Apartment(buildingId, number));
     }
 
     public List<Apartment> getLatePayments(int month){
@@ -60,13 +60,14 @@ public class ApartmentServiceImpl implements ApartmentService {
         return apartmentOpt;
     }
 
-    public void delete(Long id){
+    public Apartment delete(Long id){
         Optional<Apartment> apartmentOpt = apartmentRepository.findById(id);
         apartmentRepository.delete(apartmentOpt.get());
+        return apartmentOpt.get();
     }
 
-    public void update(Apartment apartment){
-        apartmentRepository.save(apartment);
+    public Apartment update(Apartment apartment){
+        return apartmentRepository.save(apartment);
     }
 
 

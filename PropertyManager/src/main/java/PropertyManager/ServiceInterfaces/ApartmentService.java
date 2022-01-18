@@ -14,14 +14,14 @@ public interface ApartmentService {
 
     List<Apartment> getByBuildingId(Long building);
 
-    void add(Long buildingId, String number);
+    Apartment add(Long buildingId, String number);
 
     List<Apartment> getLatePayments(int month);
 
     Optional<Apartment> getById(long id);
 
-    void delete(Long id);
+    Apartment delete(Long id);
 
-    void update(Apartment apartment);
+    Apartment update(Apartment apartment);
 
 }

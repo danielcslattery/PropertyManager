@@ -1,6 +1,8 @@
 package PropertyManager.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Building {
@@ -8,6 +10,9 @@ public class Building {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long buildingId;
+
+    @NotBlank
+    @Size(min = 4)
     private String address;
 
     public Building(){};

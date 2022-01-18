@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ public class BuildingController {
 
     // Adds new building to database without returning a new view.  Used with AJAX requests.
     @PostMapping
-    public ResponseEntity addNew(@RequestBody Building building){
+    public ResponseEntity addNew(@Valid @RequestBody Building building){
         Building buildingAdded = buildingService.addNew(building.getAddress());
         ResponseEntity responseEntity = new ResponseEntity(buildingAdded, HttpStatus.CREATED);
         System.out.println(responseEntity);
@@ -87,7 +88,7 @@ public class BuildingController {
     }
 
     @PutMapping
-    public ResponseEntity updateBuildingDirect(@RequestBody Building building){
+    public ResponseEntity updateBuildingDirect(@Valid @RequestBody Building building){
         System.out.println("update" + building.toString());
         Building buildingUpdated = buildingService.update(building);
 

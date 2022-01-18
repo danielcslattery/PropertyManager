@@ -20,7 +20,8 @@ export class BuildingsComponent implements OnInit {
     address: new FormControl("",[
       Validators.required,
       Validators.minLength(4)
-    ])
+    ]),
+    buildingId: new FormControl("")
   })
 
   // Takes in selected building when edit button is hit.
@@ -35,7 +36,7 @@ export class BuildingsComponent implements OnInit {
     
   }
 
-  delete(building: Building): void {
+ delete(building: Building): void {
     this.buildingService.deleteBuilding(building).subscribe(response => {
       if (response.status == 200) {
         // The for loop is slow but ensures the correct building is deleted.
@@ -51,7 +52,7 @@ export class BuildingsComponent implements OnInit {
       }
     });
 
-  }
+  } 
 
   handleFormSubmission( buttonClicked: string,
                         postform: FormGroupDirective,
@@ -60,14 +61,12 @@ export class BuildingsComponent implements OnInit {
     if (buttonClicked == "add"){
       this.add(postform);
     } else if (buttonClicked == "edit"){
-      postform.form.addControl("buildingId", new FormControl(building?.buildingId))
+      postform.form.get("buildingId")?.setValue(building?.buildingId);
       
       this.edit(postform);
 
       // Close form
       this.selectedBuilding = undefined;
-
-
     }
 
   }
