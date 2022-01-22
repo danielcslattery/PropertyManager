@@ -8,7 +8,7 @@ import { Payment } from '../models/payment';
 })
 export class PaymentService {
   private urls = {
-    "all": 'http://localhost:8080/payments/allRest',
+    "all": 'http://localhost:8080/payments/all',
     "delete": 'http://localhost:8080/payments'
   };
 
@@ -19,7 +19,7 @@ export class PaymentService {
   }
 
   getByApartment(apartmentId: number): Observable<Payment[]>{
-    return this.http.get<Payment[]>(`http://localhost:8080/payments/byApartmentRest/${apartmentId}`)
+    return this.http.get<Payment[]>(`http://localhost:8080/payments/byApartment/${apartmentId}`)
   }
 
   deletePayment(payment: Payment): Observable<HttpResponse<any>> {

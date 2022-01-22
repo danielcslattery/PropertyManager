@@ -1,6 +1,5 @@
 package PropertyManager.Controllers;
 
-import PropertyManager.Model.Apartment;
 import PropertyManager.Model.Payment;
 import PropertyManager.ServiceInterfaces.ApartmentService;
 import PropertyManager.ServiceInterfaces.PaymentService;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,53 +25,42 @@ public class PaymentController {
     @Autowired
     private ApartmentService apartmentService;
 
-    @GetMapping("/allRest")
+    @GetMapping("/all")
     @ResponseBody
-    public List<Payment> getAllRest(){
-        List<Payment> payments = paymentService.getAll();
-        return payments;
+    public List<Payment> getAll(){
+        return paymentService.getAll();
     }
 
     // Adds new payment to database without returning a new view.  Used with AJAX requests.
     //TODO: Change parameters to apartmentId to simplify function.
     @PostMapping
-    public ResponseEntity addNew( @Valid @RequestBody Payment payment){
-//        paymentService.addNew(buildingId, apartmentId, paymentAmount, month);
-        Payment paymentAdded = paymentService.addNew(payment);
-        ResponseEntity responseEntity = new ResponseEntity(paymentAdded, HttpStatus.CREATED);
-        return responseEntity;
+    public ResponseEntity<Payment> add( @Valid @RequestBody Payment payment){
+        Payment paymentAdded = paymentService.add(payment);
+        return new ResponseEntity<>(paymentAdded, HttpStatus.CREATED);
     }
 
-    @GetMapping("/byApartmentRest/{apartmentId}")
+    @GetMapping("/byApartment/{apartmentId}")
     @ResponseBody
-    public List<Payment> getAllPaymentsByApartmentRent (@PathVariable Long apartmentId, Model model){
-        List<Payment> payments = paymentService.getAllPaymentsByApartment(apartmentId);
-        return payments;
+    public List<Payment> getByApartment (@PathVariable Long apartmentId){
+        return paymentService.getByApartment(apartmentId);
     }
 
     @GetMapping("/{paymentId}")
-    public String getPayment(@PathVariable Long paymentId, Model model){
-        Optional<Payment> payment = paymentService.getById(paymentId);
-        System.out.println("Here!");
-        model.addAttribute("payment", payment.get());
+    public String get(@PathVariable Long paymentId, Model model){
+        Payment payment = paymentService.getById(paymentId);
+        model.addAttribute("payment", payment);
         return "/Payments/landing";
     }
 
-
-    // Delete payment from database without returning a new view.  Used with AJAX requests.
     @DeleteMapping("/{paymentId}")
-    public ResponseEntity deletePayment(@PathVariable Long paymentId){
+    public ResponseEntity<Payment> delete(@PathVariable Long paymentId){
         Payment paymentDeleted = paymentService.delete(paymentId);
-        ResponseEntity responseEntity = new ResponseEntity(paymentDeleted, HttpStatus.OK);
-        return responseEntity;
+        return new ResponseEntity<>(paymentDeleted, HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity updatePaymentDirect(@Valid @RequestBody Payment payment){
+    public ResponseEntity<Payment> update(@Valid @RequestBody Payment payment){
         Payment paymentUpdated = paymentService.update(payment);
-
-        ResponseEntity responseEntity = new ResponseEntity(paymentUpdated, HttpStatus.OK);
-        System.out.println(responseEntity);
-        return responseEntity;
+        return new ResponseEntity<>(paymentUpdated, HttpStatus.OK);
     }
 }

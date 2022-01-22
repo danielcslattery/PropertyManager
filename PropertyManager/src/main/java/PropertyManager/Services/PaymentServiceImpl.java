@@ -10,7 +10,6 @@ import PropertyManager.ServiceInterfaces.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,37 +32,38 @@ public class PaymentServiceImpl implements PaymentService {
         return payments;
     }
 
-    public Payment addNew(long buildingId, long apartmentId, int paymentAmount, int month){
-        List<Apartment> apt = apartmentRepository.findApartmentByBuildingAndApartmentId(buildingId, apartmentId);
-        return paymentRepository.save(new Payment(apt.get(0).getApartmentId(), paymentAmount, month));
-    }
+    public Payment add(Payment payment){
+        Optional<Apartment> apartmentOptional = apartmentRepository.findById(payment.getApartmentId());
 
-    public Payment addNew(Payment payment){
-        System.out.print(payment);
-        Optional<Apartment> apt = apartmentRepository.findById(payment.getApartmentId());
-//        List<Apartment> apt = apartmentRepository.findApartmentByBuildingAndApartmentId(buildingId, apartmentId);
-        return paymentRepository.save(new Payment(apt.get().getApartmentId(),
+        if (apartmentOptional.isEmpty()){
+            throw new EntityIdNotFound(payment.getApartmentId(), "payment");
+        }
+
+        return paymentRepository.save(new Payment(apartmentOptional.get().getApartmentId(),
                                         payment.getPaymentAmount(),
                                         payment.getMonth()));
     }
 
-    public List<Payment> getAllPaymentsByApartment (Long apartmentId){
+    public List<Payment> getByApartment(Long apartmentId){
         return paymentRepository.findPaymentsByApartmentId(apartmentId);
     }
 
     public Payment delete(long paymentId){
-        Optional<Payment> paymentDeleted = paymentRepository.findById(paymentId);
+        Optional<Payment> paymentOptional = paymentRepository.findById(paymentId);
+        if (paymentOptional.isEmpty()){
+            throw new EntityIdNotFound(paymentId, "payment");
+        }
         paymentRepository.deleteById(paymentId);
-        return paymentDeleted.get();
+        return paymentOptional.get();
     }
 
     //TODO expected exception not being thrown when findById should be failing.
-    public Optional<Payment>  getById(long paymentId){
-        Optional<Payment> paymentOpt = paymentRepository.findById(paymentId);
-        if (paymentOpt.isEmpty()){
+    public Payment  getById(long paymentId){
+        Optional<Payment> paymentOptional = paymentRepository.findById(paymentId);
+        if (paymentOptional.isEmpty()){
             throw new EntityIdNotFound(paymentId, "payment");
         }
-        return paymentOpt;
+        return paymentOptional.get();
     }
 
     public Payment update(Payment payment){
