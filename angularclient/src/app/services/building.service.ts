@@ -8,11 +8,11 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http'
 })
 export class BuildingService {
   private urls = {
-    "all": 'http://localhost:8080/buildings/allRest',
+    "all": 'http://localhost:8080/buildings/all',
     "delete": 'http://localhost:8080/buildings'
   };
 
-  private allBuildingsUrl = 'http://localhost:8080/buildings/allRest'
+  private allBuildingsUrl = 'http://localhost:8080/buildings/all'
 
 
   constructor(private http: HttpClient) { }
@@ -23,7 +23,7 @@ export class BuildingService {
 
   deleteBuilding(building: Building): Observable<HttpResponse<any>> {
     // Still must subscribe for the delete request to go through
-    return this.http.delete<any>(`http://localhost:8080/buildings/${building.buildingId}`, {observe: 'response'});
+    return this.http.delete<any>(`http://localhost:8080/buildings/${building.id}`, {observe: 'response'});
   }
 
   addBuilding(formSubmission: FormData): Observable<HttpResponse<any>> {

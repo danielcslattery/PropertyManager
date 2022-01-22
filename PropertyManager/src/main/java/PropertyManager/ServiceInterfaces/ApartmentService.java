@@ -12,13 +12,13 @@ public interface ApartmentService {
 
     List<Apartment> getAll();
 
-    List<Apartment> getByBuildingId(Long building);
+    List<Apartment> getByBuilding(Long building);
 
-    Apartment add(Long buildingId, String number);
+    Apartment add(Apartment apartment);
 
     List<Apartment> getLatePayments(int month);
 
-    Optional<Apartment> getById(long id);
+    Apartment getById(long id);
 
     Apartment delete(Long id);
 

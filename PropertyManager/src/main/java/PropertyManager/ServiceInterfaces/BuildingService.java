@@ -14,9 +14,9 @@ public interface BuildingService {
 
     List<Building> getByAddress(String address);
 
-    Building addNew(String address);
+    Building add(Building building);
 
-    Optional<Building> getById(Long id);
+    Building getById(Long id);
 
     Building delete(Long id);
 

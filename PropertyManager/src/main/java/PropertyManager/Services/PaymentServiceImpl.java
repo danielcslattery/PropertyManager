@@ -39,8 +39,8 @@ public class PaymentServiceImpl implements PaymentService {
             throw new EntityIdNotFound(payment.getApartmentId(), "payment");
         }
 
-        return paymentRepository.save(new Payment(apartmentOptional.get().getApartmentId(),
-                                        payment.getPaymentAmount(),
+        return paymentRepository.save(new Payment(apartmentOptional.get().getId(),
+                                        payment.getAmount(),
                                         payment.getMonth()));
     }
 

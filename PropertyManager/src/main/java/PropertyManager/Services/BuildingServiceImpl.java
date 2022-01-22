@@ -37,27 +37,30 @@ public class BuildingServiceImpl implements BuildingService {
         return buildings;
     }
 
-    public Building addNew(String address){
-        Building building = buildingRepository.save(new Building(address));
-        return building;
+    public Building add(Building building){
+        return buildingRepository.save(new Building(building.getAddress()));
     }
 
-    public Optional<Building> getById(Long id){
+    public Building getById(Long id){
+        Optional<Building> buildingOptional = buildingRepository.findById(id);
 
-        Optional<Building> buildingOpt = buildingRepository.findById(id);
-
-        if (buildingOpt.isEmpty()){
+        if (buildingOptional.isEmpty()){
             throw new EntityIdNotFound(id, "building");
         }
 
-        return buildingOpt;
+        return buildingOptional.get();
     }
 
     // Returns the deleted building so the front end can delete it from the list.
     public Building delete(Long id){
-        Optional<Building> buildingOpt = buildingRepository.findById(id);
-        buildingRepository.delete(buildingOpt.get());
-        return buildingOpt.get();
+        Optional<Building> buildingOptional = buildingRepository.findById(id);
+
+        if (buildingOptional.isEmpty()){
+            throw new EntityIdNotFound(id, "building");
+        }
+
+        buildingRepository.delete(buildingOptional.get());
+        return buildingOptional.get();
     }
 
     public Building update(Building building){

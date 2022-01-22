@@ -7,38 +7,35 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long paymentId;
+    private long id;
     private long apartmentId;
-    private int paymentAmount;
+    private int amount;
     private int month;
-
 
     public Payment(){};
 
-
-
     public Payment(long apartmentId, int paymentAmount, int month){
         this.apartmentId = apartmentId;
-        this.paymentAmount = paymentAmount;
+        this.amount = paymentAmount;
         this.month = month;
     }
 
     @Override
     public String toString(){
         return String.format("Payment[paymentId = '%d', apartmentId = '%s', paymentAmount = '%d']",
-                paymentId, apartmentId, paymentAmount);
+                id, apartmentId, amount);
     }
 
-    public int getPaymentAmount() {
-        return paymentAmount;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setPaymentAmount(int paymentAmount) {
-        this.paymentAmount = paymentAmount;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    public long getPaymentId() {
-        return paymentId;
+    public long getId() {
+        return id;
     }
 
     public long getApartmentId() {
@@ -53,8 +50,8 @@ public class Payment {
         this.month = month;
     }
 
-    public void setPaymentId(long paymentId) {
-        this.paymentId = paymentId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setApartmentId(long apartmentId) {

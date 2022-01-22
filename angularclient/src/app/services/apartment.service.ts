@@ -9,11 +9,11 @@ import { Building } from '../models/building';
 })
 export class ApartmentService {
   private urls = {
-    "all": 'http://localhost:8080/apartments/allRest',
+    "all": 'http://localhost:8080/apartments/all',
     "delete": 'http://localhost:8080/apartments'
   };
 
-  private allApartmentsUrl = 'http://localhost:8080/apartments/allRest'
+  private allApartmentsUrl = 'http://localhost:8080/apartments/all'
 
 
   constructor(private http: HttpClient) { }
@@ -22,13 +22,13 @@ export class ApartmentService {
     return this.http.get<Apartment[]>(this.urls["all"])
   }
 
-  getByBuilding(buildingId: number): Observable<Apartment[]>{
-    return this.http.get<Apartment[]>(`http://localhost:8080/apartments/byBuildingRest/${buildingId}`)
+  getByBuilding(id: number): Observable<Apartment[]>{
+    return this.http.get<Apartment[]>(`http://localhost:8080/apartments/byBuilding/${id}`)
   }
 
   deleteApartment(apartment: Apartment): Observable<HttpResponse<any>> {
     // Still must subscribe for the delete request to go through
-    return this.http.delete<any>(`http://localhost:8080/apartments/${apartment.apartmentId}`, {observe: 'response'});
+    return this.http.delete<any>(`http://localhost:8080/apartments/${apartment.id}`, {observe: 'response'});
   }
 
   addApartment(formSubmission: FormData): Observable<HttpResponse<any>> {

@@ -50,29 +50,29 @@ public class PropertyManagementApplication {
 									   ApartmentServiceImpl apartmentService,
 									   PaymentRepository paymentService){
 		//save a few apartments
-		buildingService.addNew("6114 Washington");
-		buildingService.addNew("5943 Kingsbury");
+		buildingService.add(new Building("6114 Washington"));
+		buildingService.add(new Building("5943 Kingsbury"));
 
-		apartmentService.add(1L, "1E");
-		apartmentService.add(1L,"1W");
-		apartmentService.add(1L,"2E");
-		apartmentService.add(1L,"2W");
+		apartmentService.add(new Apartment(1L, "1E"));
+		apartmentService.add(new Apartment(1L, "1W"));
+		apartmentService.add(new Apartment(1L, "2E"));
+		apartmentService.add(new Apartment(1L, "2W"));
 
-		apartmentService.add(2L, "1E");
-		apartmentService.add(2L,"1W");
-		apartmentService.add(2L,"2E");
-		apartmentService.add(2L,"2W");
+		apartmentService.add(new Apartment(2L, "1E"));
+		apartmentService.add(new Apartment(2L, "1W"));
+		apartmentService.add(new Apartment(2L, "2E"));
+		apartmentService.add(new Apartment(2L, "2W"));
 
-		for (Apartment apartment : apartmentService.getByBuildingId(1L)) {
+		for (Apartment apartment : apartmentService.getByBuilding(1L)) {
 			apartment.addPayment(paymentService, 1200, 9);
 		}
 
-		for (Apartment apartment : apartmentService.getByBuildingId(1L)) {
+		for (Apartment apartment : apartmentService.getByBuilding(1L)) {
 			apartment.addPayment(paymentService, 1200, 9);
 		}
 
 		// Add payment to apartments.  findById returns an Apartment Optional, so get() retrieves the apartment instance.
-		apartmentService.getById(3L).get().addPayment(paymentService, 1200, 10);
-		apartmentService.getById(4L).get().addPayment(paymentService, 1200, 10);
+		apartmentService.getById(3L).addPayment(paymentService, 1200, 10);
+		apartmentService.getById(4L).addPayment(paymentService, 1200, 10);
 	}
 }

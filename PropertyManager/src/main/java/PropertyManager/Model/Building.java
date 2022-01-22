@@ -9,7 +9,7 @@ public class Building {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long buildingId;
+    private long id;
 
     @NotBlank
     @Size(min = 4)
@@ -25,7 +25,7 @@ public class Building {
     @Override
     public String toString(){
         return String.format("Building[buildingId = '%d', buildingAddress= '%s']",
-                buildingId, address);
+                id, address);
     }
 
     public String getAddress() {
@@ -34,11 +34,11 @@ public class Building {
 
     public void setAddress(String address) { this.address = address; }
 
-    public void setBuildingId(long buildingId) {
-        this.buildingId = buildingId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public long getBuildingId() {
-        return this.buildingId;
+    public long getId() {
+        return this.id;
     }
 }

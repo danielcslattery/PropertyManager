@@ -21,7 +21,7 @@ export class BuildingsComponent implements OnInit {
       Validators.required,
       Validators.minLength(4)
     ]),
-    buildingId: new FormControl("")
+    id: new FormControl("")
   })
 
   // Takes in selected building when edit button is hit.
@@ -41,7 +41,7 @@ export class BuildingsComponent implements OnInit {
       if (response.status == 200) {
         // The for loop is slow but ensures the correct building is deleted.
         for(let i = 0; i < this.buildings.length; i++){
-          if (this.buildings[i].buildingId == response.body.buildingId){
+          if (this.buildings[i].id == response.body.id){
             console.log(this.buildings[i]);
             this.buildings.splice(i, 1);
           }
@@ -61,7 +61,7 @@ export class BuildingsComponent implements OnInit {
     if (buttonClicked == "add"){
       this.add(postform);
     } else if (buttonClicked == "edit"){
-      postform.form.get("buildingId")?.setValue(building?.buildingId);
+      postform.form.get("id")?.setValue(building?.id);
       
       this.edit(postform);
 
@@ -97,7 +97,7 @@ export class BuildingsComponent implements OnInit {
       if (response.status == 200) {
         // The for loop is slow but ensures the correct building is updated.
         for(let i = 0; i < this.buildings.length; i++){
-          if (this.buildings[i].buildingId == response.body.buildingId){
+          if (this.buildings[i].id == response.body.id){
             this.buildings.splice(i, 1);
             this.buildings.push(response.body);
           }

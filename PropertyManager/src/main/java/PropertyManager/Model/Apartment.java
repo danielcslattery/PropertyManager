@@ -13,33 +13,31 @@ public class Apartment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long apartmentId;
+    private Long Id;
     private Long buildingId;
 
     @NotBlank
-    private String apartmentNumber;
+    private String number;
 
     Apartment() {}
 
     public Apartment(Long buildingId, String apartmentNumber) {
         this.buildingId = buildingId;
-        this.apartmentNumber = apartmentNumber;
+        this.number = apartmentNumber;
     }
 
     @Override
     public String toString() {
         return String.format("Apartment[apartmentId = '%d', buildingId = '%s', apartmentNumber = '%s']",
-                apartmentId, buildingId, apartmentNumber);
+                Id, buildingId, number);
     }
 
-
-
-    public Long getApartmentId() {
-        return apartmentId;
+    public Long getId() {
+        return Id;
     }
 
-    public String getApartmentNumber() {
-        return apartmentNumber;
+    public String getNumber() {
+        return number;
     }
 
     public Long getBuildingId() {
@@ -50,10 +48,10 @@ public class Apartment {
         this.buildingId = buildingId;
     }
 
-    public void setApartmentId(Long apartmentId){this.apartmentId = apartmentId;}
+    public void setId(Long id){this.Id = id;}
 
     public void addPayment(PaymentRepository repository, int paymentAmount, int month){
-        repository.save(new Payment(apartmentId, paymentAmount, month));
+        repository.save(new Payment(Id, paymentAmount, month));
     }
 
 

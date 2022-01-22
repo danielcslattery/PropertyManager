@@ -36,11 +36,11 @@
             </ng-container>
 
             <ng-template #notSelected>
-                <td [routerLink] = "['/byApartment', apartment.apartmentId]">
-                    {{apartment.apartmentId}}
+                <td [routerLink] = "['/byApartment', apartment.id]">
+                    {{apartment.id}}
                 </td>
-                <td [routerLink] = "['/byApartment', apartment.apartmentId]">
-                    {{apartment.apartmentNumber}}
+                <td [routerLink] = "['/byApartment', apartment.id]">
+                    {{apartment.number}}
                 </td>
                 <td>
                     <button type = "button" 
@@ -67,7 +67,7 @@
             </td>
             <td>
                 <input  type = "text" 
-                        formControlName = "apartmentNumber"
+                        formControlName = "number"
                         placeholder = "Add Apartment">
 
 
@@ -94,7 +94,7 @@
             </td>
             <td>
                 <input  type = "text" 
-                        formControlName = "apartmentNumber"
+                        formControlName = "number"
                         placeholder = "Add Apartment">
 
 
@@ -113,15 +113,15 @@
 
 
 <!-- Error messages if add button is pressed -->
-<div *ngIf="apartmentForm.controls['apartmentNumber'].invalid && postform.submitted  && !apartmentForm.contains('editnumber')">
-    <span *ngIf="apartmentForm.controls['apartmentNumber'].errors?.['required']">
+<div *ngIf="apartmentForm.controls['number'].invalid && postform.submitted  && !apartmentForm.contains('editnumber')">
+    <span *ngIf="apartmentForm.controls['number'].errors?.['required']">
         Apartment Number is Required
     </span>
 </div>
 
 <!-- Error message if submitting edit -->
 <div *ngIf="apartmentForm.contains('editnumber')">
-    <div *ngIf="apartmentForm.controls['apartmentNumber'].invalid && postform.submitted">
+    <div *ngIf="apartmentForm.controls['number'].invalid && postform.submitted">
     <span *ngIf="apartmentForm.controls['editnumber'].errors?.['required']">
         Apartment Number is required!
     </span>

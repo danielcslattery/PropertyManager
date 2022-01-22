@@ -31,10 +31,10 @@ export class ApartmentsComponent implements OnInit {
   }
 
   apartmentForm = new FormGroup ({
-    apartmentNumber: new FormControl("",[
+    number: new FormControl("",[
       Validators.required
     ]),
-    apartmentId: new FormControl(""),
+    id: new FormControl(""),
     buildingId: new FormControl("")
   })
 
@@ -57,7 +57,7 @@ export class ApartmentsComponent implements OnInit {
       if (response.status == 200) {
         // The for loop is slow but ensures the correct building is deleted.
         for(let i = 0; i < this.apartments.length; i++){
-          if (this.apartments[i].apartmentId == response.body.apartmentId){
+          if (this.apartments[i].id == response.body.id){
             console.log(this.apartments[i]);  
             this.apartments.splice(i, 1);
           }
@@ -95,7 +95,7 @@ export class ApartmentsComponent implements OnInit {
       this.add(postform);
     } else if (buttonClicked == "edit"){
 
-      postform.form.get("apartmentId")?.setValue(apartment?.apartmentId);
+      postform.form.get("id")?.setValue(apartment?.id);
       postform.form.get("buildingId")?.setValue(apartment?.buildingId);
 
       console.log("Form1:", postform.form.get("buildingId")?.value);
@@ -111,7 +111,7 @@ export class ApartmentsComponent implements OnInit {
     // Edited address is only necessary so that the add address portion 
     // of the form isn't populated with existing address when editing.
     let editedNumber: string = this.apartmentForm.get("editnumber")?.value;
-    postform.form.get("apartmentNumber")?.setValue(editedNumber);
+    postform.form.get("number")?.setValue(editedNumber);
     postform.form.removeControl("editnumber");
 
     console.log("Form:", postform.form.get("buildingId")?.value);
@@ -120,7 +120,7 @@ export class ApartmentsComponent implements OnInit {
       if (response.status == 200) {
         // The for loop is slow but ensures the correct apartment is updated.
         for(let i = 0; i < this.apartments.length; i++){
-          if (this.apartments[i].apartmentId == response.body.apartmentId){
+          if (this.apartments[i].id == response.body.id){
             this.apartments.splice(i, 1);
             this.apartments.push(response.body);
           }
@@ -144,7 +144,7 @@ export class ApartmentsComponent implements OnInit {
 
     // Edited address is only necessary so that the add address portion 
     // of the form isn't populated with existing address when editing.
-    this.apartmentForm.setControl("editnumber", new FormControl(apartment.apartmentNumber))
+    this.apartmentForm.setControl("editnumber", new FormControl(apartment.number))
     this.apartmentForm.get("editnumber")?.setValidators( 
       [Validators.required])
     // this.buildingForm.get("editaddress")?.setValue(building.address)

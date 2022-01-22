@@ -34,7 +34,7 @@ ngOnInit(): void {
 }
 
 paymentForm = new FormGroup ({
-  paymentAmount: new FormControl("",[
+  amount: new FormControl("",[
     Validators.required,
     Validators.min(0)
   ]),
@@ -43,7 +43,7 @@ paymentForm = new FormGroup ({
     Validators.min(1),
     Validators.max(12)
   ]),
-  paymentId: new FormControl(""),
+  id: new FormControl(""),
   apartmentId: new FormControl("")
 })
 
@@ -65,7 +65,7 @@ paymentForm = new FormGroup ({
       if (response.status == 200) {
         // The for loop is slow but ensures the correct building is deleted.
         for(let i = 0; i < this.payments.length; i++){
-          if (this.payments[i].paymentId == response.body.paymentId){
+          if (this.payments[i].id == response.body.id){
             console.log(this.payments[i]);  
             this.payments.splice(i, 1);
           }
@@ -103,7 +103,7 @@ paymentForm = new FormGroup ({
     } else if (buttonClicked == "edit"){
 
       console.log(payment)
-      postform.form.get("paymentId")?.setValue(payment?.paymentId);
+      postform.form.get("id")?.setValue(payment?.id);
       postform.form.get("apartmentId")?.setValue(payment?.apartmentId);
 
       console.log("Form1:", postform.form.get("apartmentId")?.value);
@@ -120,7 +120,7 @@ paymentForm = new FormGroup ({
     // Edited amount and month is only necessary so that the add amount/month portion 
     // of the form isn't populated with existing amount/month when editing.
     let editedAmount: string = this.paymentForm.get("editamount")?.value;
-    postform.form.get("paymentAmount")?.setValue(editedAmount);
+    postform.form.get("amount")?.setValue(editedAmount);
     postform.form.removeControl("editamount");
 
     let editedMonth: string = this.paymentForm.get("editmonth")?.value;
@@ -131,7 +131,7 @@ paymentForm = new FormGroup ({
       if (response.status == 200) {
         // The for loop is slow but ensures the correct apartment is updated.
         for(let i = 0; i < this.payments.length; i++){
-          if (this.payments[i].paymentId == response.body.paymentId){
+          if (this.payments[i].id == response.body.id){
             this.payments.splice(i, 1);
             this.payments.push(response.body);
           }
@@ -154,7 +154,7 @@ paymentForm = new FormGroup ({
 
     // Edited amount and month is only necessary so that the add amount/month portion 
     // of the form isn't populated with existing amount/month when editing.
-    this.paymentForm.setControl("editamount", new FormControl(payment.paymentAmount))
+    this.paymentForm.setControl("editamount", new FormControl(payment.amount))
     this.paymentForm.get("editamount")?.setValidators( 
       [
         Validators.required,

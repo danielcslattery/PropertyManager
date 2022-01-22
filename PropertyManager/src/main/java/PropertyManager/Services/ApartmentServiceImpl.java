@@ -4,7 +4,9 @@ import PropertyManager.Model.Apartment;
 import PropertyManager.Exception.ApartmentNumberNotFound;
 import PropertyManager.Exception.EmptyReturnFromQuery;
 import PropertyManager.Exception.EntityIdNotFound;
+import PropertyManager.Model.Building;
 import PropertyManager.Repositories.ApartmentRepository;
+import PropertyManager.Repositories.BuildingRepository;
 import PropertyManager.ServiceInterfaces.ApartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class ApartmentServiceImpl implements ApartmentService {
 
     @Autowired
     private ApartmentRepository apartmentRepository;
+
+    @Autowired
+    private BuildingRepository buildingRepository;
 
     public List<Apartment> getAll(){
         List<Apartment> apartments = (List<Apartment>) apartmentRepository.findAll();
@@ -37,19 +42,22 @@ public class ApartmentServiceImpl implements ApartmentService {
         return apartmentList;
     }
 
-    public List<Apartment> getByBuildingId(Long building){
+    public List<Apartment> getByBuilding(Long building){
         return apartmentRepository.findApartmentByBuilding(building);
     }
 
-    public Apartment add(Long buildingId, String number){
-        return apartmentRepository.save(new Apartment(buildingId, number));
+    public Apartment add(Apartment apartment){
+        Optional<Building> buildingOptional = buildingRepository.findById(apartment.getBuildingId());
+
+        return apartmentRepository.save(new Apartment(buildingOptional.get().getId(),
+                                            apartment.getNumber()));
     }
 
     public List<Apartment> getLatePayments(int month){
         return apartmentRepository.findLatePayments(month);
     }
 
-    public Optional<Apartment> getById(long id){
+    public Apartment getById(long id){
 
         Optional<Apartment> apartmentOpt = apartmentRepository.findById(id);
 
@@ -57,13 +65,18 @@ public class ApartmentServiceImpl implements ApartmentService {
             throw new EntityIdNotFound(id, "apartment");
         }
 
-        return apartmentOpt;
+        return apartmentOpt.get();
     }
 
     public Apartment delete(Long id){
-        Optional<Apartment> apartmentOpt = apartmentRepository.findById(id);
-        apartmentRepository.delete(apartmentOpt.get());
-        return apartmentOpt.get();
+        Optional<Apartment> apartmentOptional = apartmentRepository.findById(id);
+
+        if (apartmentOptional.isEmpty()){
+            throw new EntityIdNotFound(id, "apartment");
+        }
+
+        apartmentRepository.delete(apartmentOptional.get());
+        return apartmentOptional.get();
     }
 
     public Apartment update(Apartment apartment){

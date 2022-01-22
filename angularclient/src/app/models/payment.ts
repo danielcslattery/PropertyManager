@@ -1,6 +1,6 @@
 export interface Payment {
-    paymentId: number;
+    id: number;
     apartmentId: number;
-    paymentAmount: number;
+    amount: number;
     month: number;
 }

@@ -24,7 +24,7 @@ export class PaymentService {
 
   deletePayment(payment: Payment): Observable<HttpResponse<any>> {
     // Still must subscribe for the delete request to go through
-    return this.http.delete<any>(`http://localhost:8080/payments/${payment.paymentId}`, {observe: 'response'});
+    return this.http.delete<any>(`http://localhost:8080/payments/${payment.id}`, {observe: 'response'});
   }
 
   addPayment(formSubmission: FormData): Observable<HttpResponse<any>> {

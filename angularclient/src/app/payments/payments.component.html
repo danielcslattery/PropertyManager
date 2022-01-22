@@ -45,10 +45,10 @@
     
                 <ng-template #notSelected>
                     <td>
-                        {{payment.paymentId}}
+                        {{payment.id}}
                     </td>
                     <td>
-                        {{payment.paymentAmount}}
+                        {{payment.amount}}
                     </td>
                     <td>
                         {{payment.month}}
@@ -78,7 +78,7 @@
                 </td>
                 <td>
                     <input  type = "text" 
-                            formControlName = "paymentAmount"
+                            formControlName = "amount"
                             placeholder = "Add Payment Amount">
                 </td>
                 <td>
@@ -108,7 +108,7 @@
                 </td>
                 <td>
                     <input  type = "text" 
-                            formControlName = "paymentAmount"
+                            formControlName = "amount"
                             placeholder = "Add Payment Amount">
                 </td>
                 <td>
@@ -125,13 +125,13 @@
     
     
     <!-- Error messages if add button is pressed -->
-    <div *ngIf="(paymentForm.controls['paymentAmount'].invalid ||
+    <div *ngIf="(paymentForm.controls['amount'].invalid ||
                 paymentForm.controls['month'].invalid) 
                 && postform.submitted  && !paymentForm.contains('editamount')">
-        <span *ngIf="paymentForm.controls['paymentAmount'].errors?.['required']">
+        <span *ngIf="paymentForm.controls['amount'].errors?.['required']">
             Amount is required.
         </span>
-        <span *ngIf="paymentForm.controls['paymentAmount'].errors?.['min']">
+        <span *ngIf="paymentForm.controls['amount'].errors?.['min']">
             Please enter an amount greater than 0.
         </span>
         <span *ngIf="paymentForm.controls['month'].errors?.['required']">
@@ -145,7 +145,7 @@
     
     <!-- Error message if submitting edit -->
     <div *ngIf="paymentForm.contains('editamount')">
-        <div *ngIf="(paymentForm.controls['paymentAmount'].invalid ||
+        <div *ngIf="(paymentForm.controls['amount'].invalid ||
                     paymentForm.controls['month'].invalid) 
                     && postform.submitted">
         <span *ngIf="paymentForm.controls['editamount'].errors?.['required']">
