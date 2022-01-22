@@ -11,14 +11,16 @@ public interface PaymentService {
 
     List<Payment> getAll();
 
-    void addNew(long buildingId, long apartmentId, int paymentAmount, int month);
+    Payment addNew(long buildingId, long apartmentId, int paymentAmount, int month);
 
-    void delete(long paymentId);
+    Payment addNew(Payment payment);
+
+    Payment delete(long paymentId);
 
     List<Payment> getAllPaymentsByApartment (Long apartmentId);
 
     Optional<Payment> getById(long paymentId);
 
-    void update(Payment payment);
+    Payment update(Payment payment);
 
 }

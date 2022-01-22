@@ -32,7 +32,7 @@ export class ApartmentsComponent implements OnInit {
 
   apartmentForm = new FormGroup ({
     apartmentNumber: new FormControl("",[
-      Validators.required,
+      Validators.required
     ]),
     apartmentId: new FormControl(""),
     buildingId: new FormControl("")
@@ -52,8 +52,8 @@ export class ApartmentsComponent implements OnInit {
     this.apartmentService.getByBuilding(buildingId).subscribe(apartment => this.apartments = apartment)
   }
 
-  delete(building: Apartment): void {
-    this.apartmentService.deleteApartment(building).subscribe(response => {
+  delete(apartment: Apartment): void {
+    this.apartmentService.deleteApartment(apartment).subscribe(response => {
       if (response.status == 200) {
         // The for loop is slow but ensures the correct building is deleted.
         for(let i = 0; i < this.apartments.length; i++){
@@ -61,13 +61,11 @@ export class ApartmentsComponent implements OnInit {
             console.log(this.apartments[i]);  
             this.apartments.splice(i, 1);
           }
-
         }
       } else {
         // Do nothing
       }
     });
-
   }
 
   // When 201 response is received, adds the model to the model list.

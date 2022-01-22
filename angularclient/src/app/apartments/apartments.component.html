@@ -87,6 +87,26 @@
         <tr class = "no-entries">
             <td colspan="3">No Entries</td>
         </tr>
+
+        <tr class = "submit-row">
+            <td>
+                <input type = "submit" value = "+" (click) = "apartmentForm.valid ? handleFormSubmission('add', postform) : null">
+            </td>
+            <td>
+                <input  type = "text" 
+                        formControlName = "apartmentNumber"
+                        placeholder = "Add Apartment">
+
+
+            </td>
+            <td>
+                
+            </td>
+            <td>
+
+            </td>
+
+        </tr>
     </ng-template>
 
 </table>
@@ -100,9 +120,9 @@
 </div>
 
 <!-- Error message if submitting edit -->
-<div *ngIf="apartmentForm.contains('editapartment')">
-    <div *ngIf="apartmentForm.controls['apartment'].invalid && postform.submitted">
-    <span *ngIf="apartmentForm.controls['editapartment'].errors?.['required']">
+<div *ngIf="apartmentForm.contains('editnumber')">
+    <div *ngIf="apartmentForm.controls['apartmentNumber'].invalid && postform.submitted">
+    <span *ngIf="apartmentForm.controls['editnumber'].errors?.['required']">
         Apartment Number is required!
     </span>
     </div>

@@ -70,16 +70,12 @@
                 <input  type = "text" 
                         formControlName = "address"
                         placeholder = "Add Building">
-
-
             </td>
             <td>
                 
             </td>
             <td>
-
             </td>
-
         </tr>
 
     </ng-container>
@@ -87,6 +83,22 @@
     <ng-template #noEntries>
         <tr class = "no-entries">
             <td colspan="3">No Entries</td>
+        </tr>
+
+        <tr class = "submit-row">
+            <td>
+                <input type = "submit" value = "+" (click) = "buildingForm.valid ? handleFormSubmission('add', postform) : null">
+            </td>
+            <td>
+                <input  type = "text" 
+                        formControlName = "address"
+                        placeholder = "Add Building">
+            </td>
+            <td>
+                
+            </td>
+            <td>
+            </td>
         </tr>
     </ng-template>
 

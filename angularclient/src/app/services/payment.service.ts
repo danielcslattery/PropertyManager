@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Payment } from '../models/payment';
 
@@ -12,8 +12,6 @@ export class PaymentService {
     "delete": 'http://localhost:8080/payments'
   };
 
-
-
   constructor(private http: HttpClient) { }
 
   getPayments(): Observable<Payment[]>{
@@ -24,14 +22,20 @@ export class PaymentService {
     return this.http.get<Payment[]>(`http://localhost:8080/payments/byApartmentRest/${apartmentId}`)
   }
 
-  deletePayment(payment: Payment): void {
+  deletePayment(payment: Payment): Observable<HttpResponse<any>> {
     // Still must subscribe for the delete request to go through
-    this.http.delete(`http://localhost:8080/payments/${payment.paymentId}`).subscribe();
+    return this.http.delete<any>(`http://localhost:8080/payments/${payment.paymentId}`, {observe: 'response'});
   }
 
-  addPayment(apartmentId: number, paymentAmount: number, month: number): void {
-    this.http.post('http://localhost:8080/payments/', { apartmentId: apartmentId,
-                                                        paymentAmount: paymentAmount,
-                                                        month: month}).subscribe();
+  addPayment(formSubmission: FormData): Observable<HttpResponse<any>> {
+    console.log(formSubmission)
+    return this.http.post('http://localhost:8080/payments/', formSubmission, {observe: 'response'});
   }
+
+  editPayment(formSubmission: FormData): Observable<HttpResponse<any>> {
+    console.log("Editing", formSubmission)
+    return this.http.put(`http://localhost:8080/payments/`, formSubmission, {observe: 'response'});
+  }
+
+
 }

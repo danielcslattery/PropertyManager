@@ -87,7 +87,7 @@ public class ApartmentController {
 
     // Deletes apartment from database without returning a new view.  Used with AJAX requests.
     @DeleteMapping("/{apartmentId}")
-    public ResponseEntity deleteApartment(@PathVariable Long apartmentId, Model model){
+    public ResponseEntity deleteApartment(@PathVariable Long apartmentId){
         Apartment apartmentDeleted = apartmentService.delete(apartmentId);
         ResponseEntity responseEntity = new ResponseEntity(apartmentDeleted, HttpStatus.OK);
         return responseEntity;

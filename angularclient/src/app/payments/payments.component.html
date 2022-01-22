@@ -1,35 +1,168 @@
 <h2>The Payments</h2>
 
-<table>
-    <th>
-        Id
-    </th>
-    <th>
-        Amount
-    </th>
-    <th>
-        Month
-    </th>
-    <th>
-        Delete
-    </th>
-    <tr *ngFor = "let payment of payments">
-        <td>
-            {{payment.paymentId}}
-        </td>
-        <td>
-            {{payment.paymentAmount}}  
-        </td>
-        <td>
-            {{payment.month}}
-        </td>        
-        <td>
-            <button class = "delete-btn" 
-                    (click) = "delete(payment)">
-                X
-            </button>
-        </td>
+<form [formGroup]="paymentForm" #postform="ngForm">
+    <table>
+        <th>
+            Id
+        </th>
+    
+        <th>
+            Amount
+        </th>
 
-    </tr>
-
-</table>
+        <th>
+            Month
+        </th>
+    
+        <th>
+            Delete
+        </th>
+    
+        <th>
+            Edit
+        </th>
+    
+        <ng-container *ngIf="payments.length; else noEntries">
+            <tr *ngFor = "let payment of payments">
+                <ng-container *ngIf="payment == selectedPayment; else notSelected">
+                    <td></td>
+                    <td>
+                        <input type = "text" formControlName = "editamount">
+                    </td>
+                    <td>
+                        <input type = "text" formControlName = "editmonth">
+                    </td>
+                    <td>
+                        <input  type = "submit" 
+                                name="edit" 
+                                value = "submit edit"
+                                (click) =   "paymentForm.controls['editamount'].valid &&
+                                            paymentForm.controls['editmonth'].valid
+                                            ? handleFormSubmission('edit', postform, payment) : null">
+    
+                    </td>
+                </ng-container>
+    
+                <ng-template #notSelected>
+                    <td>
+                        {{payment.paymentId}}
+                    </td>
+                    <td>
+                        {{payment.paymentAmount}}
+                    </td>
+                    <td>
+                        {{payment.month}}
+                    </td>
+                    <td>
+                        <button type = "button" 
+                                class = "delete-btn" 
+                                (click) = "delete(payment)">
+                            X
+                        </button>
+                    </td>
+                    <td>
+                        <button type = "button"
+                                class = "edit-btn"
+                                (click) = "selectForEditing(payment)"
+                                name = "edit">
+                                O
+                        </button>
+                    </td>
+                </ng-template>
+    
+            </tr>
+    
+            <tr class = "submit-row">
+                <td>
+                    <input type = "submit" value = "+" (click) = "paymentForm.valid ? handleFormSubmission('add', postform) : null">
+                </td>
+                <td>
+                    <input  type = "text" 
+                            formControlName = "paymentAmount"
+                            placeholder = "Add Payment Amount">
+                </td>
+                <td>
+                    <input  type = "text" 
+                            formControlName = "month"
+                            placeholder = "Add Payment Month">    
+                </td>
+                <td>
+                    
+                </td>
+                <td>
+    
+                </td>
+    
+            </tr>
+    
+        </ng-container>
+    
+        <ng-template #noEntries>
+            <tr class = "no-entries">
+                <td colspan="4">No Entries</td>
+            </tr>
+    
+            <tr class = "submit-row">
+                <td>
+                    <input type = "submit" value = "+" (click) = "paymentForm.valid ? handleFormSubmission('add', postform) : null">
+                </td>
+                <td>
+                    <input  type = "text" 
+                            formControlName = "paymentAmount"
+                            placeholder = "Add Payment Amount">
+                </td>
+                <td>
+                    <input  type = "text" 
+                            formControlName = "month"
+                            placeholder = "Add Payment Month">    
+                </td>
+                <td></td>
+    
+            </tr>
+        </ng-template>
+    
+    </table>
+    
+    
+    <!-- Error messages if add button is pressed -->
+    <div *ngIf="(paymentForm.controls['paymentAmount'].invalid ||
+                paymentForm.controls['month'].invalid) 
+                && postform.submitted  && !paymentForm.contains('editamount')">
+        <span *ngIf="paymentForm.controls['paymentAmount'].errors?.['required']">
+            Amount is required.
+        </span>
+        <span *ngIf="paymentForm.controls['paymentAmount'].errors?.['min']">
+            Please enter an amount greater than 0.
+        </span>
+        <span *ngIf="paymentForm.controls['month'].errors?.['required']">
+            Month is required.
+        </span>
+        <span *ngIf="paymentForm.controls['month'].errors?.['min'] ||
+                     paymentForm.controls['month'].errors?.['max']">
+            Please enter a month between 1 and 12.
+        </span>
+    </div>
+    
+    <!-- Error message if submitting edit -->
+    <div *ngIf="paymentForm.contains('editamount')">
+        <div *ngIf="(paymentForm.controls['paymentAmount'].invalid ||
+                    paymentForm.controls['month'].invalid) 
+                    && postform.submitted">
+        <span *ngIf="paymentForm.controls['editamount'].errors?.['required']">
+            Amount is required.
+        </span>
+        <span *ngIf="paymentForm.controls['editamount'].errors?.['min']">
+            Please enter an amount greater than 0.
+        </span>
+        <span *ngIf="paymentForm.controls['editmonth'].errors?.['required']">
+            Month is required.
+        </span>
+        <span *ngIf="paymentForm.controls['editmonth'].errors?.['min'] ||
+            paymentForm.controls['editmonth'].errors?.['max']">
+            Please enter a month between 1 and 12.
+        </span>
+        </div>
+    </div>
+    
+    </form>
+    
