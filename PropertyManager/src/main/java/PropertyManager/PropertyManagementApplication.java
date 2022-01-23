@@ -1,9 +1,9 @@
 package PropertyManager;
 
 import PropertyManager.Model.*;
-import PropertyManager.Repositories.*;
-import PropertyManager.Services.ApartmentServiceImpl;
-import PropertyManager.Services.BuildingServiceImpl;
+import PropertyManager.Services.ApartmentService;
+import PropertyManager.Services.BuildingService;
+import PropertyManager.Services.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -22,9 +22,9 @@ public class PropertyManagementApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(BuildingServiceImpl buildingService,
-								  ApartmentServiceImpl apartmentService,
-								  PaymentRepository paymentService){
+	public CommandLineRunner demo(BuildingService buildingService,
+								  ApartmentService apartmentService,
+								  PaymentService paymentService){
 		return args -> {
 
 			AddDefaultData(buildingService, apartmentService, paymentService);
@@ -46,9 +46,9 @@ public class PropertyManagementApplication {
 		};
 	}
 
-	private static void AddDefaultData(BuildingServiceImpl buildingService,
-									   ApartmentServiceImpl apartmentService,
-									   PaymentRepository paymentService){
+	private static void AddDefaultData(BuildingService buildingService,
+									   ApartmentService apartmentService,
+									   PaymentService paymentService){
 		//save a few apartments
 		buildingService.add(new Building("6114 Washington"));
 		buildingService.add(new Building("5943 Kingsbury"));
@@ -63,16 +63,14 @@ public class PropertyManagementApplication {
 		apartmentService.add(new Apartment(2L, "2E"));
 		apartmentService.add(new Apartment(2L, "2W"));
 
-		for (Apartment apartment : apartmentService.getByBuilding(1L)) {
-			apartment.addPayment(paymentService, 1200, 9);
-		}
 
 		for (Apartment apartment : apartmentService.getByBuilding(1L)) {
-			apartment.addPayment(paymentService, 1200, 9);
+			paymentService.add(new Payment(apartment.getId(), 1200, 9));
 		}
 
-		// Add payment to apartments.  findById returns an Apartment Optional, so get() retrieves the apartment instance.
-		apartmentService.getById(3L).addPayment(paymentService, 1200, 10);
-		apartmentService.getById(4L).addPayment(paymentService, 1200, 10);
+		for (Apartment apartment : apartmentService.getByBuilding(2L)) {
+			paymentService.add(new Payment(apartment.getId(), 1200, 9));
+		}
+
 	}
 }

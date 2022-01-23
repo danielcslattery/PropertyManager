@@ -7,7 +7,6 @@ import PropertyManager.Exception.EntityIdNotFound;
 import PropertyManager.Model.Building;
 import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.Repositories.BuildingRepository;
-import PropertyManager.ServiceInterfaces.ApartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ApartmentServiceImpl implements ApartmentService {
+public class ApartmentService {
 
     @Autowired
     private ApartmentRepository apartmentRepository;

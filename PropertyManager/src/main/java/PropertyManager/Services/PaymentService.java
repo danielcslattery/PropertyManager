@@ -6,7 +6,6 @@ import PropertyManager.Exception.EmptyReturnFromQuery;
 import PropertyManager.Exception.EntityIdNotFound;
 import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.Repositories.PaymentRepository;
-import PropertyManager.ServiceInterfaces.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PaymentServiceImpl implements PaymentService {
+public class PaymentService {
 
     @Autowired
     PaymentRepository paymentRepository;

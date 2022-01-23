@@ -1,9 +1,8 @@
 package PropertyManager.Controllers;
 
-import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.Model.Apartment;
-import PropertyManager.ServiceInterfaces.ApartmentService;
-import PropertyManager.ServiceInterfaces.BuildingService;
+import PropertyManager.Services.ApartmentService;
+import PropertyManager.Services.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +17,6 @@ import java.util.List;
 @RequestMapping("/apartments")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ApartmentController {
-
-    @Autowired
-    private ApartmentRepository repository;
 
     @Autowired
     private ApartmentService apartmentService;

@@ -1,8 +1,8 @@
 package PropertyManager.Controllers;
 
 import PropertyManager.Model.Payment;
-import PropertyManager.ServiceInterfaces.ApartmentService;
-import PropertyManager.ServiceInterfaces.PaymentService;
+import PropertyManager.Services.ApartmentService;
+import PropertyManager.Services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/payments")

@@ -6,7 +6,6 @@ import PropertyManager.Exception.BuildingAddressNotFound;
 import PropertyManager.Exception.EntityIdNotFound;
 import PropertyManager.Exception.EmptyReturnFromQuery;
 import PropertyManager.Repositories.BuildingRepository;
-import PropertyManager.ServiceInterfaces.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BuildingServiceImpl implements BuildingService {
+public class BuildingService {
 
     @Autowired
     private BuildingRepository buildingRepository;
