@@ -37,7 +37,7 @@ public class BuildingService {
     }
 
     public Building add(Building building){
-        return buildingRepository.save(new Building(building.getAddress()));
+        return buildingRepository.save(building);
     }
 
     public Building getById(Long id){

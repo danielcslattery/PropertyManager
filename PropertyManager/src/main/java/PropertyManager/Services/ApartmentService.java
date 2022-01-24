@@ -47,9 +47,8 @@ public class ApartmentService {
 
     public Apartment add(Apartment apartment){
         Optional<Building> buildingOptional = buildingRepository.findById(apartment.getBuildingId());
-
-        return apartmentRepository.save(new Apartment(buildingOptional.get().getId(),
-                                            apartment.getNumber()));
+        apartment.setBuildingId(buildingOptional.get().getId());
+        return apartmentRepository.save(apartment);
     }
 
     public List<Apartment> getLatePayments(int month){

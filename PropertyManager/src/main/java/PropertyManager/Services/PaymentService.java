@@ -38,9 +38,9 @@ public class PaymentService {
             throw new EntityIdNotFound(payment.getApartmentId(), "payment");
         }
 
-        return paymentRepository.save(new Payment(apartmentOptional.get().getId(),
-                                        payment.getAmount(),
-                                        payment.getMonth()));
+        payment.setApartmentId(apartmentOptional.get().getId());
+
+        return paymentRepository.save(payment);
     }
 
     public List<Payment> getByApartment(Long apartmentId){
