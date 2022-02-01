@@ -26,8 +26,15 @@ export class ApartmentsComponent implements OnInit {
         // Go to all apartments
         this.getApartments()
       }
+
     })
 
+    let date = new Date()
+    this.apartmentService.getApartmentsWithLatePayments(date.getMonth() + 1).subscribe(
+      response => {
+        this.apartmentsWithLatePayments = response.body;
+        console.log(response.body);
+      });
   }
 
   apartmentForm = new FormGroup ({
@@ -42,6 +49,7 @@ export class ApartmentsComponent implements OnInit {
   selectedApartment?: Apartment;
 
   apartments: Apartment[] = []
+  apartmentsWithLatePayments: Apartment[] = []
   buildingId: number = 0
 
   getApartments(): void {
@@ -149,6 +157,14 @@ export class ApartmentsComponent implements OnInit {
       [Validators.required])
     // this.buildingForm.get("editaddress")?.setValue(building.address)
     this.selectedApartment = apartment;
+  }
+
+  // Function is called for each apartment squared
+  // The page works as intended but can be fixed later.
+  checkForLatePayments(apartment: Apartment): boolean {
+    return this.apartmentsWithLatePayments.some(
+      el => el.id == apartment.id
+    );
   }
 
 }

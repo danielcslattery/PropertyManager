@@ -20,46 +20,47 @@
     </th>
 
     <ng-container *ngIf="apartments.length; else noEntries">
-        <tr *ngFor = "let apartment of apartments">
-            <ng-container *ngIf="apartment == selectedApartment; else notSelected">
-                <td></td>
-                <td>
-                    <input type = "text" formControlName = "editnumber">
-                </td>
-                <td>
-                    <input  type = "submit" 
-                            name="edit" 
-                            value = "submit edit"
-                            (click) = "apartmentForm.controls['editnumber'].valid ? handleFormSubmission('edit', postform, apartment) : null">
-
-                </td>
-            </ng-container>
-
-            <ng-template #notSelected>
-                <td [routerLink] = "['/byApartment', apartment.id]">
-                    {{apartment.id}}
-                </td>
-                <td [routerLink] = "['/byApartment', apartment.id]">
-                    {{apartment.number}}
-                </td>
-                <td>
-                    <button type = "button" 
-                            class = "delete-btn" 
-                            (click) = "delete(apartment)">
-                        X
-                    </button>
-                </td>
-                <td>
-                    <button type = "button"
-                            class = "edit-btn"
-                            (click) = "selectForEditing(apartment)"
-                            name = "edit">
-                            O
-                    </button>
-                </td>
-            </ng-template>
-
-        </tr>
+        <ng-container *ngFor = "let apartment of apartments">
+            <tr [ngClass]="{'hasLatePayments' : checkForLatePayments(apartment)}">
+                <ng-container *ngIf="apartment == selectedApartment; else notSelected">
+                    <td></td>
+                    <td>
+                        <input type = "text" formControlName = "editnumber">
+                    </td>
+                    <td>
+                        <input  type = "submit" 
+                                name="edit" 
+                                value = "submit edit"
+                                (click) = "apartmentForm.controls['editnumber'].valid ? handleFormSubmission('edit', postform, apartment) : null">
+    
+                    </td>
+                </ng-container>
+    
+                <ng-template #notSelected >
+                    <td [routerLink] = "['/byApartment', apartment.id]" >
+                        {{apartment.id}}
+                    </td>
+                    <td [routerLink] = "['/byApartment', apartment.id]">
+                        {{apartment.number}}
+                    </td>
+                    <td>
+                        <button type = "button" 
+                                class = "delete-btn" 
+                                (click) = "delete(apartment)">
+                            X
+                        </button>
+                    </td>
+                    <td>
+                        <button type = "button"
+                                class = "edit-btn"
+                                (click) = "selectForEditing(apartment)"
+                                name = "edit">
+                                O
+                        </button>
+                    </td>
+                </ng-template>
+            </tr>
+        </ng-container>
 
         <tr class = "submit-row">
             <td>

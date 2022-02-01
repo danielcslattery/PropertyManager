@@ -11,6 +11,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Calendar;
+
 
 @SpringBootApplication
 public class PropertyManagementApplication {
@@ -49,6 +51,8 @@ public class PropertyManagementApplication {
 	private static void AddDefaultData(BuildingService buildingService,
 									   ApartmentService apartmentService,
 									   PaymentService paymentService){
+		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+
 		//save a few apartments
 		buildingService.add(new Building("6114 Washington"));
 		buildingService.add(new Building("5943 Kingsbury"));
@@ -65,12 +69,17 @@ public class PropertyManagementApplication {
 
 
 		for (Apartment apartment : apartmentService.getByBuilding(1L)) {
-			paymentService.add(new Payment(apartment.getId(), 1200, 9));
+			paymentService.add(new Payment(apartment.getId(), 1200, currentMonth));
 		}
 
 		for (Apartment apartment : apartmentService.getByBuilding(2L)) {
-			paymentService.add(new Payment(apartment.getId(), 1200, 9));
+			paymentService.add(new Payment(apartment.getId(), 1200, currentMonth));
 		}
+
+		for (Apartment apartment : apartmentService.getByBuilding(1L)) {
+			paymentService.add(new Payment(apartment.getId(), 1200, (currentMonth + 1) % 12));
+		}
+
 
 	}
 }

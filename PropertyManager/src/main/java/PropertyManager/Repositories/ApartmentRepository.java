@@ -36,8 +36,8 @@ public interface ApartmentRepository extends CrudRepository<Apartment, Long> {
             " (SELECT * " +
             " FROM payment " +
             " WHERE payment.month = :month) " +
-            "AS month_payments ON apartment.apartment_id = month_payments.apartment_id " +
-            "WHERE month_payments.payment_amount IS NULL",
+            "AS month_payments ON apartment.id = month_payments.apartment_id " +
+            "WHERE month_payments.amount IS NULL",
             nativeQuery = true)
     public List<Apartment> findLatePayments(@Param("month") int month);
 }

@@ -1,0 +1,9 @@
+.hasLatePayments {
+    background-color: rgb(248, 136, 136);
+}
+
+/* TODO find way to not override hover from style.css */
+.hasLatePayments:hover {
+    background-color: #022f34;
+    color: white;
+}

@@ -47,11 +47,10 @@ public class ApartmentController {
 
     // Returns apartments where the rents have not been paid for inputted month
     @GetMapping("/latePayments")
-    public String getLatePayments(Model model, @RequestParam int month){
-        model.addAttribute("apartments", apartmentService.getLatePayments(month));
-        model.addAttribute("month", month);
-
-        return "/Apartments/LatePayments";
+    public ResponseEntity<List<Apartment>> getLatePayments(@RequestParam int month){
+        List<Apartment> latePaymentApartments = apartmentService.getLatePayments(month);
+        System.out.println(latePaymentApartments);
+        return new ResponseEntity<>(latePaymentApartments, HttpStatus.OK);
     }
 
     @DeleteMapping("/{apartmentId}")
