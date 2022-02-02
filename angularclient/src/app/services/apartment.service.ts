@@ -18,16 +18,16 @@ export class ApartmentService {
 
   constructor(private http: HttpClient) { }
 
-  getApartments(): Observable<Apartment[]>{
-    return this.http.get<Apartment[]>(this.urls["all"])
+  getApartments(): Observable<HttpResponse<any>>{
+    return this.http.get(this.urls["all"], {observe: 'response'});
   }
 
-  getByBuilding(id: number): Observable<Apartment[]>{
-    return this.http.get<Apartment[]>(`http://localhost:8080/apartments/byBuilding/${id}`)
+  getByBuilding(id: number): Observable<HttpResponse<any>>{
+    return this.http.get(`http://localhost:8080/apartments/byBuilding/${id}`, {observe: 'response'});
   }
 
   deleteApartment(apartment: Apartment): Observable<HttpResponse<any>> {
-    return this.http.delete<any>(`http://localhost:8080/apartments/${apartment.id}`, {observe: 'response'});
+    return this.http.delete(`http://localhost:8080/apartments/${apartment.id}`, {observe: 'response'});
   }
 
   addApartment(formSubmission: FormData): Observable<HttpResponse<any>> {

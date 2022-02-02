@@ -17,18 +17,18 @@ export class BuildingService {
 
   constructor(private http: HttpClient) { }
 
-  getBuildings(): Observable<Building[]>{
-    return this.http.get<Building[]>(this.urls["all"])
+  getBuildings(): Observable<HttpResponse<any>>{
+    return this.http.get(this.urls["all"], {observe: 'response'});
   }
 
   deleteBuilding(building: Building): Observable<HttpResponse<any>> {
     // Still must subscribe for the delete request to go through
-    return this.http.delete<any>(`http://localhost:8080/buildings/${building.id}`, {observe: 'response'});
+    return this.http.delete(`http://localhost:8080/buildings/${building.id}`, {observe: 'response'});
   }
 
   addBuilding(formSubmission: FormData): Observable<HttpResponse<any>> {
     console.log("Adding address: ", formSubmission)
-    return this.http.post<any>('http://localhost:8080/buildings/', formSubmission, {observe: 'response'})
+    return this.http.post('http://localhost:8080/buildings/', formSubmission, {observe: 'response'})
   }
 
   editBuilding(formSubmission: FormData): Observable<HttpResponse<any>> {

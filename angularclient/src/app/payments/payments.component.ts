@@ -53,11 +53,11 @@ paymentForm = new FormGroup ({
   apartmentId: number = 0
 
   getPayments(): void {
-  this.paymentService.getPayments().subscribe(payment => this.payments = payment)
+  this.paymentService.getPayments().subscribe(response => this.payments = response.body)
   }
 
   getByApartment(apartmentId: number): void {
-  this.paymentService.getByApartment(apartmentId).subscribe(payment => this.payments = payment)
+  this.paymentService.getByApartment(apartmentId).subscribe(response => this.payments = response.body)
   }
 
   delete(payment: Payment): void {

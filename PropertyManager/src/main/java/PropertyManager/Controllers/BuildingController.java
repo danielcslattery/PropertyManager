@@ -25,9 +25,8 @@ public class BuildingController {
     private BuildingService buildingService;
 
     @GetMapping("/all")
-    @ResponseBody
-    public List<Building> getAll(){
-        return buildingService.getAll();
+    public ResponseEntity<List<Building>> getAll(){
+        return new ResponseEntity<>(buildingService.getAll(), HttpStatus.OK);
     }
 
     // Allows search by address

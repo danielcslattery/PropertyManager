@@ -25,15 +25,13 @@ public class ApartmentController {
     private BuildingService buildingService;
 
     @GetMapping("/all")
-    @ResponseBody
-    public List<Apartment> getAll(){
-        return apartmentService.getAll();
+    public ResponseEntity<List<Apartment>> getAll(){
+        return new ResponseEntity<>(apartmentService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/byBuilding/{buildingId}")
-    @ResponseBody
-    public List<Apartment> getByBuilding(@PathVariable Long buildingId){
-        return apartmentService.getByBuilding(buildingId);
+    public ResponseEntity<List<Apartment>> getByBuilding(@PathVariable Long buildingId){
+        return new ResponseEntity<>(apartmentService.getByBuilding(buildingId), HttpStatus.OK);
     }
 
     // .add() method for service could maybe take a single Apartment argument

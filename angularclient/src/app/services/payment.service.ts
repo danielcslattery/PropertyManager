@@ -14,17 +14,17 @@ export class PaymentService {
 
   constructor(private http: HttpClient) { }
 
-  getPayments(): Observable<Payment[]>{
-    return this.http.get<Payment[]>(this.urls["all"])
+  getPayments(): Observable<HttpResponse<any>>{
+    return this.http.get(this.urls["all"], {observe: 'response'});
   }
 
-  getByApartment(apartmentId: number): Observable<Payment[]>{
-    return this.http.get<Payment[]>(`http://localhost:8080/payments/byApartment/${apartmentId}`)
+  getByApartment(apartmentId: number): Observable<HttpResponse<any>>{
+    return this.http.get(`http://localhost:8080/payments/byApartment/${apartmentId}`, {observe: 'response'});
   }
 
   deletePayment(payment: Payment): Observable<HttpResponse<any>> {
     // Still must subscribe for the delete request to go through
-    return this.http.delete<any>(`http://localhost:8080/payments/${payment.id}`, {observe: 'response'});
+    return this.http.delete(`http://localhost:8080/payments/${payment.id}`, {observe: 'response'});
   }
 
   addPayment(formSubmission: FormData): Observable<HttpResponse<any>> {

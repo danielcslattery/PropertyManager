@@ -53,11 +53,11 @@ export class ApartmentsComponent implements OnInit {
   buildingId: number = 0
 
   getApartments(): void {
-    this.apartmentService.getApartments().subscribe(apartment => this.apartments = apartment)
+    this.apartmentService.getApartments().subscribe(response => this.apartments = response.body)
   }
 
   getByBuilding(buildingId: number): void {
-    this.apartmentService.getByBuilding(buildingId).subscribe(apartment => this.apartments = apartment)
+    this.apartmentService.getByBuilding(buildingId).subscribe(response => this.apartments = response.body)
   }
 
   delete(apartment: Apartment): void {

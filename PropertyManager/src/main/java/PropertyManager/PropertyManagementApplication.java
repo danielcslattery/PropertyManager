@@ -79,7 +79,5 @@ public class PropertyManagementApplication {
 		for (Apartment apartment : apartmentService.getByBuilding(1L)) {
 			paymentService.add(new Payment(apartment.getId(), 1200, (currentMonth + 1) % 12));
 		}
-
-
 	}
 }

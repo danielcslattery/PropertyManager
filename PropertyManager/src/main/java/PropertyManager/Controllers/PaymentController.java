@@ -25,9 +25,8 @@ public class PaymentController {
     private ApartmentService apartmentService;
 
     @GetMapping("/all")
-    @ResponseBody
-    public List<Payment> getAll(){
-        return paymentService.getAll();
+    public ResponseEntity<List<Payment>> getAll(){
+        return new ResponseEntity<>(paymentService.getAll(), HttpStatus.OK);
     }
 
     // Adds new payment to database without returning a new view.  Used with AJAX requests.
@@ -39,9 +38,8 @@ public class PaymentController {
     }
 
     @GetMapping("/byApartment/{apartmentId}")
-    @ResponseBody
-    public List<Payment> getByApartment (@PathVariable Long apartmentId){
-        return paymentService.getByApartment(apartmentId);
+    public ResponseEntity<List<Payment>> getByApartment (@PathVariable Long apartmentId){
+        return new ResponseEntity<>(paymentService.getByApartment(apartmentId), HttpStatus.OK);
     }
 
     @GetMapping("/{paymentId}")

@@ -30,10 +30,9 @@ export class BuildingsComponent implements OnInit {
   buildings: Building[] = [];
 
   getBuildings(): void {
-    this.buildingService.getBuildings().subscribe(buildings => {
-      this.buildings = buildings;
+    this.buildingService.getBuildings().subscribe(response => {
+      this.buildings = response.body;
       })
-    
   }
 
  delete(building: Building): void {
