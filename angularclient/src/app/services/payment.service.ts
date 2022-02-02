@@ -8,34 +8,29 @@ import { Payment } from '../models/payment';
 })
 export class PaymentService {
   private urls = {
-    "all": 'http://localhost:8080/payments/all',
-    "delete": 'http://localhost:8080/payments'
+    "home": 'http://localhost:8080/payments/',
+    "byApartment": 'http://localhost:8080/payments/byApartment/'
   };
 
   constructor(private http: HttpClient) { }
 
   getPayments(): Observable<HttpResponse<any>>{
-    return this.http.get(this.urls["all"], {observe: 'response'});
+    return this.http.get(this.urls["home"], {observe: 'response'});
   }
 
   getByApartment(apartmentId: number): Observable<HttpResponse<any>>{
-    return this.http.get(`http://localhost:8080/payments/byApartment/${apartmentId}`, {observe: 'response'});
+    return this.http.get(`${this.urls["byApartment"]}${apartmentId}`, {observe: 'response'});
   }
 
   deletePayment(payment: Payment): Observable<HttpResponse<any>> {
-    // Still must subscribe for the delete request to go through
-    return this.http.delete(`http://localhost:8080/payments/${payment.id}`, {observe: 'response'});
+    return this.http.delete(`${this.urls["home"]}${payment.id}`, {observe: 'response'});
   }
 
   addPayment(formSubmission: FormData): Observable<HttpResponse<any>> {
-    console.log(formSubmission)
-    return this.http.post('http://localhost:8080/payments/', formSubmission, {observe: 'response'});
+    return this.http.post(this.urls["home"], formSubmission, {observe: 'response'});
   }
 
   editPayment(formSubmission: FormData): Observable<HttpResponse<any>> {
-    console.log("Editing", formSubmission)
-    return this.http.put(`http://localhost:8080/payments/`, formSubmission, {observe: 'response'});
+    return this.http.put(this.urls["home"], formSubmission, {observe: 'response'});
   }
-
-
 }

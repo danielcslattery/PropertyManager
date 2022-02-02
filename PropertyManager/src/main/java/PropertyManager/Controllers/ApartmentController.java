@@ -24,7 +24,7 @@ public class ApartmentController {
     @Autowired
     private BuildingService buildingService;
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Apartment>> getAll(){
         return new ResponseEntity<>(apartmentService.getAll(), HttpStatus.OK);
     }

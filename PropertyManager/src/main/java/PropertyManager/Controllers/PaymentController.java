@@ -24,7 +24,7 @@ public class PaymentController {
     @Autowired
     private ApartmentService apartmentService;
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Payment>> getAll(){
         return new ResponseEntity<>(paymentService.getAll(), HttpStatus.OK);
     }

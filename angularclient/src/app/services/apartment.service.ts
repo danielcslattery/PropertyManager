@@ -9,41 +9,36 @@ import { Building } from '../models/building';
 })
 export class ApartmentService {
   private urls = {
-    "all": 'http://localhost:8080/apartments/all',
-    "delete": 'http://localhost:8080/apartments'
+    "home": 'http://localhost:8080/apartments/',
+    "byBuilding": 'http://localhost:8080/apartments/byBuilding/',
+    "latePayments": `http://localhost:8080/apartments/latePayments`
   };
-
-  private allApartmentsUrl = 'http://localhost:8080/apartments/all'
-
 
   constructor(private http: HttpClient) { }
 
   getApartments(): Observable<HttpResponse<any>>{
-    return this.http.get(this.urls["all"], {observe: 'response'});
+    return this.http.get(this.urls["home"], {observe: 'response'});
   }
 
   getByBuilding(id: number): Observable<HttpResponse<any>>{
-    return this.http.get(`http://localhost:8080/apartments/byBuilding/${id}`, {observe: 'response'});
+    return this.http.get(`${this.urls["byBuilding"]}${id}`, {observe: 'response'});
   }
 
   deleteApartment(apartment: Apartment): Observable<HttpResponse<any>> {
-    return this.http.delete(`http://localhost:8080/apartments/${apartment.id}`, {observe: 'response'});
+    return this.http.delete(`${this.urls["home"]}${apartment.id}`, {observe: 'response'});
   }
 
   addApartment(formSubmission: FormData): Observable<HttpResponse<any>> {
-    console.log(formSubmission)
-    return this.http.post('http://localhost:8080/apartments/', formSubmission, {observe: 'response'});
+    return this.http.post(this.urls["home"], formSubmission, {observe: 'response'});
   }
 
   editApartment(formSubmission: FormData): Observable<HttpResponse<any>> {
-    console.log("Editing", formSubmission)
-    return this.http.put(`http://localhost:8080/apartments/`, formSubmission, {observe: 'response'});
+    return this.http.put(this.urls["home"], formSubmission, {observe: 'response'});
   }
 
   getApartmentsWithLatePayments(month: number): Observable<HttpResponse<any>> {
-    console.log("Checking month: ", month)
     let params = new HttpParams().set("month", month);
-    return this.http.get(`http://localhost:8080/apartments/latePayments`, 
+    return this.http.get(this.urls["latePayments"], 
       {observe: 'response', params: params});
   }
 
