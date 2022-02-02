@@ -5,9 +5,11 @@ import PropertyManager.Exception.ApartmentNumberNotFound;
 import PropertyManager.Exception.EmptyReturnFromQuery;
 import PropertyManager.Exception.EntityIdNotFound;
 import PropertyManager.Model.Building;
+import PropertyManager.Model.Payment;
 import PropertyManager.Repositories.ApartmentRepository;
 import PropertyManager.Repositories.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +22,10 @@ public class ApartmentService {
     private ApartmentRepository apartmentRepository;
 
     @Autowired
-    private BuildingRepository buildingRepository;
+    private BuildingService buildingService;
+
+    @Autowired
+    private PaymentService paymentService;
 
     public List<Apartment> getAll(){
         List<Apartment> apartments = (List<Apartment>) apartmentRepository.findAll();
@@ -46,8 +51,8 @@ public class ApartmentService {
     }
 
     public Apartment add(Apartment apartment){
-        Optional<Building> buildingOptional = buildingRepository.findById(apartment.getBuildingId());
-        apartment.setBuildingId(buildingOptional.get().getId());
+        Building building = buildingService.getById(apartment.getBuildingId());
+        apartment.setBuildingId(building.getId());
         return apartmentRepository.save(apartment);
     }
 
@@ -66,15 +71,19 @@ public class ApartmentService {
         return apartmentOpt.get();
     }
 
-    public Apartment delete(Long id){
-        Optional<Apartment> apartmentOptional = apartmentRepository.findById(id);
+    public Apartment delete(Apartment apartment){
+//        Optional<Apartment> apartmentOptional = apartmentRepository.findById(id);
+//
+//        if (apartmentOptional.isEmpty()){
+//            throw new EntityIdNotFound(id, "apartment");
+//        }
 
-        if (apartmentOptional.isEmpty()){
-            throw new EntityIdNotFound(id, "apartment");
+        for(Payment payment : paymentService.getByApartment(apartment.getId())){
+            paymentService.delete(payment);
         }
 
-        apartmentRepository.delete(apartmentOptional.get());
-        return apartmentOptional.get();
+        apartmentRepository.delete(apartment);
+        return apartment;
     }
 
     public Apartment update(Apartment apartment){

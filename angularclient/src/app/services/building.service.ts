@@ -18,7 +18,7 @@ export class BuildingService {
   }
 
   deleteBuilding(building: Building): Observable<HttpResponse<any>> {
-    return this.http.delete(`${this.urls["home"]}${building.id}`, {observe: 'response'});
+    return this.http.delete(this.urls["home"], {observe: 'response', body: building});
   }
 
   addBuilding(formSubmission: FormData): Observable<HttpResponse<any>> {

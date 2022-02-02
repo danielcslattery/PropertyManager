@@ -52,9 +52,9 @@ public class BuildingController {
     }
 
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.
-    @DeleteMapping("/{buildingId}")
-    public ResponseEntity<Building> delete(@PathVariable Long buildingId){
-        Building buildingDeleted = buildingService.delete(buildingId);
+    @DeleteMapping
+    public ResponseEntity<Building> delete(@Valid @RequestBody Building building){
+        Building buildingDeleted = buildingService.delete(building);
         return new ResponseEntity<>(buildingDeleted, HttpStatus.OK);
     }
 

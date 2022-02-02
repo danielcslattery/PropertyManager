@@ -25,7 +25,7 @@ export class ApartmentService {
   }
 
   deleteApartment(apartment: Apartment): Observable<HttpResponse<any>> {
-    return this.http.delete(`${this.urls["home"]}${apartment.id}`, {observe: 'response'});
+    return this.http.delete(this.urls["home"], {observe: 'response', body: apartment});
   }
 
   addApartment(formSubmission: FormData): Observable<HttpResponse<any>> {

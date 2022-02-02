@@ -47,13 +47,13 @@ public class PaymentService {
         return paymentRepository.findPaymentsByApartmentId(apartmentId);
     }
 
-    public Payment delete(long paymentId){
-        Optional<Payment> paymentOptional = paymentRepository.findById(paymentId);
-        if (paymentOptional.isEmpty()){
-            throw new EntityIdNotFound(paymentId, "payment");
-        }
-        paymentRepository.deleteById(paymentId);
-        return paymentOptional.get();
+    public Payment delete(Payment payment){
+//        Optional<Payment> paymentOptional = paymentRepository.findById(paymentId);
+//        if (paymentOptional.isEmpty()){
+//            throw new EntityIdNotFound(paymentId, "payment");
+//        }
+        paymentRepository.delete(payment);
+        return payment;
     }
 
     //TODO expected exception not being thrown when findById should be failing.

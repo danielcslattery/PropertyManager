@@ -51,9 +51,9 @@ public class ApartmentController {
         return new ResponseEntity<>(latePaymentApartments, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{apartmentId}")
-    public ResponseEntity<Apartment> delete(@PathVariable Long apartmentId){
-        Apartment apartmentDeleted = apartmentService.delete(apartmentId);
+    @DeleteMapping
+    public ResponseEntity<Apartment> delete(@Valid @RequestBody Apartment apartment){
+        Apartment apartmentDeleted = apartmentService.delete(apartment);
         return new ResponseEntity<>(apartmentDeleted, HttpStatus.OK);
     }
 

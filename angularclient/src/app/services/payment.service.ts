@@ -23,7 +23,7 @@ export class PaymentService {
   }
 
   deletePayment(payment: Payment): Observable<HttpResponse<any>> {
-    return this.http.delete(`${this.urls["home"]}${payment.id}`, {observe: 'response'});
+    return this.http.delete(this.urls["home"], {observe: 'response', body: payment});
   }
 
   addPayment(formSubmission: FormData): Observable<HttpResponse<any>> {

@@ -49,9 +49,9 @@ public class PaymentController {
         return "/Payments/landing";
     }
 
-    @DeleteMapping("/{paymentId}")
-    public ResponseEntity<Payment> delete(@PathVariable Long paymentId){
-        Payment paymentDeleted = paymentService.delete(paymentId);
+    @DeleteMapping
+    public ResponseEntity<Payment> delete(@Valid @RequestBody Payment payment){
+        Payment paymentDeleted = paymentService.delete(payment);
         return new ResponseEntity<>(paymentDeleted, HttpStatus.OK);
     }
 
