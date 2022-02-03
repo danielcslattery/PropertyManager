@@ -63,13 +63,7 @@ export class ApartmentsComponent implements OnInit {
   delete(apartment: Apartment): void {
     this.apartmentService.deleteApartment(apartment).subscribe(response => {
       if (response.status == 200) {
-        // The for loop is slow but ensures the correct building is deleted.
-        for(let i = 0; i < this.apartments.length; i++){
-          if (this.apartments[i].id == response.body.id){
-            console.log(this.apartments[i]);  
-            this.apartments.splice(i, 1);
-          }
-        }
+        this.apartments = this.apartments.filter(el => !(el.id == response.body.id))
       } else {
         // Do nothing
       }
@@ -126,14 +120,9 @@ export class ApartmentsComponent implements OnInit {
 
     this.apartmentService.editApartment(postform.value).subscribe(response => {
       if (response.status == 200) {
-        // The for loop is slow but ensures the correct apartment is updated.
-        for(let i = 0; i < this.apartments.length; i++){
-          if (this.apartments[i].id == response.body.id){
-            this.apartments.splice(i, 1);
-            this.apartments.push(response.body);
-          }
-
-        }
+        this.apartments = this.apartments.filter(el => !(el.id == response.body.id))
+        this.apartments.push(response.body);
+        
       } else {
         console.log("Something went wrong...")
         // Do nothing

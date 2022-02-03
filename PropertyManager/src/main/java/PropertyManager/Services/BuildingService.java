@@ -57,10 +57,9 @@ public class BuildingService {
     // Returns the deleted building so the front end can delete it from the list.
     public Building delete(Building building){
 
-//      Delete apartments within this building
-        for(Apartment apartment : apartmentService.getByBuilding(building)){
-            apartmentService.delete(apartment);
-        }
+        // Delete apartments (and payments) tied to this apartment
+        apartmentService.getByBuilding(building).forEach(
+                (apartment) -> apartmentService.delete(apartment));
 
         buildingRepository.delete(building);
         return building;

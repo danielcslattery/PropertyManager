@@ -38,14 +38,7 @@ export class BuildingsComponent implements OnInit {
  delete(building: Building): void {
     this.buildingService.deleteBuilding(building).subscribe(response => {
       if (response.status == 200) {
-        // The for loop is slow but ensures the correct building is deleted.
-        for(let i = 0; i < this.buildings.length; i++){
-          if (this.buildings[i].id == response.body.id){
-            console.log(this.buildings[i]);
-            this.buildings.splice(i, 1);
-          }
-
-        }
+        this.buildings = this.buildings.filter(el => !(el.id == response.body.id))
       } else {
         // Do nothing
       }
@@ -75,8 +68,8 @@ export class BuildingsComponent implements OnInit {
     this.buildingService.addBuilding(postform.form.value).subscribe(response => {
       if (response.status == 201) {
         this.buildings.push(response.body);
-    // Return form to empty
-    postform.resetForm();
+        // Return form to empty
+        postform.resetForm();
       } else {
         // Do nothing
       }
@@ -94,14 +87,9 @@ export class BuildingsComponent implements OnInit {
 
     this.buildingService.editBuilding(postform.value).subscribe(response => {
       if (response.status == 200) {
+        this.buildings = this.buildings.filter(el => !(el.id == response.body.id))
+        this.buildings.push(response.body);
         // The for loop is slow but ensures the correct building is updated.
-        for(let i = 0; i < this.buildings.length; i++){
-          if (this.buildings[i].id == response.body.id){
-            this.buildings.splice(i, 1);
-            this.buildings.push(response.body);
-          }
-
-        }
       } else {
         // Do nothing
       }
@@ -109,20 +97,17 @@ export class BuildingsComponent implements OnInit {
 
     // Return form to empty
     postform.resetForm();
-
-    // postform.form.get("address")?.setValue("");
-
   }
 
   selectForEditing(building: Building): void {
 
     // Edited address is only necessary so that the add address portion 
     // of the form isn't populated with existing address when editing.
+    // TODO investigate if editaddress can be added to form initially rather than added now. 
     this.buildingForm.setControl("editaddress", new FormControl(building.address))
     this.buildingForm.get("editaddress")?.setValidators( 
       [Validators.required,
         Validators.minLength(4)])
-    // this.buildingForm.get("editaddress")?.setValue(building.address)
     this.selectedBuilding = building;
   }
 

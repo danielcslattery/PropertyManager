@@ -72,10 +72,9 @@ public class ApartmentService {
     }
 
     public Apartment delete(Apartment apartment){
-
-        for(Payment payment : paymentService.getByApartment(apartment)){
-            paymentService.delete(payment);
-        }
+        // Delete payments tied to this apartment
+        paymentService.getByApartment(apartment).forEach(
+                (payment) -> paymentService.delete(payment));
 
         apartmentRepository.delete(apartment);
         return apartment;

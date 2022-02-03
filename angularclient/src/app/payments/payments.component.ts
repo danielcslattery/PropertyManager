@@ -63,13 +63,7 @@ paymentForm = new FormGroup ({
   delete(payment: Payment): void {
     this.paymentService.deletePayment(payment).subscribe(response => {
       if (response.status == 200) {
-        // The for loop is slow but ensures the correct building is deleted.
-        for(let i = 0; i < this.payments.length; i++){
-          if (this.payments[i].id == response.body.id){
-            console.log(this.payments[i]);  
-            this.payments.splice(i, 1);
-          }
-        }
+        this.payments = this.payments.filter(el => !(el.id == response.body.id))
       } else {
         // Do nothing
       }
@@ -129,25 +123,15 @@ paymentForm = new FormGroup ({
 
     this.paymentService.editPayment(postform.value).subscribe(response => {
       if (response.status == 200) {
-        // The for loop is slow but ensures the correct apartment is updated.
-        for(let i = 0; i < this.payments.length; i++){
-          if (this.payments[i].id == response.body.id){
-            this.payments.splice(i, 1);
-            this.payments.push(response.body);
-          }
-
-        }
+        this.payments = this.payments.filter(el => !(el.id == response.body.id))
+        this.payments.push(response.body);
       } else {
-        console.log("Something went wrong...")
         // Do nothing
       }
     });
 
     // Return form to empty
     postform.resetForm();
-
-    // postform.form.get("address")?.setValue("");
-
   }
   
   selectForEditing(payment: Payment): void {
