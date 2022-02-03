@@ -56,13 +56,9 @@ public class BuildingService {
 
     // Returns the deleted building so the front end can delete it from the list.
     public Building delete(Building building){
-//        Optional<Building> buildingOptional = buildingRepository.findById(id);
 
-//        if (buildingOptional.isEmpty()){
-//            throw new EntityIdNotFound(id, "building");
-//        }
 //      Delete apartments within this building
-        for(Apartment apartment : apartmentService.getByBuilding(building.getId())){
+        for(Apartment apartment : apartmentService.getByBuilding(building)){
             apartmentService.delete(apartment);
         }
 

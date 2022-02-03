@@ -31,36 +31,29 @@ public class ApartmentController {
 
     @GetMapping("/byBuilding/{buildingId}")
     public ResponseEntity<List<Apartment>> getByBuilding(@PathVariable Long buildingId){
-        return new ResponseEntity<>(apartmentService.getByBuilding(buildingId), HttpStatus.OK);
+        return new ResponseEntity<>(apartmentService.getByBuilding(buildingService.getById(buildingId)), HttpStatus.OK);
     }
 
-    // .add() method for service could maybe take a single Apartment argument
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.
     @PostMapping
     public ResponseEntity<Apartment> addNewApartment(@Valid @RequestBody Apartment apartment){
-        Apartment apartmentAdded = apartmentService.add(apartment);
-        return new ResponseEntity<>(apartmentAdded, HttpStatus.CREATED);
+        return new ResponseEntity<>(apartmentService.add(apartment), HttpStatus.CREATED);
     }
-
 
     // Returns apartments where the rents have not been paid for inputted month
     @GetMapping("/latePayments")
     public ResponseEntity<List<Apartment>> getLatePayments(@RequestParam int month){
-        List<Apartment> latePaymentApartments = apartmentService.getLatePayments(month);
-        System.out.println(latePaymentApartments);
-        return new ResponseEntity<>(latePaymentApartments, HttpStatus.OK);
+        return new ResponseEntity<>(apartmentService.getLatePayments(month), HttpStatus.OK);
     }
 
     @DeleteMapping
     public ResponseEntity<Apartment> delete(@Valid @RequestBody Apartment apartment){
-        Apartment apartmentDeleted = apartmentService.delete(apartment);
-        return new ResponseEntity<>(apartmentDeleted, HttpStatus.OK);
+        return new ResponseEntity<>(apartmentService.delete(apartment), HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<Apartment> update(@Valid @RequestBody Apartment apartment){
-        Apartment apartmentUpdated = apartmentService.update(apartment);
-        return new ResponseEntity<>(apartmentUpdated, HttpStatus.OK);
+        return new ResponseEntity<>(apartmentService.update(apartment), HttpStatus.OK);
     }
 }
 

@@ -32,32 +32,20 @@ public class PaymentService {
     }
 
     public Payment add(Payment payment){
-        Optional<Apartment> apartmentOptional = apartmentRepository.findById(payment.getApartmentId());
-
-        if (apartmentOptional.isEmpty()){
-            throw new EntityIdNotFound(payment.getApartmentId(), "payment");
-        }
-
-        payment.setApartmentId(apartmentOptional.get().getId());
-
         return paymentRepository.save(payment);
     }
 
-    public List<Payment> getByApartment(Long apartmentId){
-        return paymentRepository.findPaymentsByApartmentId(apartmentId);
+    public List<Payment> getByApartment(Apartment apartment){
+        return paymentRepository.findPaymentsByApartmentId(apartment.getId());
     }
 
     public Payment delete(Payment payment){
-//        Optional<Payment> paymentOptional = paymentRepository.findById(paymentId);
-//        if (paymentOptional.isEmpty()){
-//            throw new EntityIdNotFound(paymentId, "payment");
-//        }
         paymentRepository.delete(payment);
         return payment;
     }
 
     //TODO expected exception not being thrown when findById should be failing.
-    public Payment  getById(long paymentId){
+    public Payment getById(long paymentId){
         Optional<Payment> paymentOptional = paymentRepository.findById(paymentId);
         if (paymentOptional.isEmpty()){
             throw new EntityIdNotFound(paymentId, "payment");

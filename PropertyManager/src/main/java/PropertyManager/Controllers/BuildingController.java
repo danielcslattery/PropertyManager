@@ -19,9 +19,6 @@ import java.util.List;
 public class BuildingController {
 
     @Autowired
-    private BuildingRepository repository;
-
-    @Autowired
     private BuildingService buildingService;
 
     @GetMapping
@@ -29,7 +26,7 @@ public class BuildingController {
         return new ResponseEntity<>(buildingService.getAll(), HttpStatus.OK);
     }
 
-    // Allows search by address
+    // Allows search by address.  Not implemented
     @GetMapping("/byAddress")
     public String getByAddress(@RequestParam String address){
         Building building = buildingService.getByAddress(address).get(0);
@@ -45,10 +42,8 @@ public class BuildingController {
 
     // Other commands are redirected to a landing page for single buildings.
     @GetMapping("/{buildingId}")
-    public String getBuilding(@PathVariable Long buildingId, Model model){
-        Building building = buildingService.getById(buildingId);
-        model.addAttribute("building", building);
-        return "/Buildings/landing";
+    public ResponseEntity<Building> getBuilding(@PathVariable Long buildingId){
+        return new ResponseEntity<>(buildingService.getById(buildingId), HttpStatus.OK);
     }
 
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.

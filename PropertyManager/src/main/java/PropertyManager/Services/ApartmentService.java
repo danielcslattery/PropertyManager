@@ -46,8 +46,8 @@ public class ApartmentService {
         return apartmentList;
     }
 
-    public List<Apartment> getByBuilding(Long building){
-        return apartmentRepository.findApartmentByBuilding(building);
+    public List<Apartment> getByBuilding(Building building){
+        return apartmentRepository.findApartmentByBuilding(building.getId());
     }
 
     public Apartment add(Apartment apartment){
@@ -72,13 +72,8 @@ public class ApartmentService {
     }
 
     public Apartment delete(Apartment apartment){
-//        Optional<Apartment> apartmentOptional = apartmentRepository.findById(id);
-//
-//        if (apartmentOptional.isEmpty()){
-//            throw new EntityIdNotFound(id, "apartment");
-//        }
 
-        for(Payment payment : paymentService.getByApartment(apartment.getId())){
+        for(Payment payment : paymentService.getByApartment(apartment)){
             paymentService.delete(payment);
         }
 
