@@ -46,6 +46,17 @@ paymentForm = new FormGroup ({
     Validators.min(1),
     Validators.max(12)
   ]),
+  editamount: new FormControl({
+    value:"", disable: true}, [
+    Validators.required,
+    Validators.min(0)
+  ]),
+  editmonth: new FormControl({
+    value:"", disable: true},[
+    Validators.required,
+    Validators.min(1),
+    Validators.max(12)
+  ]),
   id: new FormControl(""),
   apartmentId: new FormControl("")
 })
@@ -71,9 +82,7 @@ paymentForm = new FormGroup ({
     });
   }
 
-
   add(postform: FormGroupDirective): void {
-    
     this.paymentService.addPayment(this.paymentForm.value).subscribe(response => {
       if (response.status == 201) {
         this.payments.push(response.body);
@@ -89,7 +98,6 @@ paymentForm = new FormGroup ({
     postform: FormGroupDirective,
     payment?: Payment): void{
 
-
     if (buttonClicked == "add"){
       this.add(postform);
     } else if (buttonClicked == "edit"){
@@ -104,7 +112,6 @@ paymentForm = new FormGroup ({
 
 
   edit(postform: FormGroupDirective): void {
-
     // Enable these components of the form so form can be submitted.
     this.paymentForm.get("amount")?.enable();
     this.paymentForm.get("month")?.enable();
@@ -113,11 +120,9 @@ paymentForm = new FormGroup ({
     // of the form isn't populated with existing amount/month when editing.
     let editedAmount: string = this.paymentForm.get("editamount")?.value;
     postform.form.get("amount")?.setValue(editedAmount);
-    postform.form.removeControl("editamount");
 
     let editedMonth: string = this.paymentForm.get("editmonth")?.value;
     postform.form.get("month")?.setValue(editedMonth);
-    postform.form.removeControl("editmonth");
 
     this.paymentService.editPayment(postform.value).subscribe(response => {
       if (response.status == 200) {
@@ -127,32 +132,24 @@ paymentForm = new FormGroup ({
         // Do nothing
       }
     });
-
-    // Return form to empty
+    // Return form to empty and disable editing fields again
+    this.paymentForm.get("editamount")?.disable();
+    this.paymentForm.get("editmonth")?.disable();
     postform.resetForm();
   }
   
   selectForEditing(payment: Payment): void {
     // Disable inputs related to adding when user is editing
+    // Edited amount and month is only necessary so that the add amount/month portion 
+    // of the form isn't populated with existing amount/month when editing.
     this.paymentForm.get("amount")?.disable();
     this.paymentForm.get("month")?.disable();
 
-    // Edited amount and month is only necessary so that the add amount/month portion 
-    // of the form isn't populated with existing amount/month when editing.
-    this.paymentForm.setControl("editamount", new FormControl(payment.amount))
-    this.paymentForm.get("editamount")?.setValidators( 
-      [
-        Validators.required,
-        Validators.min(0)
-      ])
+    this.paymentForm.get("editamount")?.enable();
+    this.paymentForm.get("editmonth")?.enable();
 
-    this.paymentForm.setControl("editmonth", new FormControl(payment.month))
-    this.paymentForm.get("editmonth")?.setValidators( 
-      [
-        Validators.required,
-        Validators.min(1),
-        Validators.max(12)
-      ])
+    this.paymentForm.get("editamount")?.setValue(payment.amount);
+    this.paymentForm.get("editmonth")?.setValue(payment.month);
 
     this.selectedPayment = payment;
   }

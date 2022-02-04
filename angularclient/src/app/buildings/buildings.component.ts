@@ -21,6 +21,11 @@ export class BuildingsComponent implements OnInit {
       Validators.required,
       Validators.minLength(4)
     ]),
+    editaddress: new FormControl({
+      value:"", disable: true},[
+      Validators.required,
+      Validators.minLength(4)
+    ]),
     id: new FormControl("")
   })
 
@@ -74,7 +79,6 @@ export class BuildingsComponent implements OnInit {
         // Do nothing
       }
     });
-
   }
 
   edit(postform: FormGroupDirective): void {
@@ -86,19 +90,17 @@ export class BuildingsComponent implements OnInit {
     // of the form isn't populated with existing address when editing.
     let editedAddress: string = this.buildingForm.get("editaddress")?.value;
     postform.form.get("address")?.setValue(editedAddress);
-    postform.form.removeControl("editaddress");
 
     this.buildingService.editBuilding(postform.value).subscribe(response => {
       if (response.status == 200) {
         this.buildings = this.buildings.filter(el => !(el.id == response.body.id))
         this.buildings.push(response.body);
-        // The for loop is slow but ensures the correct building is updated.
       } else {
         // Do nothing
       }
     });
-
-    // Return form to empty
+    // Return form to empty and disable editing fields again
+    this.buildingForm.get("editaddress")?.disable();
     postform.resetForm();
   }
 
@@ -109,12 +111,10 @@ export class BuildingsComponent implements OnInit {
 
     // Edited address is only necessary so that the add address portion 
     // of the form isn't populated with existing address when editing.
-    // TODO investigate if editaddress can be added to form initially rather than added now. 
-    this.buildingForm.setControl("editaddress", new FormControl(building.address))
-    this.buildingForm.get("editaddress")?.setValidators( 
-      [Validators.required,
-        Validators.minLength(4)])
+    this.buildingForm.get("editaddress")?.enable();
+
+    this.buildingForm.get("editaddress")?.setValue(building.address);
+
     this.selectedBuilding = building;
   }
-
 }

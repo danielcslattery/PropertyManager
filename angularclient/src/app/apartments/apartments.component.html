@@ -2,132 +2,118 @@
 
 
 <form [formGroup]="apartmentForm" #postform="ngForm">
-<table>
-    <th>
-        Id
-    </th>
+    <table>
+        <th>
+            Id
+        </th>
 
-    <th>
-        Number
-    </th>
+        <th>
+            Number
+        </th>
 
-    <th>
-        Delete
-    </th>
+        <th>
+            Delete
+        </th>
 
-    <th>
-        Edit
-    </th>
+        <th>
+            Edit
+        </th>
 
-    <ng-container *ngIf="apartments.length; else noEntries">
-        <ng-container *ngFor = "let apartment of apartments">
-            <tr [ngClass]="{'hasLatePayments' : checkForLatePayments(apartment)}">
-                <ng-container *ngIf="apartment == selectedApartment; else notSelected">
-                    <td></td>
-                    <td>
-                        <input type = "text" formControlName = "editnumber">
-                    </td>
-                    <td>
-                        <input  type = "submit" 
-                                name="edit" 
-                                value = "submit edit"
-                                (click) = "apartmentForm.controls['editnumber'].valid ? handleFormSubmission('edit', postform, apartment) : null">
-    
-                    </td>
-                </ng-container>
-    
-                <ng-template #notSelected >
-                    <td [routerLink] = "['/byApartment', apartment.id]" >
-                        {{apartment.id}}
-                    </td>
-                    <td [routerLink] = "['/byApartment', apartment.id]">
-                        {{apartment.number}}
-                    </td>
-                    <td>
-                        <button type = "button" 
-                                class = "delete-btn" 
-                                (click) = "delete(apartment)">
-                            X
-                        </button>
-                    </td>
-                    <td>
-                        <button type = "button"
-                                class = "edit-btn"
-                                (click) = "selectForEditing(apartment)"
-                                name = "edit">
-                                O
-                        </button>
-                    </td>
-                </ng-template>
+        <ng-container *ngIf="apartments.length; else noEntries">
+            <ng-container *ngFor = "let apartment of apartments">
+                <tr [ngClass]="{'hasLatePayments' : checkForLatePayments(apartment)}">
+                    <ng-container *ngIf="apartment == selectedApartment; else notSelected">
+                        <td></td>
+                        <td>
+                            <input type = "text" formControlName = "editnumber">
+                        </td>
+                        <td>
+                            <input  type = "submit" 
+                                    name="edit" 
+                                    value = "submit edit"
+                                    (click) = "apartmentForm.controls['editnumber'].valid ? handleFormSubmission('edit', postform, apartment) : null">
+        
+                        </td>
+                        <td></td>
+                    </ng-container>
+        
+                    <ng-template #notSelected >
+                        <td [routerLink] = "['/byApartment', apartment.id]" >
+                            {{apartment.id}}
+                        </td>
+                        <td [routerLink] = "['/byApartment', apartment.id]">
+                            {{apartment.number}}
+                        </td>
+                        <td>
+                            <button type = "button" 
+                                    class = "delete-btn" 
+                                    (click) = "delete(apartment)">
+                                X
+                            </button>
+                        </td>
+                        <td>
+                            <button type = "button"
+                                    class = "edit-btn"
+                                    (click) = "selectForEditing(apartment)"
+                                    name = "edit">
+                                    O
+                            </button>
+                        </td>
+                    </ng-template>
+                </tr>
+            </ng-container>
+
+            <tr class = "submit-row">
+                <td>
+                    <input type = "submit" value = "+" (click) = "apartmentForm.valid ? handleFormSubmission('add', postform) : null">
+                </td>
+                <td>
+                    <input  type = "text" 
+                            formControlName = "number"
+                            placeholder = "Add Apartment">
+                </td>
+                <td></td>
+                <td></td>
             </tr>
         </ng-container>
 
-        <tr class = "submit-row">
-            <td>
-                <input type = "submit" value = "+" (click) = "apartmentForm.valid ? handleFormSubmission('add', postform) : null">
-            </td>
-            <td>
-                <input  type = "text" 
-                        formControlName = "number"
-                        placeholder = "Add Apartment">
+        <ng-template #noEntries>
+            <tr class = "no-entries">
+                <td colspan="4">No Entries</td>
+            </tr>
+
+            <tr class = "submit-row">
+                <td>
+                    <input type = "submit" value = "+" (click) = "apartmentForm.valid ? handleFormSubmission('add', postform) : null">
+                </td>
+                <td>
+                    <input  type = "text" 
+                            formControlName = "number"
+                            placeholder = "Add Apartment">
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </ng-template>
+    </table>
 
 
-            </td>
-            <td>
-                
-            </td>
-            <td>
-
-            </td>
-
-        </tr>
-
-    </ng-container>
-
-    <ng-template #noEntries>
-        <tr class = "no-entries">
-            <td colspan="4">No Entries</td>
-        </tr>
-
-        <tr class = "submit-row">
-            <td>
-                <input type = "submit" value = "+" (click) = "apartmentForm.valid ? handleFormSubmission('add', postform) : null">
-            </td>
-            <td>
-                <input  type = "text" 
-                        formControlName = "number"
-                        placeholder = "Add Apartment">
-
-
-            </td>
-            <td>
-                
-            </td>
-            <td>
-
-            </td>
-
-        </tr>
-    </ng-template>
-
-</table>
-
-
-<!-- Error messages if add button is pressed -->
-<div *ngIf="apartmentForm.controls['number'].invalid && postform.submitted  && !apartmentForm.contains('editnumber')">
-    <span *ngIf="apartmentForm.controls['number'].errors?.['required']">
-        Apartment Number is Required
-    </span>
-</div>
-
-<!-- Error message if submitting edit -->
-<div *ngIf="apartmentForm.contains('editnumber')">
-    <div *ngIf="apartmentForm.controls['number'].invalid && postform.submitted">
-    <span *ngIf="apartmentForm.controls['editnumber'].errors?.['required']">
-        Apartment Number is required!
-    </span>
+    <!-- Error messages if add button is pressed -->
+    <div *ngIf="apartmentForm.controls['number'].invalid &&
+                postform.submitted  &&
+                !selectedApartment">
+        <span *ngIf="apartmentForm.controls['number'].errors?.['required']">
+            Apartment Number is Required
+        </span>
     </div>
-</div>
 
+    <!-- Error message if submitting edit -->
+    <div *ngIf="selectedApartment">
+        <div *ngIf="apartmentForm.controls['editnumber'].invalid && postform.submitted">
+        <span *ngIf="apartmentForm.controls['editnumber'].errors?.['required']">
+            Apartment Number is required!
+        </span>
+        </div>
+    </div>
 </form>
 

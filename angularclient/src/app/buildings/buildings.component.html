@@ -29,6 +29,7 @@
                                 (click) = "buildingForm.controls['editaddress'].valid ? handleFormSubmission('edit', postform, building) : null">
 
                     </td>
+                    <td></td>
                 </ng-container>
 
                 <ng-template #notSelected>
@@ -95,7 +96,7 @@
     </table>
 
     <!-- Error messages if add button is pressed -->
-    <div *ngIf="buildingForm.controls['address'].invalid && postform.submitted  && !buildingForm.contains('editaddress')">
+    <div *ngIf="buildingForm.controls['address'].invalid && postform.submitted  && !selectedBuilding">
         <span *ngIf="buildingForm.controls['address'].errors?.['required']">
             Address is Required
         </span>
@@ -105,8 +106,8 @@
     </div>
 
     <!-- Error message if submitting edit -->
-    <div *ngIf="buildingForm.contains('editaddress')">
-        <div *ngIf="buildingForm.controls['address'].invalid && postform.submitted">
+    <div *ngIf="selectedBuilding">
+        <div *ngIf="buildingForm.controls['editaddress'].invalid && postform.submitted">
         <span *ngIf="buildingForm.controls['editaddress'].errors?.['required']">
             Name is required!
         </span>

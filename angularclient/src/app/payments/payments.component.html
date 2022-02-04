@@ -90,12 +90,8 @@
                             formControlName = "month"
                             placeholder = "Add Payment Month">    
                 </td>
-                <td>
-                    
-                </td>
-                <td>
-    
-                </td>
+                <td></td>
+                <td></td>
     
             </tr>
     
@@ -121,7 +117,9 @@
                     <input  type = "text" 
                             formControlName = "month"
                             placeholder = "Add Payment Month">    
-                </td>    
+                </td>
+                <td></td>
+                <td></td>    
             </tr>
         </ng-template>
     </table>
@@ -130,7 +128,7 @@
     <!-- Error messages if add button is pressed -->
     <div *ngIf="(paymentForm.controls['amount'].invalid ||
                 paymentForm.controls['month'].invalid) 
-                && postform.submitted  && !paymentForm.contains('editamount')">
+                && postform.submitted  && !selectedPayment">
         <span *ngIf="paymentForm.controls['amount'].errors?.['required']">
             Amount is required.
         </span>
@@ -148,8 +146,8 @@
     
     <!-- Error message if submitting edit -->
     <div *ngIf="paymentForm.contains('editamount')">
-        <div *ngIf="(paymentForm.controls['amount'].invalid ||
-                    paymentForm.controls['month'].invalid) 
+        <div *ngIf="(paymentForm.controls['editamount'].invalid ||
+                    paymentForm.controls['editmonth'].invalid) 
                     && postform.submitted">
         <span *ngIf="paymentForm.controls['editamount'].errors?.['required']">
             Amount is required.

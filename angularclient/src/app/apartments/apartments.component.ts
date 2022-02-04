@@ -43,6 +43,10 @@ export class ApartmentsComponent implements OnInit {
     number: new FormControl("",[
       Validators.required
     ]),
+    editnumber: new FormControl({
+      value:"", disable: true},[
+      Validators.required
+    ]),
     id: new FormControl(""),
     buildingId: new FormControl("")
   })
@@ -103,27 +107,24 @@ export class ApartmentsComponent implements OnInit {
   edit(postform: FormGroupDirective): void {
 
     // Enable these components of the form so form can be submitted.
-    this.apartmentForm.get("address")?.enable();
+    this.apartmentForm.get("number")?.enable();
 
     // Edited address is only necessary so that the add address portion 
     // of the form isn't populated with existing address when editing.
     let editedNumber: string = this.apartmentForm.get("editnumber")?.value;
     postform.form.get("number")?.setValue(editedNumber);
-    postform.form.removeControl("editnumber");
-
-    console.log("Form:", postform.form.get("buildingId")?.value);
 
     this.apartmentService.editApartment(postform.value).subscribe(response => {
       if (response.status == 200) {
         this.apartments = this.apartments.filter(el => !(el.id == response.body.id))
         this.apartments.push(response.body);
-        
       } else {
         // Do nothing
       }
     });
 
-    // Return form to empty
+    // Return form to empty and disable editing fields again
+    this.apartmentForm.get("editnumber")?.disable();
     postform.resetForm();
   }
 
@@ -131,13 +132,14 @@ export class ApartmentsComponent implements OnInit {
   selectForEditing(apartment: Apartment): void {
 
     // Disable inputs related to adding when user is editing
-    this.apartmentForm.get("address")?.disable();
+    this.apartmentForm.get("number")?.disable();
 
-    // Edited address is only necessary so that the add address portion 
+    // Edited number is only necessary so that the add address portion 
     // of the form isn't populated with existing address when editing.
-    this.apartmentForm.setControl("editnumber", new FormControl(apartment.number))
-    this.apartmentForm.get("editnumber")?.setValidators( 
-      [Validators.required])
+    this.apartmentForm.get("editnumber")?.enable();
+
+    this.apartmentForm.get("editnumber")?.setValue(apartment.number);
+
     this.selectedApartment = apartment;
   }
 
