@@ -24,7 +24,10 @@ ngOnInit(): void {
   this.route.url.subscribe(p => {
     if(p[0].path === "byApartment"){
       // Go to payment by building
-      this.route.params.subscribe( params => this.getByApartment(params['id']))
+      this.route.params.subscribe( params => {
+        this.getByApartment(params['id']);
+        this.paymentForm.get("apartmentId")?.setValue(params['id']);
+      })
     } else {
       // Go to all payment
       this.getPayments()
@@ -64,17 +67,12 @@ paymentForm = new FormGroup ({
     this.paymentService.deletePayment(payment).subscribe(response => {
       if (response.status == 200) {
         this.payments = this.payments.filter(el => !(el.id == response.body.id))
-      } else {
-        // Do nothing
       }
     });
   }
 
 
   add(postform: FormGroupDirective): void {
-    // Get buildingId for the page from the url.  There may be a more efficient way to do this
-    this.route.params.subscribe( params => this.apartmentId = params['id']);
-    this.paymentForm.get("apartmentId")?.setValue(this.apartmentId);
     
     this.paymentService.addPayment(this.paymentForm.value).subscribe(response => {
       if (response.status == 201) {
@@ -95,12 +93,8 @@ paymentForm = new FormGroup ({
     if (buttonClicked == "add"){
       this.add(postform);
     } else if (buttonClicked == "edit"){
-
-      console.log(payment)
       postform.form.get("id")?.setValue(payment?.id);
-      postform.form.get("apartmentId")?.setValue(payment?.apartmentId);
 
-      console.log("Form1:", postform.form.get("apartmentId")?.value);
       this.edit(postform);
 
       // Close form

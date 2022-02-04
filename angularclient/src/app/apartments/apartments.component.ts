@@ -18,10 +18,13 @@ export class ApartmentsComponent implements OnInit {
   ngOnInit(): void {
 
     // Wait for the url, then act based on the url
-    this.route.url.subscribe(p => {
-      if(p[0].path === "byBuilding"){
+    this.route.url.subscribe(url => {
+      if(url[0].path === "byBuilding"){
         // Go to apartments by building
-        this.route.params.subscribe( params => this.getByBuilding(params['id']))
+        this.route.params.subscribe( params => {
+          this.getByBuilding(params['id']);
+          this.apartmentForm.get("buildingId")?.setValue(params['id']);
+        })
       } else {
         // Go to all apartments
         this.getApartments()
@@ -33,7 +36,6 @@ export class ApartmentsComponent implements OnInit {
     this.apartmentService.getApartmentsWithLatePayments(date.getMonth() + 1).subscribe(
       response => {
         this.apartmentsWithLatePayments = response.body;
-        console.log(response.body);
       });
   }
 
@@ -64,27 +66,18 @@ export class ApartmentsComponent implements OnInit {
     this.apartmentService.deleteApartment(apartment).subscribe(response => {
       if (response.status == 200) {
         this.apartments = this.apartments.filter(el => !(el.id == response.body.id))
-      } else {
-        // Do nothing
       }
     });
   }
 
   // When 201 response is received, adds the model to the model list.
-  add(postform: FormGroupDirective): void {
-
-    // Get buildingId for the page from the url.  There may be a more efficient way to do this
-    this.route.params.subscribe( params => this.buildingId = params['id']);
-    this.apartmentForm.get("buildingId")?.setValue(this.buildingId);
-    
+  add(postform: FormGroupDirective): void {    
     this.apartmentService.addApartment(this.apartmentForm.value).subscribe(response => {
       if (response.status == 201) {
         this.apartments.push(response.body);
     // Return form to empty
     postform.resetForm();
-      } else {
-        // Do nothing
-      }
+      } 
     });
   }
 
@@ -98,7 +91,6 @@ export class ApartmentsComponent implements OnInit {
     } else if (buttonClicked == "edit"){
 
       postform.form.get("id")?.setValue(apartment?.id);
-      postform.form.get("buildingId")?.setValue(apartment?.buildingId);
 
       console.log("Form1:", postform.form.get("buildingId")?.value);
       this.edit(postform);
@@ -131,9 +123,6 @@ export class ApartmentsComponent implements OnInit {
 
     // Return form to empty
     postform.resetForm();
-
-    // postform.form.get("address")?.setValue("");
-
   }
 
   
@@ -144,7 +133,6 @@ export class ApartmentsComponent implements OnInit {
     this.apartmentForm.setControl("editnumber", new FormControl(apartment.number))
     this.apartmentForm.get("editnumber")?.setValidators( 
       [Validators.required])
-    // this.buildingForm.get("editaddress")?.setValue(building.address)
     this.selectedApartment = apartment;
   }
 
