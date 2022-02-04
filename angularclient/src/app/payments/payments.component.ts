@@ -52,8 +52,8 @@ paymentForm = new FormGroup ({
 
   // Takes in selected building when edit button is hit.
   selectedPayment?: Payment;
-  payments: Payment[] = []
-  apartmentId: number = 0
+  payments: Payment[] = [];
+  apartmentId: number = 0;
 
   getPayments(): void {
   this.paymentService.getPayments().subscribe(response => this.payments = response.body)
@@ -105,6 +105,10 @@ paymentForm = new FormGroup ({
 
   edit(postform: FormGroupDirective): void {
 
+    // Enable these components of the form so form can be submitted.
+    this.paymentForm.get("amount")?.enable();
+    this.paymentForm.get("month")?.enable();
+
     // Edited amount and month is only necessary so that the add amount/month portion 
     // of the form isn't populated with existing amount/month when editing.
     let editedAmount: string = this.paymentForm.get("editamount")?.value;
@@ -129,6 +133,9 @@ paymentForm = new FormGroup ({
   }
   
   selectForEditing(payment: Payment): void {
+    // Disable inputs related to adding when user is editing
+    this.paymentForm.get("amount")?.disable();
+    this.paymentForm.get("month")?.disable();
 
     // Edited amount and month is only necessary so that the add amount/month portion 
     // of the form isn't populated with existing amount/month when editing.

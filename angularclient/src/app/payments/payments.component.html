@@ -41,6 +41,7 @@
                                             ? handleFormSubmission('edit', postform, payment) : null">
     
                     </td>
+                    <td></td>
                 </ng-container>
     
                 <ng-template #notSelected>
@@ -74,7 +75,10 @@
     
             <tr class = "submit-row">
                 <td>
-                    <input type = "submit" value = "+" (click) = "paymentForm.valid ? handleFormSubmission('add', postform) : null">
+                    <input  type = "submit" 
+                            value = "+" 
+                            [disabled]="selectedPayment"
+                            (click) = "paymentForm.valid ? handleFormSubmission('add', postform) : null">
                 </td>
                 <td>
                     <input  type = "text" 
@@ -99,12 +103,14 @@
     
         <ng-template #noEntries>
             <tr class = "no-entries">
-                <td colspan="4">No Entries</td>
+                <td colspan="5">No Entries</td>
             </tr>
     
             <tr class = "submit-row">
                 <td>
-                    <input type = "submit" value = "+" (click) = "paymentForm.valid ? handleFormSubmission('add', postform) : null">
+                    <input  type = "submit" 
+                            value = "+" 
+                            (click) = "paymentForm.valid ? handleFormSubmission('add', postform) : null">
                 </td>
                 <td>
                     <input  type = "text" 
@@ -115,12 +121,9 @@
                     <input  type = "text" 
                             formControlName = "month"
                             placeholder = "Add Payment Month">    
-                </td>
-                <td></td>
-    
+                </td>    
             </tr>
         </ng-template>
-    
     </table>
     
     
@@ -163,6 +166,5 @@
         </span>
         </div>
     </div>
-    
-    </form>
+</form>
     

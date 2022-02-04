@@ -102,6 +102,9 @@ export class ApartmentsComponent implements OnInit {
 
   edit(postform: FormGroupDirective): void {
 
+    // Enable these components of the form so form can be submitted.
+    this.apartmentForm.get("address")?.enable();
+
     // Edited address is only necessary so that the add address portion 
     // of the form isn't populated with existing address when editing.
     let editedNumber: string = this.apartmentForm.get("editnumber")?.value;
@@ -116,7 +119,6 @@ export class ApartmentsComponent implements OnInit {
         this.apartments.push(response.body);
         
       } else {
-        console.log("Something went wrong...")
         // Do nothing
       }
     });
@@ -127,6 +129,9 @@ export class ApartmentsComponent implements OnInit {
 
   
   selectForEditing(apartment: Apartment): void {
+
+    // Disable inputs related to adding when user is editing
+    this.apartmentForm.get("address")?.disable();
 
     // Edited address is only necessary so that the add address portion 
     // of the form isn't populated with existing address when editing.

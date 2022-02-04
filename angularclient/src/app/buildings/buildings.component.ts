@@ -79,6 +79,9 @@ export class BuildingsComponent implements OnInit {
 
   edit(postform: FormGroupDirective): void {
 
+    // Enable these components of the form so form can be submitted.
+    this.buildingForm.get("address")?.enable();
+
     // Edited address is only necessary so that the add address portion 
     // of the form isn't populated with existing address when editing.
     let editedAddress: string = this.buildingForm.get("editaddress")?.value;
@@ -100,6 +103,9 @@ export class BuildingsComponent implements OnInit {
   }
 
   selectForEditing(building: Building): void {
+    
+    // Disable inputs related to adding when user is editing
+    this.buildingForm.get("address")?.disable();
 
     // Edited address is only necessary so that the add address portion 
     // of the form isn't populated with existing address when editing.
