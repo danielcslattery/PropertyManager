@@ -9,6 +9,9 @@
             Address
         </th>
         <th>
+            Apartments
+        </th>
+        <th>
             Delete
         </th>
         <th>
@@ -22,6 +25,7 @@
                     <td>
                         <input type = "text" formControlName = "editaddress">
                     </td>
+                    <td></td>
                     <td>
                         <input  type = "submit" 
                                 name="edit" 
@@ -39,6 +43,9 @@
                     
                     <td [routerLink] = "['/byBuilding', building.id]">
                         {{building.address}}
+                    </td>  
+                    <td [routerLink] = "['/byBuilding', building.id]">
+                        {{building.numberApartments}}
                     </td>  
                     <td>
                         <button type = "button"
@@ -77,7 +84,7 @@
 
         <ng-template #noEntries>
             <tr class = "no-entries">
-                <td colspan="4">No Entries</td>
+                <td colspan="5">No Entries</td>
             </tr>
 
             <tr class = "submit-row">

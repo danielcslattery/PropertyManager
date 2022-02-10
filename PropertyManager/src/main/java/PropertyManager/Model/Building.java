@@ -15,17 +15,20 @@ public class Building {
     @Size(min = 4)
     private String address;
 
+    private int numberApartments;
+
     public Building(){};
 
     public Building(String address) {
         this.address = address;
         System.out.println(this.toString());
+        this.numberApartments = 0;
     }
 
     @Override
     public String toString(){
-        return String.format("Building[buildingId = '%d', buildingAddress= '%s']",
-                id, address);
+        return String.format("Building[buildingId = '%d', buildingAddress= '%s', numberApartments = '%d']",
+                id, address, numberApartments);
     }
 
     public String getAddress() {
@@ -40,5 +43,13 @@ public class Building {
 
     public long getId() {
         return this.id;
+    }
+
+    public int getNumberApartments() {
+        return numberApartments;
+    }
+
+    public void setNumberApartments(int numberApartments) {
+        this.numberApartments = numberApartments;
     }
 }

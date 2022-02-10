@@ -10,6 +10,7 @@ import PropertyManager.Repositories.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ public class BuildingService {
     private ApartmentService apartmentService;
 
     public List<Building> getAll(){
+        buildingRepository.updateNumberOfApartmentsInBuilding();
         List<Building> buildings = (List<Building>) buildingRepository.findAll();
 
         if (buildings.size() == 0){
@@ -34,6 +36,7 @@ public class BuildingService {
 
     public List<Building> getByAddress(String address){
         List<Building> buildings = buildingRepository.findBuildingByAddress(address);
+
         if (buildings.size() == 0){
             throw new BuildingAddressNotFound(address);
         }
