@@ -21,11 +21,9 @@ public interface BuildingRepository extends CrudRepository<Building, Long> {
     @Transactional
     @Query(value = "UPDATE Building AS d " +
             "INNER JOIN" +
-            "   (SELECT b.id, COUNT(a.id) AS count FROM Building AS b " +
-            "    LEFT JOIN Apartment AS a " +
-            "    ON b.id = a.building_id " +
-            "    GROUP BY b.id) AS c " +
-            "ON d.id = c.id " +
+            "   (SELECT a.building_id, COUNT(a.id) AS count FROM Apartment AS a " +
+            "    GROUP BY a.building_id) AS c " +
+            "ON d.id = c.building_id " +
             "SET d.number_apartments = c.count;", nativeQuery = true)
     public void updateNumberOfApartmentsInBuilding();
 }
