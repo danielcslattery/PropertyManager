@@ -17,8 +17,6 @@ import java.util.Calendar;
 @SpringBootApplication
 public class PropertyManagementApplication {
 
-	private static final Logger log = LoggerFactory.getLogger(PropertyManagementApplication.class);
-
 	public static void main(String[] args) {
 		SpringApplication.run(PropertyManagementApplication.class, args);
 	}
@@ -30,20 +28,6 @@ public class PropertyManagementApplication {
 		return args -> {
 
 			AddDefaultData(buildingService, apartmentService, paymentService);
-			// fetch all apartments
-//			log.info("Apartments found with findAll():");
-//			log.info("-------------------------------");
-//			for (Apartment apartment : apartmentService.findAll()) {
-//				log.info(apartment.toString());
-//			}
-//			log.info("");
-//
-//			// fetch an individual Apartment by ID
-//			Apartment apartment = apartmentService.findById(3L).get();
-//			log.info("Apartment found with findById(1L):");
-//			log.info("--------------------------------");
-//			log.info(apartment.toString());
-//			log.info("");
 
 		};
 	}

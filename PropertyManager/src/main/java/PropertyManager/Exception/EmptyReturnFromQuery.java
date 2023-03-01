@@ -1,7 +1,5 @@
 package PropertyManager.Exception;
 
-import java.sql.SQLException;
-
 public class EmptyReturnFromQuery extends RuntimeException {
 
     private String entityType;

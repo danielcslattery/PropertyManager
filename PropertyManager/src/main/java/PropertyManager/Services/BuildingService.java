@@ -1,7 +1,5 @@
 package PropertyManager.Services;
 
-
-import PropertyManager.Model.Apartment;
 import PropertyManager.Model.Building;
 import PropertyManager.Exception.BuildingAddressNotFound;
 import PropertyManager.Exception.EntityIdNotFound;
@@ -10,7 +8,6 @@ import PropertyManager.Repositories.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
 import java.util.List;
 import java.util.Optional;
 

@@ -5,11 +5,8 @@ import PropertyManager.Exception.ApartmentNumberNotFound;
 import PropertyManager.Exception.EmptyReturnFromQuery;
 import PropertyManager.Exception.EntityIdNotFound;
 import PropertyManager.Model.Building;
-import PropertyManager.Model.Payment;
 import PropertyManager.Repositories.ApartmentRepository;
-import PropertyManager.Repositories.BuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
