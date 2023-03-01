@@ -14,7 +14,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/payments")
-@CrossOrigin(origins = "http://localhost:4200")
 public class PaymentController {
 
     @Autowired

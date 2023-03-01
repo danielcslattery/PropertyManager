@@ -14,7 +14,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/apartments")
-@CrossOrigin(origins = "http://localhost:4200")
 public class ApartmentController {
 
     @Autowired

@@ -13,7 +13,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/buildings")
-@CrossOrigin(origins = "http://localhost:4200")
 public class BuildingController {
 
     @Autowired
