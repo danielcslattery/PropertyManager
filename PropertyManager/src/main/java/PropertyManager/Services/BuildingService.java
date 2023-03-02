@@ -21,7 +21,6 @@ public class BuildingService {
     private ApartmentService apartmentService;
 
     public List<Building> getAll(){
-        buildingRepository.updateNumberOfApartmentsInBuilding();
         List<Building> buildings = (List<Building>) buildingRepository.findAll();
 
         if (buildings.size() == 0){
@@ -69,4 +68,9 @@ public class BuildingService {
         return buildingRepository.save(building);
     }
 
+    public void recalculateNumberOfApartments(Building building){
+        int numberOfApartments = apartmentService.getByBuilding(building).size();
+        building.setNumberApartments(numberOfApartments);
+        buildingRepository.save(building);
+    }
 }
