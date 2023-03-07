@@ -1,4 +1,4 @@
-package PropertyManager.Exception;
+package PropertyManager.exception;
 
 
 import org.springframework.web.bind.annotation.ControllerAdvice;

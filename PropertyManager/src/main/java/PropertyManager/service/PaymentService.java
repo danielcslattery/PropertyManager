@@ -1,11 +1,12 @@
-package PropertyManager.Services;
+package PropertyManager.service;
 
-import PropertyManager.Model.Apartment;
-import PropertyManager.Model.Payment;
-import PropertyManager.Exception.EmptyReturnFromQuery;
-import PropertyManager.Exception.EntityIdNotFound;
-import PropertyManager.Repositories.ApartmentRepository;
-import PropertyManager.Repositories.PaymentRepository;
+import PropertyManager.model.Apartment;
+import PropertyManager.model.Payment;
+import PropertyManager.repository.ApartmentRepository;
+import PropertyManager.repository.PaymentRepository;
+import PropertyManager.exception.EmptyReturnFromQuery;
+import PropertyManager.exception.EntityIdNotFound;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

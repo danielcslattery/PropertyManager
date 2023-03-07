@@ -1,7 +1,8 @@
-package PropertyManager.Controllers;
+package PropertyManager.controller;
 
-import PropertyManager.Model.Building;
-import PropertyManager.Services.BuildingService;
+import PropertyManager.model.Building;
+import PropertyManager.service.BuildingService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

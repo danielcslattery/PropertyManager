@@ -1,4 +1,4 @@
-package PropertyManager.Model;
+package PropertyManager.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package PropertyManager.Exception;
+package PropertyManager.exception;
 
 public class EmptyReturnFromQuery extends RuntimeException {
 

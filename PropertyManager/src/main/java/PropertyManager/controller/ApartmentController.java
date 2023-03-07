@@ -1,8 +1,9 @@
-package PropertyManager.Controllers;
+package PropertyManager.controller;
 
-import PropertyManager.Model.Apartment;
-import PropertyManager.Services.ApartmentService;
-import PropertyManager.Services.BuildingService;
+import PropertyManager.model.Apartment;
+import PropertyManager.service.ApartmentService;
+import PropertyManager.service.BuildingService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

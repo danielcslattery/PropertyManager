@@ -1,8 +1,9 @@
-package PropertyManager.Controllers;
+package PropertyManager.controller;
 
-import PropertyManager.Model.Payment;
-import PropertyManager.Services.ApartmentService;
-import PropertyManager.Services.PaymentService;
+import PropertyManager.model.Payment;
+import PropertyManager.service.ApartmentService;
+import PropertyManager.service.PaymentService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
