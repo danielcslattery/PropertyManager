@@ -5,6 +5,8 @@ import PropertyManager.model.Building;
 import PropertyManager.repository.ApartmentRepository;
 import PropertyManager.repository.BuildingRepository;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,11 +23,11 @@ public class RequestMapper {
     private ApartmentRepository apartmentRepository;
     
     public Building toModel(BuildingRequest request){
+        Optional<Building> buildingOpt = buildingRepository.findById(request.getId());
         Building building;
 
-        // TODO use Optional<> intead of checking request.
-        if (request.getId() != 0) {
-            building = buildingRepository.findById(request.getId()).get();
+        if (buildingOpt.isPresent()) {
+            building = buildingOpt.get();
         } else {
             building = new Building();
         }
@@ -35,20 +37,17 @@ public class RequestMapper {
     } 
 
     public Apartment toModel(ApartmentRequest request){
-        System.out.println(request);
+        Optional<Apartment> apartmentOpt = apartmentRepository.findById(request.getId());
         Apartment apartment;
 
-        if (request.getId() != 0){
-            System.out.println("Object doesn't appear to lack id.");
-            apartment = apartmentRepository.findById(request.getId()).get();
+        if (apartmentOpt.isPresent()){
+            apartment = apartmentOpt.get();
         } else {
             apartment = new Apartment();
         }
 
         apartment.setNumber(request.getNumber());
         apartment.setBuildingId(request.getBuildingId());
-
-        System.out.println(apartment);
 
         return apartment;
     }
