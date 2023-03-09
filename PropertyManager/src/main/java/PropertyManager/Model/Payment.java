@@ -8,14 +8,17 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private long apartmentId;
+
+    @ManyToOne
+    private Apartment apartment;
+
     private int amount;
     private int month;
 
     public Payment(){};
 
-    public Payment(long apartmentId, int paymentAmount, int month){
-        this.apartmentId = apartmentId;
+    public Payment(Apartment apartment, int paymentAmount, int month){
+        this.apartment = apartment;
         this.amount = paymentAmount;
         this.month = month;
     }
@@ -23,7 +26,7 @@ public class Payment {
     @Override
     public String toString(){
         return String.format("Payment[paymentId = '%d', apartmentId = '%s', paymentAmount = '%d']",
-                id, apartmentId, amount);
+                id, apartment, amount);
     }
 
     public int getAmount() {
@@ -38,8 +41,8 @@ public class Payment {
         return id;
     }
 
-    public long getApartmentId() {
-        return apartmentId;
+    public Apartment getApartment() {
+        return apartment;
     }
 
     public int getMonth() {
@@ -54,7 +57,7 @@ public class Payment {
         this.id = id;
     }
 
-    public void setApartmentId(long apartmentId) {
-        this.apartmentId = apartmentId;
+    public void setApartment(Apartment apartment) {
+        this.apartment = apartment;
     }
 }

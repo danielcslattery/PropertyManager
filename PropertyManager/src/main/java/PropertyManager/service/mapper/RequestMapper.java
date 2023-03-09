@@ -68,7 +68,8 @@ public class RequestMapper {
             payment = new Payment();
         }
 
-        payment.setApartmentId(request.getApartmentId());
+        Apartment apartment = apartmentRepository.findById(request.getApartmentId()).get();
+        payment.setApartment(apartment);
         payment.setAmount(request.getAmount());
         payment.setMonth(request.getMonth());
 

@@ -50,9 +50,11 @@ public class Apartment {
 
     public void setId(Long id){this.Id = id;}
 
-    public void addPayment(PaymentRepository repository, int paymentAmount, int month){
-        repository.save(new Payment(Id, paymentAmount, month));
-    }
+    // public void addPayment(PaymentRepository repository, int paymentAmount, int month){
+    //     Apartment apartment = 
+
+    //     repository.save(new Payment(Id, paymentAmount, month));
+    // }
 
     public void setNumber(String number) {
         this.number = number;
