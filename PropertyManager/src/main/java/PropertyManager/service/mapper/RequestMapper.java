@@ -12,6 +12,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import PropertyManager.controller.dto.PaymentDTO;
 import PropertyManager.controller.request.ApartmentRequest;
 import PropertyManager.controller.request.BuildingRequest;
 import PropertyManager.controller.request.PaymentRequest;
@@ -52,8 +53,9 @@ public class RequestMapper {
             apartment = new Apartment();
         }
 
+        Building building = buildingRepository.findById(request.getBuildingId()).get();
         apartment.setNumber(request.getNumber());
-        apartment.setBuildingId(request.getBuildingId());
+        apartment.setBuilding(building);
 
         return apartment;
     }
@@ -74,5 +76,17 @@ public class RequestMapper {
         payment.setMonth(request.getMonth());
 
         return payment;
+    }
+
+
+    public PaymentDTO toDTO(Payment payment){
+        PaymentDTO dto = new PaymentDTO();
+
+        dto.setId(payment.getId());
+        dto.setApartmentId(payment.getApartment().getId());
+        dto.setAmount(payment.getAmount());
+        dto.setMonth(payment.getMonth());
+
+        return dto;
     }
 }

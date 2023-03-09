@@ -52,18 +52,18 @@ public class PropertyManagementApplication {
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 
 		//save a few apartments
-		buildingService.add(new Building("6114 Washington"));
-		buildingService.add(new Building("5943 Kingsbury"));
+		Building building1 = buildingService.add(new Building("6114 Washington"));
+		Building building2 = buildingService.add(new Building("5943 Kingsbury"));
 
-		apartmentService.add(new Apartment(1L, "1E"));
-		apartmentService.add(new Apartment(1L, "1W"));
-		apartmentService.add(new Apartment(1L, "2E"));
-		apartmentService.add(new Apartment(1L, "2W"));
+		apartmentService.add(new Apartment(building1, "1E"));
+		apartmentService.add(new Apartment(building1, "1W"));
+		apartmentService.add(new Apartment(building1, "2E"));
+		apartmentService.add(new Apartment(building1, "2W"));
 
-		apartmentService.add(new Apartment(2L, "1E"));
-		apartmentService.add(new Apartment(2L, "1W"));
-		apartmentService.add(new Apartment(2L, "2E"));
-		apartmentService.add(new Apartment(2L, "2W"));
+		apartmentService.add(new Apartment(building2, "1E"));
+		apartmentService.add(new Apartment(building2, "1W"));
+		apartmentService.add(new Apartment(building2, "2E"));
+		apartmentService.add(new Apartment(building2, "2W"));
 
 
 		for (Apartment apartment : apartmentService.getByBuilding(buildingService.getById(1L))) {

@@ -1,5 +1,6 @@
 package PropertyManager.controller;
 
+import PropertyManager.controller.dto.PaymentDTO;
 import PropertyManager.controller.request.PaymentRequest;
 import PropertyManager.model.Payment;
 import PropertyManager.service.ApartmentService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/payments")
@@ -27,41 +29,56 @@ public class PaymentController {
     private RequestMapper mapper;
 
     @GetMapping
-    public List<Payment> getAll(){
-        return paymentService.getAll();
+    public List<PaymentDTO> getAll(){
+        List<Payment> payments = paymentService.getAll();
+        List<PaymentDTO> dtos = payments.stream()
+            .map(payment -> mapper.toDTO(payment))
+            .collect(Collectors.toList());
+
+        return dtos;
     }
 
     // Adds new payment to database without returning a new view.  Used with AJAX requests.
     //TODO: Change parameters to apartmentId to simplify function.
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Payment add( @Valid @RequestBody PaymentRequest request){
+    public PaymentDTO add( @Valid @RequestBody PaymentRequest request){
         Payment payment = mapper.toModel(request);
 
-        return paymentService.add(payment);
+        payment = paymentService.add(payment);
+        return mapper.toDTO(payment);
     }
 
     @GetMapping("/byApartment/{apartmentId}")
-    public List<Payment> getByApartment (@PathVariable Long apartmentId){
-        return paymentService.getByApartment(apartmentService.getById(apartmentId));
+    public List<PaymentDTO> getByApartment (@PathVariable Long apartmentId){
+        List<Payment> payments = paymentService.getByApartment(apartmentService.getById(apartmentId));
+        List<PaymentDTO> dtos = payments.stream()
+            .map(payment -> mapper.toDTO(payment))
+            .collect(Collectors.toList());
+
+        return dtos;
     }
 
     @GetMapping("/{paymentId}")
-    public Payment get(@PathVariable Long paymentId){
-        return paymentService.getById(paymentId);
+    public PaymentDTO get(@PathVariable Long paymentId){
+        Payment payment = paymentService.getById(paymentId);
+        return mapper.toDTO(payment);
     }
 
     @DeleteMapping
-    public Payment delete(@Valid @RequestBody PaymentRequest request){
+    public PaymentDTO delete(@Valid @RequestBody PaymentRequest request){
         Payment payment = mapper.toModel(request);
 
-        return paymentService.delete(payment);
+        paymentService.delete(payment);
+
+        return mapper.toDTO(payment);
     }
 
     @PutMapping
-    public Payment update(@Valid @RequestBody PaymentRequest request){
+    public PaymentDTO update(@Valid @RequestBody PaymentRequest request){
         Payment payment = mapper.toModel(request);
-
-        return paymentService.update(payment);
+        paymentService.update(payment);
+        
+        return mapper.toDTO(payment);
     }
 }

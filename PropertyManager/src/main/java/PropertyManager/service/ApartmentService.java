@@ -22,9 +22,6 @@ public class ApartmentService {
     @Autowired
     private BuildingService buildingService;
 
-    @Autowired
-    private PaymentService paymentService;
-
     public List<Apartment> getAll(){
         List<Apartment> apartments = (List<Apartment>) apartmentRepository.findAll();
 
@@ -51,7 +48,7 @@ public class ApartmentService {
     public Apartment add(Apartment apartment){
         apartmentRepository.save(apartment);
 
-        Building building = buildingService.getById(apartment.getBuildingId());
+        Building building = apartment.getBuilding();
         buildingService.recalculateNumberOfApartments(building);
 
         return apartment;

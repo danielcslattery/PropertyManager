@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
@@ -16,7 +17,9 @@ public class Apartment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
-    private Long buildingId;
+
+    @ManyToOne
+    private Building building;
 
     @NotBlank
     private String number;
@@ -26,15 +29,15 @@ public class Apartment {
 
     public Apartment() {};
 
-    public Apartment(Long buildingId, String apartmentNumber) {
-        this.buildingId = buildingId;
+    public Apartment(Building building, String apartmentNumber) {
+        this.building = building;
         this.number = apartmentNumber;
     };
 
     @Override
     public String toString() {
         return String.format("Apartment[apartmentId = '%d', buildingId = '%s', apartmentNumber = '%s']",
-                Id, buildingId, number);
+                Id, building, number);
     }
 
     public Long getId() {
@@ -45,12 +48,12 @@ public class Apartment {
         return number;
     }
 
-    public Long getBuildingId() {
-        return buildingId;
+    public Building getBuilding() {
+        return building;
     }
 
-    public void setBuildingId(Long buildingId) {
-        this.buildingId = buildingId;
+    public void setBuilding(Building building) {
+        this.building = building;
     }
 
     public void setId(Long id){this.Id = id;}
@@ -58,6 +61,4 @@ public class Apartment {
     public void setNumber(String number) {
         this.number = number;
     }
-
-
 }
