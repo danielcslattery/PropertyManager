@@ -6,9 +6,6 @@ public class PaymentDTO{
     private long apartmentId;
     private int amount;
     private int month;
-    
-    public PaymentDTO() {
-    }
 
     public void setId(long id) {
         this.id = id;

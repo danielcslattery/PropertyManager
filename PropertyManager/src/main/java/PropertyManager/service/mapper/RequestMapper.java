@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import PropertyManager.controller.dto.ApartmentDTO;
+import PropertyManager.controller.dto.BuildingDTO;
 import PropertyManager.controller.dto.PaymentDTO;
 import PropertyManager.controller.request.ApartmentRequest;
 import PropertyManager.controller.request.BuildingRequest;
@@ -97,6 +98,15 @@ public class RequestMapper {
         dto.setId(apartment.getId());
         dto.setBuildingId(apartment.getBuilding().getId());
         dto.setNumber(apartment.getNumber());
+
+        return dto;
+    }
+
+    public BuildingDTO toDTO(Building building){
+        BuildingDTO dto = new BuildingDTO();
+
+        dto.setAddress(building.getAddress());
+        dto.setId(building.getId());
 
         return dto;
     }
