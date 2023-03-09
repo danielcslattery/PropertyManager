@@ -1,12 +1,12 @@
-package PropertyManager.Model;
-
-import PropertyManager.Repositories.PaymentRepository;
+package PropertyManager.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+
+import PropertyManager.repository.PaymentRepository;
 
 @Entity
 public class Apartment {
@@ -19,12 +19,12 @@ public class Apartment {
     @NotBlank
     private String number;
 
-    Apartment() {}
+    public Apartment() {};
 
     public Apartment(Long buildingId, String apartmentNumber) {
         this.buildingId = buildingId;
         this.number = apartmentNumber;
-    }
+    };
 
     @Override
     public String toString() {
@@ -52,6 +52,10 @@ public class Apartment {
 
     public void addPayment(PaymentRepository repository, int paymentAmount, int month){
         repository.save(new Payment(Id, paymentAmount, month));
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
 

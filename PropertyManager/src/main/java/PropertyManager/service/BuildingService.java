@@ -1,10 +1,12 @@
-package PropertyManager.Services;
+package PropertyManager.service;
 
-import PropertyManager.Model.Building;
-import PropertyManager.Exception.BuildingAddressNotFound;
-import PropertyManager.Exception.EntityIdNotFound;
-import PropertyManager.Exception.EmptyReturnFromQuery;
-import PropertyManager.Repositories.BuildingRepository;
+import PropertyManager.model.Building;
+import PropertyManager.repository.ApartmentRepository;
+import PropertyManager.repository.BuildingRepository;
+import PropertyManager.exception.BuildingAddressNotFound;
+import PropertyManager.exception.EntityIdNotFound;
+import PropertyManager.exception.EmptyReturnFromQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,7 @@ public class BuildingService {
     private BuildingRepository buildingRepository;
 
     @Autowired
-    private ApartmentService apartmentService;
+    private ApartmentRepository apartmentRepository;
 
     public List<Building> getAll(){
         List<Building> buildings = (List<Building>) buildingRepository.findAll();
@@ -56,9 +58,10 @@ public class BuildingService {
     // Returns the deleted building so the front end can delete it from the list.
     public Building delete(Building building){
 
-        // Delete apartments (and payments) tied to this apartment
-        apartmentService.getByBuilding(building).forEach(
-                (apartment) -> apartmentService.delete(apartment));
+        // Delete apartments tied to this apartment
+        // TODO Delete payments related to this apartment.
+        apartmentRepository.findApartmentByBuilding(building.getId()).forEach(
+                (apartment) -> apartmentRepository.delete(apartment));
 
         buildingRepository.delete(building);
         return building;
@@ -69,7 +72,7 @@ public class BuildingService {
     }
 
     public void recalculateNumberOfApartments(Building building){
-        int numberOfApartments = apartmentService.getByBuilding(building).size();
+        int numberOfApartments = apartmentRepository.findApartmentByBuilding(building.getId()).size();
         building.setNumberApartments(numberOfApartments);
         buildingRepository.save(building);
     }

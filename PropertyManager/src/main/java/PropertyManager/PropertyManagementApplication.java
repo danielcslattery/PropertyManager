@@ -1,9 +1,10 @@
 package PropertyManager;
 
-import PropertyManager.Model.*;
-import PropertyManager.Services.ApartmentService;
-import PropertyManager.Services.BuildingService;
-import PropertyManager.Services.PaymentService;
+import PropertyManager.model.*;
+import PropertyManager.service.ApartmentService;
+import PropertyManager.service.BuildingService;
+import PropertyManager.service.PaymentService;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,7 +39,9 @@ public class PropertyManagementApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+				registry.addMapping("/**")
+						.allowedOrigins("http://localhost:4200")
+						.allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
 			}
 		};
 	}
