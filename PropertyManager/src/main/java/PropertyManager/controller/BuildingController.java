@@ -47,24 +47,24 @@ public class BuildingController {
 
     // Other commands are redirected to a landing page for single buildings.
     @GetMapping("/{buildingId}")
-    public ResponseEntity<Building> getBuilding(@PathVariable Long buildingId){
-        return new ResponseEntity<>(buildingService.getById(buildingId), HttpStatus.OK);
+    public Building getBuilding(@PathVariable Long buildingId){
+        return buildingService.getById(buildingId);
     }
 
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.
     @DeleteMapping
-    public ResponseEntity<Building> delete(@Valid @RequestBody BuildingRequest request){
+    public Building delete(@Valid @RequestBody BuildingRequest request){
         Building building = mapper.toModel(request);
 
         Building buildingDeleted = buildingService.delete(building);
-        return new ResponseEntity<>(buildingDeleted, HttpStatus.OK);
+        return buildingDeleted;
     }
 
     @PutMapping
-    public ResponseEntity<Building> update(@Valid @RequestBody BuildingRequest request){
+    public Building update(@Valid @RequestBody BuildingRequest request){
         Building building = mapper.toModel(request);
 
         Building buildingUpdated = buildingService.update(building);
-        return new ResponseEntity<>(buildingUpdated, HttpStatus.OK);
+        return buildingUpdated;
     }
 }
