@@ -2,8 +2,10 @@ package PropertyManager.service.mapper;
 
 import PropertyManager.model.Apartment;
 import PropertyManager.model.Building;
+import PropertyManager.model.Payment;
 import PropertyManager.repository.ApartmentRepository;
 import PropertyManager.repository.BuildingRepository;
+import PropertyManager.repository.PaymentRepository;
 
 import java.util.Optional;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import PropertyManager.controller.request.ApartmentRequest;
 import PropertyManager.controller.request.BuildingRequest;
+import PropertyManager.controller.request.PaymentRequest;
 
 @Component
 public class RequestMapper {
@@ -21,6 +24,9 @@ public class RequestMapper {
 
     @Autowired
     private ApartmentRepository apartmentRepository;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
     
     public Building toModel(BuildingRequest request){
         Optional<Building> buildingOpt = buildingRepository.findById(request.getId());
@@ -50,5 +56,22 @@ public class RequestMapper {
         apartment.setBuildingId(request.getBuildingId());
 
         return apartment;
+    }
+
+    public Payment toModel(PaymentRequest request){
+        Optional<Payment> paymentOpt = paymentRepository.findById(request.getId());
+        Payment payment;
+
+        if (paymentOpt.isPresent()){
+            payment = paymentOpt.get();
+        } else {
+            payment = new Payment();
+        }
+
+        payment.setApartmentId(request.getApartmentId());
+        payment.setAmount(request.getAmount());
+        payment.setMonth(request.getMonth());
+
+        return payment;
     }
 }

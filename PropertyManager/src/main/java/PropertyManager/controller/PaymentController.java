@@ -1,12 +1,13 @@
 package PropertyManager.controller;
 
+import PropertyManager.controller.request.PaymentRequest;
 import PropertyManager.model.Payment;
 import PropertyManager.service.ApartmentService;
 import PropertyManager.service.PaymentService;
+import PropertyManager.service.mapper.RequestMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,35 +23,45 @@ public class PaymentController {
     @Autowired
     private ApartmentService apartmentService;
 
+    @Autowired
+    private RequestMapper mapper;
+
     @GetMapping
-    public ResponseEntity<List<Payment>> getAll(){
-        return new ResponseEntity<>(paymentService.getAll(), HttpStatus.OK);
+    public List<Payment> getAll(){
+        return paymentService.getAll();
     }
 
     // Adds new payment to database without returning a new view.  Used with AJAX requests.
     //TODO: Change parameters to apartmentId to simplify function.
     @PostMapping
-    public ResponseEntity<Payment> add( @Valid @RequestBody Payment payment){
-        return new ResponseEntity<>(paymentService.add(payment), HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Payment add( @Valid @RequestBody PaymentRequest request){
+        Payment payment = mapper.toModel(request);
+
+        return paymentService.add(payment);
     }
 
     @GetMapping("/byApartment/{apartmentId}")
-    public ResponseEntity<List<Payment>> getByApartment (@PathVariable Long apartmentId){
-        return new ResponseEntity<>(paymentService.getByApartment(apartmentService.getById(apartmentId)), HttpStatus.OK);
+    public List<Payment> getByApartment (@PathVariable Long apartmentId){
+        return paymentService.getByApartment(apartmentService.getById(apartmentId));
     }
 
     @GetMapping("/{paymentId}")
-    public ResponseEntity<Payment> get(@PathVariable Long paymentId){
-        return new ResponseEntity<>(paymentService.getById(paymentId), HttpStatus.OK);
+    public Payment get(@PathVariable Long paymentId){
+        return paymentService.getById(paymentId);
     }
 
     @DeleteMapping
-    public ResponseEntity<Payment> delete(@Valid @RequestBody Payment payment){
-        return new ResponseEntity<>(paymentService.delete(payment), HttpStatus.OK);
+    public Payment delete(@Valid @RequestBody PaymentRequest request){
+        Payment payment = mapper.toModel(request);
+
+        return paymentService.delete(payment);
     }
 
     @PutMapping
-    public ResponseEntity<Payment> update(@Valid @RequestBody Payment payment){
-        return new ResponseEntity<>(paymentService.update(payment), HttpStatus.OK);
+    public Payment update(@Valid @RequestBody PaymentRequest request){
+        Payment payment = mapper.toModel(request);
+
+        return paymentService.update(payment);
     }
 }
