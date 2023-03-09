@@ -73,10 +73,6 @@ public class ApartmentService {
     }
 
     public Apartment delete(Apartment apartment){
-        // Delete payments tied to this apartment
-        paymentService.getByApartment(apartment).forEach(
-                (payment) -> paymentService.delete(payment));
-
         apartmentRepository.delete(apartment);
         return apartment;
     }

@@ -1,12 +1,14 @@
 package PropertyManager.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-
-import PropertyManager.repository.PaymentRepository;
 
 @Entity
 public class Apartment {
@@ -18,6 +20,9 @@ public class Apartment {
 
     @NotBlank
     private String number;
+
+    @OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Payment> payments;
 
     public Apartment() {};
 
@@ -49,12 +54,6 @@ public class Apartment {
     }
 
     public void setId(Long id){this.Id = id;}
-
-    // public void addPayment(PaymentRepository repository, int paymentAmount, int month){
-    //     Apartment apartment = 
-
-    //     repository.save(new Payment(Id, paymentAmount, month));
-    // }
 
     public void setNumber(String number) {
         this.number = number;
