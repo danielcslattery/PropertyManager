@@ -1,8 +1,10 @@
 package PropertyManager.controller;
 
+import PropertyManager.controller.request.ApartmentRequest;
 import PropertyManager.model.Apartment;
 import PropertyManager.service.ApartmentService;
 import PropertyManager.service.BuildingService;
+import PropertyManager.service.mapper.RequestMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,36 +24,46 @@ public class ApartmentController {
     @Autowired
     private BuildingService buildingService;
 
+    @Autowired
+    private RequestMapper mapper;
+
     @GetMapping
-    public ResponseEntity<List<Apartment>> getAll(){
-        return new ResponseEntity<>(apartmentService.getAll(), HttpStatus.OK);
+    public List<Apartment> getAll(){
+        return apartmentService.getAll();
     }
 
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.
     @PostMapping
-    public ResponseEntity<Apartment> addNewApartment(@Valid @RequestBody Apartment apartment){
-        return new ResponseEntity<>(apartmentService.add(apartment), HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Apartment addNewApartment(@Valid @RequestBody ApartmentRequest request){
+        Apartment apartment = mapper.toModel(request);
+
+        return apartmentService.add(apartment);
     }
     
     @DeleteMapping
-    public ResponseEntity<Apartment> delete(@Valid @RequestBody Apartment apartment){
-        return new ResponseEntity<>(apartmentService.delete(apartment), HttpStatus.OK);
+    public Apartment delete(@Valid @RequestBody ApartmentRequest request){
+        Apartment apartment = mapper.toModel(request);
+
+        return apartmentService.delete(apartment);
     }
 
     @PutMapping
-    public ResponseEntity<Apartment> update(@Valid @RequestBody Apartment apartment){
-        return new ResponseEntity<>(apartmentService.update(apartment), HttpStatus.OK);
+    public Apartment update(@Valid @RequestBody ApartmentRequest request){
+        Apartment apartment = mapper.toModel(request);
+
+        return apartmentService.update(apartment);
     }
 
     @GetMapping("/byBuilding/{buildingId}")
-    public ResponseEntity<List<Apartment>> getByBuilding(@PathVariable Long buildingId){
-        return new ResponseEntity<>(apartmentService.getByBuilding(buildingService.getById(buildingId)), HttpStatus.OK);
+    public List<Apartment> getByBuilding(@PathVariable Long buildingId){
+        return apartmentService.getByBuilding(buildingService.getById(buildingId));
     }
 
     // Returns apartments where the rents have not been paid for inputted month
     @GetMapping("/latePayments")
-    public ResponseEntity<List<Apartment>> getLatePayments(@RequestParam int month){
-        return new ResponseEntity<>(apartmentService.getLatePayments(month), HttpStatus.OK);
+    public List<Apartment> getLatePayments(@RequestParam int month){
+        return apartmentService.getLatePayments(month);
     }
 
 }
