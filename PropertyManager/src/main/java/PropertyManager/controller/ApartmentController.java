@@ -3,6 +3,7 @@ package PropertyManager.controller;
 import PropertyManager.controller.dto.ApartmentDTO;
 import PropertyManager.controller.request.ApartmentRequest;
 import PropertyManager.model.Apartment;
+import PropertyManager.model.Building;
 import PropertyManager.service.ApartmentService;
 import PropertyManager.service.BuildingService;
 import PropertyManager.service.mapper.RequestMapper;
@@ -35,7 +36,7 @@ public class ApartmentController {
         List<ApartmentDTO> dtos = apartments.stream()
             .map(apartment -> mapper.toDTO(apartment))
             .collect(Collectors.toList());
-
+        System.out.println(dtos);
         return dtos;
     }
 
@@ -69,8 +70,15 @@ public class ApartmentController {
     }
 
     @GetMapping("/byBuilding/{buildingId}")
-    public List<Apartment> getByBuilding(@PathVariable Long buildingId){
-        return apartmentService.getByBuilding(buildingService.getById(buildingId));
+    public List<ApartmentDTO> getByBuilding(@PathVariable Long buildingId){
+        Building building = buildingService.getById(buildingId);
+        List<Apartment> apartments = apartmentService.getByBuilding(building);
+
+        List<ApartmentDTO> dtos = apartments.stream()
+            .map(apartment -> mapper.toDTO(apartment))
+            .collect(Collectors.toList());
+
+        return dtos;
     }
 
     // Returns apartments where the rents have not been paid for inputted month
