@@ -1,7 +1,6 @@
 package PropertyManager.service;
 
 import PropertyManager.model.Building;
-import PropertyManager.repository.ApartmentRepository;
 import PropertyManager.repository.BuildingRepository;
 import PropertyManager.exception.BuildingAddressNotFound;
 import PropertyManager.exception.EntityIdNotFound;
@@ -18,9 +17,6 @@ public class BuildingService {
 
     @Autowired
     private BuildingRepository buildingRepository;
-
-    @Autowired
-    private ApartmentRepository apartmentRepository;
 
     public List<Building> getAll(){
         List<Building> buildings = (List<Building>) buildingRepository.findAll();
@@ -57,11 +53,6 @@ public class BuildingService {
 
     // Returns the deleted building so the front end can delete it from the list.
     public Building delete(Building building){
-
-        // Delete apartments tied to this apartment
-        // TODO Delete payments related to this apartment.
-        // apartmentRepository.findApartmentByBuilding(building.getId()).forEach(
-        //         (apartment) -> apartmentRepository.delete(apartment));
 
         buildingRepository.delete(building);
         return building;

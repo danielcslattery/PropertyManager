@@ -2,10 +2,6 @@ package PropertyManager.model;
 
 import javax.persistence.*;
 
-import org.hibernate.Hibernate;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 @Entity
 public class Payment {
 
