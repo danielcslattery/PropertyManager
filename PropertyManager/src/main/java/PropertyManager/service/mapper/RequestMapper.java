@@ -107,6 +107,7 @@ public class RequestMapper {
 
         dto.setAddress(building.getAddress());
         dto.setId(building.getId());
+        dto.setNumberApartments(building.getNumberApartments());
 
         return dto;
     }
