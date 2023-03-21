@@ -2,6 +2,10 @@ package PropertyManager.model;
 
 import javax.persistence.*;
 
+import org.hibernate.Hibernate;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 @Entity
 public class Payment {
 
@@ -21,6 +25,8 @@ public class Payment {
         this.apartment = apartment;
         this.amount = paymentAmount;
         this.month = month;
+
+        apartment.addPayment(this);
     }
 
     @Override

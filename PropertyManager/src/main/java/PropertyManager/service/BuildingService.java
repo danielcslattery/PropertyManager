@@ -60,8 +60,8 @@ public class BuildingService {
 
         // Delete apartments tied to this apartment
         // TODO Delete payments related to this apartment.
-        apartmentRepository.findApartmentByBuilding(building.getId()).forEach(
-                (apartment) -> apartmentRepository.delete(apartment));
+        // apartmentRepository.findApartmentByBuilding(building.getId()).forEach(
+        //         (apartment) -> apartmentRepository.delete(apartment));
 
         buildingRepository.delete(building);
         return building;
@@ -72,7 +72,7 @@ public class BuildingService {
     }
 
     public void recalculateNumberOfApartments(Building building){
-        int numberOfApartments = apartmentRepository.findApartmentByBuilding(building.getId()).size();
+        int numberOfApartments = building.getApartments().size();
         building.setNumberApartments(numberOfApartments);
         buildingRepository.save(building);
     }
