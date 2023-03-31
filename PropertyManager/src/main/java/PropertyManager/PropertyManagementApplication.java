@@ -66,15 +66,15 @@ public class PropertyManagementApplication {
 		apartmentService.add(new Apartment(building2, "2W"));
 
 
-		for (Apartment apartment : apartmentService.getByBuilding(building1)) {
+		for (Apartment apartment : building1.getApartments()) {
 			paymentService.add(new Payment(apartment, 1200, currentMonth));
 		}
 
-		for (Apartment apartment : apartmentService.getByBuilding(building2)) {
+		for (Apartment apartment : building2.getApartments()) {
 			paymentService.add(new Payment(apartment, 1200, currentMonth));
 		}
 
-		for (Apartment apartment : apartmentService.getByBuilding(building1)) {
+		for (Apartment apartment : building1.getApartments()) {
 			paymentService.add(new Payment(apartment, 1200, (currentMonth + 1) % 12));
 		}
 	}

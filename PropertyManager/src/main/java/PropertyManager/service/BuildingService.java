@@ -53,6 +53,7 @@ public class BuildingService {
 
     // Returns the deleted building so the front end can delete it from the list.
     public Building delete(Building building){
+        System.out.println("Deleting building"+building);
 
         buildingRepository.delete(building);
         return building;

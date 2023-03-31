@@ -23,7 +23,7 @@ public class Apartment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private Building building;
 
     @NotBlank
