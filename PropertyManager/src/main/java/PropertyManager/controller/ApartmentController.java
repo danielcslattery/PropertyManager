@@ -1,7 +1,9 @@
 package PropertyManager.controller;
 
+import PropertyManager.controller.dto.ApartmentDTO;
 import PropertyManager.controller.request.ApartmentRequest;
 import PropertyManager.model.Apartment;
+import PropertyManager.model.Building;
 import PropertyManager.service.ApartmentService;
 import PropertyManager.service.BuildingService;
 import PropertyManager.service.mapper.RequestMapper;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/apartments")
@@ -27,42 +30,67 @@ public class ApartmentController {
     private RequestMapper mapper;
 
     @GetMapping
-    public List<Apartment> getAll(){
-        return apartmentService.getAll();
+    public List<ApartmentDTO> getAll(){
+
+        List<Apartment> apartments = apartmentService.getAll();
+        List<ApartmentDTO> dtos = apartments.stream()
+            .map(apartment -> mapper.toDTO(apartment))
+            .collect(Collectors.toList());
+
+        return dtos;
     }
 
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Apartment addNewApartment(@Valid @RequestBody ApartmentRequest request){
+    public ApartmentDTO addNewApartment(@Valid @RequestBody ApartmentRequest request){
         Apartment apartment = mapper.toModel(request);
 
-        return apartmentService.add(apartment);
+        apartment = apartmentService.add(apartment);
+
+        return mapper.toDTO(apartment);
     }
     
     @DeleteMapping
-    public Apartment delete(@Valid @RequestBody ApartmentRequest request){
+    public ApartmentDTO delete(@Valid @RequestBody ApartmentRequest request){
         Apartment apartment = mapper.toModel(request);
 
-        return apartmentService.delete(apartment);
+        apartmentService.delete(apartment);
+
+        return mapper.toDTO(apartment);
     }
 
     @PutMapping
-    public Apartment update(@Valid @RequestBody ApartmentRequest request){
+    public ApartmentDTO update(@Valid @RequestBody ApartmentRequest request){
         Apartment apartment = mapper.toModel(request);
 
-        return apartmentService.update(apartment);
+        apartmentService.update(apartment);
+
+        return mapper.toDTO(apartment);
     }
 
     @GetMapping("/byBuilding/{buildingId}")
-    public List<Apartment> getByBuilding(@PathVariable Long buildingId){
-        return apartmentService.getByBuilding(buildingService.getById(buildingId));
+    public List<ApartmentDTO> getByBuilding(@PathVariable Long buildingId){
+        Building building = buildingService.getById(buildingId);
+        List<Apartment> apartments = apartmentService.getByBuilding(building);
+
+        List<ApartmentDTO> dtos = apartments.stream()
+            .map(apartment -> mapper.toDTO(apartment))
+            .collect(Collectors.toList());
+
+        return dtos;
     }
 
     // Returns apartments where the rents have not been paid for inputted month
     @GetMapping("/latePayments")
-    public List<Apartment> getLatePayments(@RequestParam int month){
-        return apartmentService.getLatePayments(month);
+    public List<ApartmentDTO> getLatePayments(@RequestParam int month){
+
+        List<Apartment> apartments = apartmentService.getLatePayments(month);
+        List<ApartmentDTO> dtos = apartments.stream()
+            .map(apartment -> mapper.toDTO(apartment))
+            .collect(Collectors.toList());
+
+        return dtos;
     }
 
 }

@@ -12,6 +12,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import PropertyManager.controller.dto.ApartmentDTO;
+import PropertyManager.controller.dto.BuildingDTO;
+import PropertyManager.controller.dto.PaymentDTO;
 import PropertyManager.controller.request.ApartmentRequest;
 import PropertyManager.controller.request.BuildingRequest;
 import PropertyManager.controller.request.PaymentRequest;
@@ -52,8 +55,9 @@ public class RequestMapper {
             apartment = new Apartment();
         }
 
+        Building building = buildingRepository.findById(request.getBuildingId()).get();
         apartment.setNumber(request.getNumber());
-        apartment.setBuildingId(request.getBuildingId());
+        apartment.setBuilding(building);
 
         return apartment;
     }
@@ -68,10 +72,43 @@ public class RequestMapper {
             payment = new Payment();
         }
 
-        payment.setApartmentId(request.getApartmentId());
+        Apartment apartment = apartmentRepository.findById(request.getApartmentId()).get();
+        payment.setApartment(apartment);
         payment.setAmount(request.getAmount());
         payment.setMonth(request.getMonth());
 
         return payment;
+    }
+
+
+    public PaymentDTO toDTO(Payment payment){
+        PaymentDTO dto = new PaymentDTO();
+
+        dto.setId(payment.getId());
+        dto.setApartmentId(payment.getApartment().getId());
+        dto.setAmount(payment.getAmount());
+        dto.setMonth(payment.getMonth());
+
+        return dto;
+    }
+
+    public ApartmentDTO toDTO(Apartment apartment){
+        ApartmentDTO dto = new ApartmentDTO();
+
+        dto.setId(apartment.getId());
+        dto.setBuildingId(apartment.getBuilding().getId());
+        dto.setNumber(apartment.getNumber());
+
+        return dto;
+    }
+
+    public BuildingDTO toDTO(Building building){
+        BuildingDTO dto = new BuildingDTO();
+
+        dto.setAddress(building.getAddress());
+        dto.setId(building.getId());
+        dto.setNumberApartments(building.getNumberApartments());
+
+        return dto;
     }
 }

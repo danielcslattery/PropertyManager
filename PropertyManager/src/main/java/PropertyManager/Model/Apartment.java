@@ -1,35 +1,55 @@
 package PropertyManager.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
-import PropertyManager.repository.PaymentRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
+@Transactional
 public class Apartment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
-    private Long buildingId;
+
+    @ManyToOne
+    private Building building;
 
     @NotBlank
     private String number;
 
+    @OneToMany(mappedBy = "apartment", fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Payment> payments = new ArrayList<Payment>();
+    
     public Apartment() {};
-
-    public Apartment(Long buildingId, String apartmentNumber) {
-        this.buildingId = buildingId;
+    
+    public Apartment(Building building, String apartmentNumber) {
+        this.building = building;
         this.number = apartmentNumber;
+
+        building.addApartment(this);
     };
+
+    @Transactional
+    public void addPayment(Payment payment){
+        this.payments.add(payment);
+    }
 
     @Override
     public String toString() {
         return String.format("Apartment[apartmentId = '%d', buildingId = '%s', apartmentNumber = '%s']",
-                Id, buildingId, number);
+                Id, building, number);
     }
 
     public Long getId() {
@@ -39,24 +59,26 @@ public class Apartment {
     public String getNumber() {
         return number;
     }
-
-    public Long getBuildingId() {
-        return buildingId;
+    
+    public Building getBuilding() {
+        return building;
     }
-
-    public void setBuildingId(Long buildingId) {
-        this.buildingId = buildingId;
+    
+    public void setBuilding(Building building) {
+        this.building = building;
     }
 
     public void setId(Long id){this.Id = id;}
-
-    public void addPayment(PaymentRepository repository, int paymentAmount, int month){
-        repository.save(new Payment(Id, paymentAmount, month));
-    }
-
+    
     public void setNumber(String number) {
         this.number = number;
     }
 
+    public List<Payment> getPayments() {
+        return payments;
+    }
 
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
 }
