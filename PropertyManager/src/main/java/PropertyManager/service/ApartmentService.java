@@ -33,7 +33,7 @@ public class ApartmentService {
     }
 
     public List<Apartment> getByNumber(String number){
-        List<Apartment> apartmentList = apartmentRepository.findApartmentByNumber(number);
+        List<Apartment> apartmentList = apartmentRepository.findByNumber(number);
         if(apartmentList.size() == 0){
             throw new ApartmentNumberNotFound(number);
         }
@@ -42,7 +42,7 @@ public class ApartmentService {
     }
 
     public List<Apartment> getByBuilding(Building building){
-        return apartmentRepository.findApartmentByBuilding(building.getId());
+        return apartmentRepository.findByBuilding(building);
     }
 
     public Apartment add(Apartment apartment){

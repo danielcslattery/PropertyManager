@@ -29,7 +29,7 @@ public class BuildingService {
     }
 
     public List<Building> getByAddress(String address){
-        List<Building> buildings = buildingRepository.findBuildingByAddress(address);
+        List<Building> buildings = buildingRepository.findByAddress(address);
 
         if (buildings.size() == 0){
             throw new BuildingAddressNotFound(address);

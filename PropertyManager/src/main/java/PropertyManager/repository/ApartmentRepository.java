@@ -1,6 +1,7 @@
 package PropertyManager.repository;
 
 import PropertyManager.model.Apartment;
+import PropertyManager.model.Building;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,15 +11,10 @@ import java.util.List;
 
 public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
 
-
-    @Query(value = "SELECT * FROM apartment WHERE apartment.apartment_number = :number",
-    nativeQuery = true)
-    public List<Apartment> findApartmentByNumber(@Param("number") String number);
+    public List<Apartment> findByNumber(String number);
 
     // Return list of apartments within a specific building
-    @Query(value = "SELECT * FROM apartment WHERE apartment.building_id = :building",
-            nativeQuery = true)
-    public List<Apartment> findApartmentByBuilding(@Param("building") Long building);
+    public List<Apartment> findByBuilding(Building building);
 
     // Used to find apartment object to add payment to
     @Query(value = "SELECT * FROM apartment " +

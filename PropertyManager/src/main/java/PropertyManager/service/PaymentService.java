@@ -37,7 +37,7 @@ public class PaymentService {
     }
 
     public List<Payment> getByApartment(Apartment apartment){
-        return paymentRepository.findPaymentsByApartmentId(apartment.getId());
+        return paymentRepository.findByApartment(apartment);
     }
 
     public Payment delete(Payment payment){
