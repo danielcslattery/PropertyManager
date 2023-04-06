@@ -19,7 +19,7 @@ public class BuildingService {
     private BuildingRepository buildingRepository;
 
     public List<Building> getAll(){
-        List<Building> buildings = (List<Building>) buildingRepository.findAll();
+        List<Building> buildings = buildingRepository.findAll();
 
         if (buildings.size() == 0){
             throw new EmptyReturnFromQuery("building", "getAll");

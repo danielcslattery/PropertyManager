@@ -23,7 +23,7 @@ public class ApartmentService {
     private BuildingService buildingService;
 
     public List<Apartment> getAll(){
-        List<Apartment> apartments = (List<Apartment>) apartmentRepository.findAll();
+        List<Apartment> apartments = apartmentRepository.findAll();
 
         if (apartments.size() == 0){
             throw new EmptyReturnFromQuery("apartment", "getAll");
