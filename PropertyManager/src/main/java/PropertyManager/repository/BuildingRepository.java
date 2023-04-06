@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BuildingRepository extends CrudRepository<Building, Long> {
 
-    @Query(value = "SELECT * FROM Building WHERE Building.address = :address",
+    @Query(value = "SELECT * FROM building WHERE building.address = :address",
             nativeQuery = true)
     public List<Building> findBuildingByAddress(@Param("address") String address);
 

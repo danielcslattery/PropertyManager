@@ -1,0 +1,16 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "PropertyManagementApplication",
+      "request": "launch",
+      "mainClass": "PropertyManager.PropertyManagementApplication",
+      "projectName": "PropertyManager",
+      "env": {
+        "SPRING_DATASOURCE_URL": "jdbc:mysql://localhost:3306/propertymanager",
+        "SPRING_DATASOURCE_PASSWORD": "admin",
+        "SPRING_DATASOURCE_USERNAME": "root"
+      }
+    },
+  ]
+}

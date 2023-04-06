@@ -10,19 +10,19 @@ import java.util.List;
 public interface ApartmentRepository extends CrudRepository<Apartment, Long> {
 
 
-    @Query(value = "SELECT * FROM Apartment WHERE Apartment.apartment_number = :number",
+    @Query(value = "SELECT * FROM apartment WHERE apartment.apartment_number = :number",
     nativeQuery = true)
     public List<Apartment> findApartmentByNumber(@Param("number") String number);
 
     // Return list of apartments within a specific building
-    @Query(value = "SELECT * FROM Apartment WHERE Apartment.building_id = :building",
+    @Query(value = "SELECT * FROM apartment WHERE apartment.building_id = :building",
             nativeQuery = true)
     public List<Apartment> findApartmentByBuilding(@Param("building") Long building);
 
     // Used to find apartment object to add payment to
-    @Query(value = "SELECT * FROM Apartment " +
-            "WHERE Apartment.building_id = :building " +
-            "AND Apartment.apartment_id = :apartment",
+    @Query(value = "SELECT * FROM apartment " +
+            "WHERE apartment.building_id = :building " +
+            "AND apartment.apartment_id = :apartment",
             nativeQuery = true)
     public List<Apartment> findApartmentByBuildingAndApartmentId(@Param("building") long building,
                                                             @Param("apartment") long apartment);
