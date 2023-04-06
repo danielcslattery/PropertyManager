@@ -36,7 +36,7 @@ public class ApartmentController {
         List<ApartmentDTO> dtos = apartments.stream()
             .map(apartment -> mapper.toDTO(apartment))
             .collect(Collectors.toList());
-        System.out.println(dtos);
+
         return dtos;
     }
 

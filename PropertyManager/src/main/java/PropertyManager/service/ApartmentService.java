@@ -70,8 +70,7 @@ public class ApartmentService {
     }
 
     public Apartment delete(Apartment apartment){
-        System.out.println("Deleting apartment"+ apartment);
-
+        apartment.getBuilding().getApartments().remove(apartment);
         apartmentRepository.delete(apartment);
         return apartment;
     }
