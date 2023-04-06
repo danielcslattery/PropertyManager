@@ -16,9 +16,6 @@ public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
     // Return list of apartments within a specific building
     public List<Apartment> findByBuilding(Building building);
 
-    // Used to find apartment object to add payment to
-    public List<Apartment> findByBuildingAndApartmentId(Building building, Apartment apartment);
-
     // Given value for month, returns list of apartment objects
     // where there is not a corresponding payment for that month
     @Query(value = "SELECT * " +
