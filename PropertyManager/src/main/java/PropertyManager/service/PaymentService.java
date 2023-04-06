@@ -23,7 +23,7 @@ public class PaymentService {
     ApartmentRepository apartmentRepository;
 
     public List<Payment> getAll(){
-        List<Payment> payments = (List<Payment>) paymentRepository.findAll();
+        List<Payment> payments = paymentRepository.findAll();
 
         if (payments.size() == 0){
             throw new EmptyReturnFromQuery("payment", "findAll");
@@ -37,7 +37,7 @@ public class PaymentService {
     }
 
     public List<Payment> getByApartment(Apartment apartment){
-        return paymentRepository.findPaymentsByApartmentId(apartment.getId());
+        return paymentRepository.findByApartment(apartment);
     }
 
     public Payment delete(Payment payment){

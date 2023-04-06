@@ -1,31 +1,20 @@
 package PropertyManager.repository;
 
 import PropertyManager.model.Apartment;
+import PropertyManager.model.Building;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ApartmentRepository extends CrudRepository<Apartment, Long> {
+public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
 
-
-    @Query(value = "SELECT * FROM apartment WHERE apartment.apartment_number = :number",
-    nativeQuery = true)
-    public List<Apartment> findApartmentByNumber(@Param("number") String number);
+    public List<Apartment> findByNumber(String number);
 
     // Return list of apartments within a specific building
-    @Query(value = "SELECT * FROM apartment WHERE apartment.building_id = :building",
-            nativeQuery = true)
-    public List<Apartment> findApartmentByBuilding(@Param("building") Long building);
-
-    // Used to find apartment object to add payment to
-    @Query(value = "SELECT * FROM apartment " +
-            "WHERE apartment.building_id = :building " +
-            "AND apartment.apartment_id = :apartment",
-            nativeQuery = true)
-    public List<Apartment> findApartmentByBuildingAndApartmentId(@Param("building") long building,
-                                                            @Param("apartment") long apartment);
+    public List<Apartment> findByBuilding(Building building);
 
     // Given value for month, returns list of apartment objects
     // where there is not a corresponding payment for that month
