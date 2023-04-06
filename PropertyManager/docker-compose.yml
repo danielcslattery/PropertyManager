@@ -1,6 +1,6 @@
 services:
   db:
-    build: .
+    build: ./Docker
     restart: always
     environment:
       MYSQL_DATABASE: 'propertymanager'
