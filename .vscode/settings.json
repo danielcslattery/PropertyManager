@@ -4,9 +4,9 @@
     "java.test.config": {
         "name": "propertyManagerTestConfiguration",
         "env": {
-        "SPRING_DATASOURCE_URL": "jdbc:mysql://localhost:3306/propertymanager",
-        "SPRING_DATASOURCE_PASSWORD": "admin",
-        "SPRING_DATASOURCE_USERNAME": "root"
+            "SPRING_DATASOURCE_URL": "jdbc:mysql://localhost:3306/propertymanager",
+            "SPRING_DATASOURCE_PASSWORD": "admin",
+            "SPRING_DATASOURCE_USERNAME": "root"
         }
     }
 }
