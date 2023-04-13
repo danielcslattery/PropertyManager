@@ -6,14 +6,20 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+import PropertyManager.model.Apartment;
 import PropertyManager.model.Building;
 
 @SpringBootTest
+@Transactional
 public class BuildingRepositoryTest {
     
     @Autowired
     private BuildingRepository buildingRepository;
+    
+    @Autowired
+    private ApartmentRepository apartmentRepository;
 
     @Test
     public void BuildingRepository_Save_AddsToRepository() {
@@ -35,12 +41,12 @@ public class BuildingRepositoryTest {
 
         Assertions.assertThat(buildings).isNotNull();
         Assertions.assertThat(buildings.size()).isEqualTo(4);
-
     }
 
     @Test
     public void BuildingRepository_Delete_RemovesFromDatabase(){
         Building building = new Building("1234 Sesame Street");
+        buildingRepository.save(building);
 
         buildingRepository.delete(building);
 
@@ -61,5 +67,17 @@ public class BuildingRepositoryTest {
         Assertions.assertThat(buildingRepository.findById(building.getId()).get().getAddress()).isEqualTo("1234 Sesame Street");
     }
 
+    @Test
+    public void ApartmentRepository_Delete_DeletesRelatedApartments(){
+        Building building = new Building("1234 Sesame Street");
+        buildingRepository.save(building);
+        Apartment apartment = new Apartment(building, "1W");
+        apartmentRepository.save(apartment);
 
+        Assertions.assertThat(apartmentRepository.findById(apartment.getId())).isNotEmpty();
+
+        buildingRepository.delete(building);
+
+        Assertions.assertThat(apartmentRepository.findById(apartment.getId())).isEmpty();
+    }
 }
