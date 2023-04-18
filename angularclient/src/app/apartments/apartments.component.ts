@@ -19,16 +19,11 @@ export class ApartmentsComponent implements OnInit {
 
     // Wait for the url, then act based on the url
     this.route.url.subscribe(url => {
-      if(url[0].path === "byBuilding"){
-        // Go to apartments by building
-        this.route.params.subscribe( params => {
-          this.getByBuilding(params['id']);
-          this.apartmentForm.get("buildingId")?.setValue(params['id']);
-        })
-      } else {
-        // Go to all apartments
-        this.getApartments()
-      }
+      // Go to apartments by building
+      this.route.params.subscribe( params => {
+        this.getByBuilding(params['buildingId']);
+        this.apartmentForm.get("buildingId")?.setValue(params['buildingId']);
+      })
 
     })
 

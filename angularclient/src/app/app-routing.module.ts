@@ -5,8 +5,9 @@ import { ApartmentsComponent } from './apartments/apartments.component';
 import { PaymentsComponent } from './payments/payments.component';
 
 const routes: Routes = [
-  { path: "", component: BuildingsComponent},
-  { path: "byBuilding/:id", component: ApartmentsComponent},
+  { path: "", redirectTo: '/buildings', pathMatch: 'full'},
+  { path: "buildings", component: BuildingsComponent},
+  { path: "buildings/:buildingId/apartments", component: ApartmentsComponent},
   { path: "apartments", component: ApartmentsComponent},
   { path: "byApartment/:id", component: PaymentsComponent}
 ];

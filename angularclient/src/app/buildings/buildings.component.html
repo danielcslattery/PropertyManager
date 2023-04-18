@@ -37,14 +37,14 @@
                 </ng-container>
 
                 <ng-template #notSelected>
-                    <td [routerLink] = "['/byBuilding', building.id]">
+                    <td [routerLink] = "['/buildings', building.id, 'apartments']">
                         {{building.id}}
                     </td>
                     
-                    <td [routerLink] = "['/byBuilding', building.id]">
+                    <td [routerLink] = "['/buildings', building.id, 'apartments']">
                         {{building.address}}
                     </td>  
-                    <td [routerLink] = "['/byBuilding', building.id]">
+                    <td [routerLink] = "['/buildings', building.id, 'apartments']">
                         {{building.numberApartments}}
                     </td>  
                     <td>
