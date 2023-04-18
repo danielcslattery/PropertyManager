@@ -24,7 +24,8 @@ ngOnInit(): void {
   this.route.url.subscribe(p => {
     // Go to payment by building
     this.route.params.subscribe( params => {
-      this.apartmentId = params['id'];
+      this.apartmentId = params['apartmentId'];
+      this.buildingId = params['buildingId'];
       this.getByApartment(this.apartmentId);
       this.paymentForm.get("apartmentId")?.setValue(this.apartmentId);
     })
@@ -61,6 +62,7 @@ paymentForm = new FormGroup ({
   selectedPayment?: Payment;
   payments: Payment[] = [];
   apartmentId: number = 0;
+  buildingId: number = 0;
 
   getByApartment(apartmentId: number): void {
   this.paymentService.getByApartment(apartmentId).subscribe(response => this.payments = response.body)
