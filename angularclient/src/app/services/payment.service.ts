@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Payment } from '../models/payment';
 
@@ -19,7 +19,11 @@ export class PaymentService {
   }
 
   getByApartment(apartmentId: number): Observable<HttpResponse<any>>{
-    return this.http.get(`${this.urls["byApartment"]}${apartmentId}`, {observe: 'response'});
+    let params = new HttpParams().set('apartmentId', apartmentId);
+    return this.http.get(this.urls['home'], {
+      observe: 'response',
+      params: params,
+    });
   }
 
   deletePayment(payment: Payment): Observable<HttpResponse<any>> {

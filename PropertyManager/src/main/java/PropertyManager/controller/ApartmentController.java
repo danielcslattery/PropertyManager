@@ -69,8 +69,8 @@ public class ApartmentController {
         return mapper.toDTO(apartment);
     }
 
-    @GetMapping("/byBuilding/{buildingId}")
-    public List<ApartmentDTO> getByBuilding(@PathVariable Long buildingId){
+    @GetMapping("/")
+    public List<ApartmentDTO> getByBuilding(@RequestParam Long buildingId){
         Building building = buildingService.getById(buildingId);
         List<Apartment> apartments = apartmentService.getByBuilding(building);
 

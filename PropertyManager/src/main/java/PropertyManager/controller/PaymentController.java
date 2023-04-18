@@ -49,8 +49,8 @@ public class PaymentController {
         return mapper.toDTO(payment);
     }
 
-    @GetMapping("/byApartment/{apartmentId}")
-    public List<PaymentDTO> getByApartment (@PathVariable Long apartmentId){
+    @GetMapping("/")
+    public List<PaymentDTO> getByApartment (@RequestParam Long apartmentId){
         List<Payment> payments = paymentService.getByApartment(apartmentService.getById(apartmentId));
         List<PaymentDTO> dtos = payments.stream()
             .map(payment -> mapper.toDTO(payment))

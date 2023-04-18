@@ -21,7 +21,11 @@ export class ApartmentService {
   }
 
   getByBuilding(id: number): Observable<HttpResponse<any>>{
-    return this.http.get(`${this.urls["byBuilding"]}${id}`, {observe: 'response'});
+    let params = new HttpParams().set("buildingId", id)
+    return this.http.get(this.urls['home'], {
+      observe: 'response',
+      params: params,
+    });
   }
 
   deleteApartment(apartment: Apartment): Observable<HttpResponse<any>> {
