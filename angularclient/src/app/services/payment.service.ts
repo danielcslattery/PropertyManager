@@ -1,36 +1,39 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Payment } from '../models/payment';
+import { Apartment } from '../models/apartment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentService {
-  private urls = {
-    "home": 'http://localhost:8080/payments/',
-    "byApartment": 'http://localhost:8080/payments/byApartment/'
-  };
+  private HOST = 'http://localhost:8080'
 
   constructor(private http: HttpClient) { }
 
-  getPayments(): Observable<HttpResponse<any>>{
-    return this.http.get(this.urls["home"], {observe: 'response'});
-  }
+  getByApartment(apartment: Apartment): Observable<HttpResponse<any>>{
+    let url = `${this.HOST}/buildings/${apartment.buildingId}/apartments/${apartment.id}/payments`;
 
-  getByApartment(apartmentId: number): Observable<HttpResponse<any>>{
-    return this.http.get(`${this.urls["byApartment"]}${apartmentId}`, {observe: 'response'});
+    // let params = new HttpParams().set('apartmentId', apartmentId);
+    return this.http.get(url, {
+      observe: 'response',
+    });
   }
 
   deletePayment(payment: Payment): Observable<HttpResponse<any>> {
-    return this.http.delete(this.urls["home"], {observe: 'response', body: payment});
+    let url = `${this.HOST}/buildings/${payment.buildingId}/apartments/${payment.apartmentId}/payments/${payment.id}`;
+
+    return this.http.delete(url, {observe: 'response'});
   }
 
-  addPayment(formSubmission: FormData): Observable<HttpResponse<any>> {
-    return this.http.post(this.urls["home"], formSubmission, {observe: 'response'});
+  addPayment(payment: Payment): Observable<HttpResponse<any>> {
+    let url = `${this.HOST}/buildings/${payment.buildingId}/apartments/${payment.apartmentId}/payments`;
+    return this.http.post(url, payment, {observe: 'response'});
   }
 
-  editPayment(formSubmission: FormData): Observable<HttpResponse<any>> {
-    return this.http.put(this.urls["home"], formSubmission, {observe: 'response'});
+  editPayment(payment: Payment): Observable<HttpResponse<any>> {
+    let url = `${this.HOST}/buildings/${payment.buildingId}/apartments/${payment.apartmentId}/payments/${payment.id}`;
+    return this.http.put(url, payment, {observe: 'response'});
   }
 }

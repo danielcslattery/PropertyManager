@@ -6,6 +6,15 @@ public class PaymentDTO{
     private long apartmentId;
     private int amount;
     private int month;
+    private long buildingId;
+
+    public long getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(long buildingId) {
+        this.buildingId = buildingId;
+    }
 
     public void setId(long id) {
         this.id = id;

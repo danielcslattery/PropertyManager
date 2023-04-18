@@ -6,6 +6,7 @@ import PropertyManager.model.Apartment;
 import PropertyManager.model.Building;
 import PropertyManager.service.ApartmentService;
 import PropertyManager.service.BuildingService;
+import PropertyManager.service.PaymentService;
 import PropertyManager.service.mapper.RequestMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/apartments")
+@RequestMapping("buildings/{buildingId}/apartments")
 public class ApartmentController {
 
     @Autowired
@@ -28,17 +29,6 @@ public class ApartmentController {
 
     @Autowired
     private RequestMapper mapper;
-
-    @GetMapping
-    public List<ApartmentDTO> getAll(){
-
-        List<Apartment> apartments = apartmentService.getAll();
-        List<ApartmentDTO> dtos = apartments.stream()
-            .map(apartment -> mapper.toDTO(apartment))
-            .collect(Collectors.toList());
-
-        return dtos;
-    }
 
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.
     @PostMapping
@@ -51,17 +41,17 @@ public class ApartmentController {
         return mapper.toDTO(apartment);
     }
     
-    @DeleteMapping
-    public ApartmentDTO delete(@Valid @RequestBody ApartmentRequest request){
-        Apartment apartment = mapper.toModel(request);
+    @DeleteMapping("/{apartmentId}")
+    public ApartmentDTO delete(@PathVariable Long apartmentId){
+        Apartment apartment = apartmentService.getById(apartmentId);
 
         apartmentService.delete(apartment);
 
         return mapper.toDTO(apartment);
     }
 
-    @PutMapping
-    public ApartmentDTO update(@Valid @RequestBody ApartmentRequest request){
+    @PutMapping("/{apartmentId}")
+    public ApartmentDTO update(@PathVariable Long apartmentId, @Valid @RequestBody ApartmentRequest request){
         Apartment apartment = mapper.toModel(request);
 
         apartmentService.update(apartment);
@@ -69,7 +59,7 @@ public class ApartmentController {
         return mapper.toDTO(apartment);
     }
 
-    @GetMapping("/byBuilding/{buildingId}")
+    @GetMapping
     public List<ApartmentDTO> getByBuilding(@PathVariable Long buildingId){
         Building building = buildingService.getById(buildingId);
         List<Apartment> apartments = apartmentService.getByBuilding(building);

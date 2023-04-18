@@ -19,16 +19,12 @@ export class ApartmentsComponent implements OnInit {
 
     // Wait for the url, then act based on the url
     this.route.url.subscribe(url => {
-      if(url[0].path === "byBuilding"){
-        // Go to apartments by building
-        this.route.params.subscribe( params => {
-          this.getByBuilding(params['id']);
-          this.apartmentForm.get("buildingId")?.setValue(params['id']);
-        })
-      } else {
-        // Go to all apartments
-        this.getApartments()
-      }
+      // Go to apartments by building
+      this.route.params.subscribe( params => {
+        this.buildingId = params['buildingId'];
+        this.getByBuilding(this.buildingId);
+        this.apartmentForm.get("buildingId")?.setValue(this.buildingId);
+      })
 
     })
 
@@ -58,10 +54,6 @@ export class ApartmentsComponent implements OnInit {
   apartmentsWithLatePayments: Apartment[] = []
   buildingId: number = 0
 
-  getApartments(): void {
-    this.apartmentService.getApartments().subscribe(response => this.apartments = response.body)
-  }
-
   getByBuilding(buildingId: number): void {
     this.apartmentService.getByBuilding(buildingId).subscribe(response => this.apartments = response.body)
   }
@@ -75,8 +67,16 @@ export class ApartmentsComponent implements OnInit {
   }
 
   // When 201 response is received, adds the model to the model list.
-  add(postform: FormGroupDirective): void {    
-    this.apartmentService.addApartment(this.apartmentForm.value).subscribe(response => {
+  add(postform: FormGroupDirective): void {   
+
+    let apartment: Apartment = {
+      id: this.apartmentForm.value.id,
+      buildingId: this.buildingId,
+      number: this.apartmentForm.value.number,
+    };
+
+    console.log(apartment);
+    this.apartmentService.addApartment(apartment).subscribe(response => {
       if (response.status == 201) {
         this.apartments.push(response.body);
     // Return form to empty
@@ -114,7 +114,16 @@ export class ApartmentsComponent implements OnInit {
     let editedNumber: string = this.apartmentForm.get("editnumber")?.value;
     postform.form.get("number")?.setValue(editedNumber);
 
-    this.apartmentService.editApartment(postform.value).subscribe(response => {
+
+    let apartment: Apartment = {
+      id: postform.value.id,
+      buildingId: this.buildingId,
+      number: postform.value.number,
+    };
+
+    console.log("Apartment: ", apartment);
+
+    this.apartmentService.editApartment(apartment).subscribe(response => {
       if (response.status == 200) {
         this.apartments = this.apartments.filter(el => !(el.id == response.body.id))
         this.apartments.push(response.body);

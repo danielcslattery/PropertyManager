@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from '../services/payment.service';
 import { Payment } from '../models/payment';
+import { Apartment } from '../models/apartment';
 import { ActivatedRoute, RouterState } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 
@@ -22,16 +23,13 @@ ngOnInit(): void {
 
   // Wait for the url, then act based on the url
   this.route.url.subscribe(p => {
-    if(p[0].path === "byApartment"){
-      // Go to payment by building
-      this.route.params.subscribe( params => {
-        this.getByApartment(params['id']);
-        this.paymentForm.get("apartmentId")?.setValue(params['id']);
-      })
-    } else {
-      // Go to all payment
-      this.getPayments()
-    }
+    // Go to payment by building
+    this.route.params.subscribe( params => {
+      this.apartmentId = params['apartmentId'];
+      this.buildingId = params['buildingId'];
+      this.getByApartment(this.apartmentId);
+      this.paymentForm.get("apartmentId")?.setValue(this.apartmentId);
+    })
   })
 
 }
@@ -65,13 +63,19 @@ paymentForm = new FormGroup ({
   selectedPayment?: Payment;
   payments: Payment[] = [];
   apartmentId: number = 0;
-
-  getPayments(): void {
-  this.paymentService.getPayments().subscribe(response => this.payments = response.body)
-  }
+  buildingId: number = 0;
 
   getByApartment(apartmentId: number): void {
-  this.paymentService.getByApartment(apartmentId).subscribe(response => this.payments = response.body)
+
+    // Using as placeholder for Apartment object generated from ids.  
+    // Will be replaced with actual object.
+    let apartment: Apartment = {
+      id: apartmentId,
+      buildingId: this.buildingId,
+      number: "0",
+    }
+
+    this.paymentService.getByApartment(apartment).subscribe(response => this.payments = response.body)
   }
 
   delete(payment: Payment): void {
@@ -83,7 +87,16 @@ paymentForm = new FormGroup ({
   }
 
   add(postform: FormGroupDirective): void {
-    this.paymentService.addPayment(this.paymentForm.value).subscribe(response => {
+
+    let payment: Payment = {
+      id: this.paymentForm.value.id,
+      apartmentId: this.paymentForm.value.apartmentId,
+      buildingId: this.buildingId,
+      amount: this.paymentForm.value.amount,
+      month: this.paymentForm.value.month,
+    };
+
+    this.paymentService.addPayment(payment).subscribe(response => {
       if (response.status == 201) {
         this.payments.push(response.body);
     // Return form to empty
@@ -94,7 +107,8 @@ paymentForm = new FormGroup ({
     });
   }
 
-  handleFormSubmission( buttonClicked: string,
+  handleFormSubmission( 
+    buttonClicked: string,
     postform: FormGroupDirective,
     payment?: Payment): void{
 
@@ -124,7 +138,15 @@ paymentForm = new FormGroup ({
     let editedMonth: string = this.paymentForm.get("editmonth")?.value;
     postform.form.get("month")?.setValue(editedMonth);
 
-    this.paymentService.editPayment(postform.value).subscribe(response => {
+    let payment: Payment = {
+      id: postform.value.id,
+      apartmentId: this.apartmentId,
+      buildingId: this.buildingId,
+      amount: postform.value.amount,
+      month: postform.value.month,
+    };
+
+    this.paymentService.editPayment(payment).subscribe(response => {
       if (response.status == 200) {
         this.payments = this.payments.filter(el => !(el.id == response.body.id))
         this.payments.push(response.body);
