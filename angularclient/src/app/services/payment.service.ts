@@ -7,34 +7,32 @@ import { Payment } from '../models/payment';
   providedIn: 'root'
 })
 export class PaymentService {
-  private urls = {
-    "home": 'http://localhost:8080/payments/',
-    "byApartment": 'http://localhost:8080/payments/byApartment/'
-  };
+  private HOST = 'http://localhost:8080'
 
   constructor(private http: HttpClient) { }
 
-  getPayments(): Observable<HttpResponse<any>>{
-    return this.http.get(this.urls["home"], {observe: 'response'});
-  }
-
   getByApartment(apartmentId: number): Observable<HttpResponse<any>>{
-    let params = new HttpParams().set('apartmentId', apartmentId);
-    return this.http.get(this.urls['home'], {
+    let url = `${this.HOST}/apartments/${apartmentId}/payments`
+
+    // let params = new HttpParams().set('apartmentId', apartmentId);
+    return this.http.get(url, {
       observe: 'response',
-      params: params,
     });
   }
 
   deletePayment(payment: Payment): Observable<HttpResponse<any>> {
-    return this.http.delete(this.urls["home"], {observe: 'response', body: payment});
+    let url = `${this.HOST}/apartments/${payment.apartmentId}/payments/${payment.id}`
+
+    return this.http.delete(url, {observe: 'response'});
   }
 
-  addPayment(formSubmission: FormData): Observable<HttpResponse<any>> {
-    return this.http.post(this.urls["home"], formSubmission, {observe: 'response'});
+  addPayment(payment: Payment): Observable<HttpResponse<any>> {
+    let url = `${this.HOST}/apartments/${payment.apartmentId}/payments`;
+    return this.http.post(url, payment, {observe: 'response'});
   }
 
-  editPayment(formSubmission: FormData): Observable<HttpResponse<any>> {
-    return this.http.put(this.urls["home"], formSubmission, {observe: 'response'});
+  editPayment(payment: Payment): Observable<HttpResponse<any>> {
+    let url = `${this.HOST}/apartments/${payment.apartmentId}/payments/${payment.id}`;
+    return this.http.put(url, payment, {observe: 'response'});
   }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/payments")
+@RequestMapping("apartments/{apartmentId}/payments")
 public class PaymentController {
 
     @Autowired
@@ -27,16 +27,6 @@ public class PaymentController {
 
     @Autowired
     private RequestMapper mapper;
-
-    @GetMapping
-    public List<PaymentDTO> getAll(){
-        List<Payment> payments = paymentService.getAll();
-        List<PaymentDTO> dtos = payments.stream()
-            .map(payment -> mapper.toDTO(payment))
-            .collect(Collectors.toList());
-
-        return dtos;
-    }
 
     // Adds new payment to database without returning a new view.  Used with AJAX requests.
     //TODO: Change parameters to apartmentId to simplify function.
@@ -49,8 +39,8 @@ public class PaymentController {
         return mapper.toDTO(payment);
     }
 
-    @GetMapping("/")
-    public List<PaymentDTO> getByApartment (@RequestParam Long apartmentId){
+    @GetMapping
+    public List<PaymentDTO> getByApartment(@PathVariable Long apartmentId){
         List<Payment> payments = paymentService.getByApartment(apartmentService.getById(apartmentId));
         List<PaymentDTO> dtos = payments.stream()
             .map(payment -> mapper.toDTO(payment))
@@ -65,17 +55,16 @@ public class PaymentController {
         return mapper.toDTO(payment);
     }
 
-    @DeleteMapping
-    public PaymentDTO delete(@Valid @RequestBody PaymentRequest request){
-        Payment payment = mapper.toModel(request);
-
+    @DeleteMapping("/{paymentId}")
+    public PaymentDTO delete(@PathVariable Long paymentId){
+        Payment payment = paymentService.getById(paymentId);
         paymentService.delete(payment);
 
         return mapper.toDTO(payment);
     }
 
-    @PutMapping
-    public PaymentDTO update(@Valid @RequestBody PaymentRequest request){
+    @PutMapping("/{paymentId}")
+    public PaymentDTO update(@PathVariable Long paymentId, @Valid @RequestBody PaymentRequest request){
         Payment payment = mapper.toModel(request);
         paymentService.update(payment);
         
