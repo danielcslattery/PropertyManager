@@ -23,7 +23,7 @@ public class Building {
 
     private int numberApartments;
 
-    @OneToMany(mappedBy = "building", fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Apartment> apartments = new ArrayList<Apartment>();
 
     public List<Apartment> getApartments() {

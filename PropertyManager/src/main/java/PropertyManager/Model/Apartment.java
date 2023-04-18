@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +28,7 @@ public class Apartment {
     @NotBlank
     private String number;
 
-    @OneToMany(mappedBy = "apartment", fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Payment> payments = new ArrayList<Payment>();
     
     public Apartment() {};
@@ -41,7 +40,6 @@ public class Apartment {
         building.addApartment(this);
     };
 
-    @Transactional
     public void addPayment(Payment payment){
         this.payments.add(payment);
     }
