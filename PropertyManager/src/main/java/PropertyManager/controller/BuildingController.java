@@ -35,13 +35,6 @@ public class BuildingController {
         return dtos;
     }
 
-    // Allows search by address.  Not implemented
-    @GetMapping("/byAddress")
-    public String getByAddress(@RequestParam String address){
-        Building building = buildingService.getByAddress(address).get(0);
-        return "redirect:" + building.getId();
-    }
-
     // Adds new building to database without returning a new view.  Used with AJAX requests.
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -55,23 +48,23 @@ public class BuildingController {
 
     // Other commands are redirected to a landing page for single buildings.
     @GetMapping("/{buildingId}")
-    public BuildingDTO getBuilding(@PathVariable Long buildingId){
+    public BuildingDTO get(@PathVariable Long buildingId){
         Building building = buildingService.getById(buildingId);
 
         return mapper.toDTO(building);
     }
 
     // Adds new apartment to database without returning a new view.  Used with AJAX requests.
-    @DeleteMapping
-    public BuildingDTO delete(@Valid @RequestBody BuildingRequest request){
-        Building building = mapper.toModel(request);
+    @DeleteMapping("/{buildingId}")
+    public BuildingDTO delete(@PathVariable Long buildingId){
+        Building building = buildingService.getById(buildingId);
 
         building = buildingService.delete(building);
         return mapper.toDTO(building);
     }
 
-    @PutMapping
-    public BuildingDTO update(@Valid @RequestBody BuildingRequest request){
+    @PutMapping("/{buildingId}")
+    public BuildingDTO update(@PathVariable Long buildingId, @Valid @RequestBody BuildingRequest request){
         Building building = mapper.toModel(request);
 
         building = buildingService.update(building);

@@ -32,7 +32,7 @@ public class PaymentController {
     //TODO: Change parameters to apartmentId to simplify function.
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PaymentDTO add( @Valid @RequestBody PaymentRequest request){
+    public PaymentDTO add(@Valid @RequestBody PaymentRequest request){
         Payment payment = mapper.toModel(request);
 
         payment = paymentService.add(payment);

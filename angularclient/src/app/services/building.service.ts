@@ -4,32 +4,37 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BuildingService {
-  private urls = {
-    "home": 'http://localhost:8080/buildings/'
-  };
+  private HOST = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getBuildings(): Observable<HttpResponse<any>>{
-    return this.http.get(this.urls["home"], {observe: 'response'});
+  getBuildings(): Observable<HttpResponse<any>> {
+    let url = `${this.HOST}/buildings`
+    return this.http.get(url, { observe: 'response' });
   }
 
   deleteBuilding(building: Building): Observable<HttpResponse<any>> {
-    return this.http.delete(this.urls["home"], {observe: 'response', body: building});
+    let url = `${this.HOST}/buildings/${building.id}`
+
+    return this.http.delete(url, {
+      observe: 'response',
+    });
   }
 
-  addBuilding(formSubmission: FormData): Observable<HttpResponse<any>> {
-    console.log("Adding address: ", formSubmission)
-    return this.http.post(this.urls["home"], formSubmission, {observe: 'response'})
+  addBuilding(building: Building): Observable<HttpResponse<any>> {
+    let url = `${this.HOST}/buildings}`
+    return this.http.post(url, building, {
+      observe: 'response',
+    });
   }
 
-  editBuilding(formSubmission: FormData): Observable<HttpResponse<any>> {
-    console.log("Editing address: ", formSubmission)
-    return this.http.put(this.urls["home"], formSubmission, {observe: 'response'});
+  editBuilding(building: Building): Observable<HttpResponse<any>> {
+    let url = `${this.HOST}/buildings/${building.id}`
+    return this.http.put(url, building, {
+      observe: 'response',
+    });
   }
-
-
 }
