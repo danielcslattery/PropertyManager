@@ -41,7 +41,6 @@ public class PaymentService {
     }
 
     public Payment delete(Payment payment){
-        payment.getApartment().getPayments().remove(payment);
         paymentRepository.delete(payment);
         return payment;
     }
