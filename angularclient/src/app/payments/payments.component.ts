@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from '../services/payment.service';
 import { Payment } from '../models/payment';
+import { Apartment } from '../models/apartment';
 import { ActivatedRoute, RouterState } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 
@@ -65,7 +66,16 @@ paymentForm = new FormGroup ({
   buildingId: number = 0;
 
   getByApartment(apartmentId: number): void {
-  this.paymentService.getByApartment(apartmentId).subscribe(response => this.payments = response.body)
+
+    // Using as placeholder for Apartment object generated from ids.  
+    // Will be replaced with actual object.
+    let apartment: Apartment = {
+      id: apartmentId,
+      buildingId: this.buildingId,
+      number: "0",
+    }
+
+    this.paymentService.getByApartment(apartment).subscribe(response => this.payments = response.body)
   }
 
   delete(payment: Payment): void {
@@ -81,6 +91,7 @@ paymentForm = new FormGroup ({
     let payment: Payment = {
       id: this.paymentForm.value.id,
       apartmentId: this.paymentForm.value.apartmentId,
+      buildingId: this.buildingId,
       amount: this.paymentForm.value.amount,
       month: this.paymentForm.value.month,
     };
@@ -130,6 +141,7 @@ paymentForm = new FormGroup ({
     let payment: Payment = {
       id: postform.value.id,
       apartmentId: this.apartmentId,
+      buildingId: this.buildingId,
       amount: postform.value.amount,
       month: postform.value.month,
     };

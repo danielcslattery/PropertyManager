@@ -88,6 +88,7 @@ public class RequestMapper {
         dto.setApartmentId(payment.getApartment().getId());
         dto.setAmount(payment.getAmount());
         dto.setMonth(payment.getMonth());
+        dto.setBuildingId(payment.getApartment().getBuilding().getId());
 
         return dto;
     }
