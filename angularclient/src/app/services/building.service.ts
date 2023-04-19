@@ -37,4 +37,20 @@ export class BuildingService {
       observe: 'response',
     });
   }
+
+
+  // Store to and retreive the current building in local storage so it's available everywhere
+  getCurrentBuilding(): Building | undefined {
+    let string: string | null = localStorage.getItem('building');
+    if (string) {
+      let building: Building = JSON.parse(string) as Building;
+      return building;
+    } else {
+      return undefined;
+    }
+  }
+
+  setCurrentBuilding(building: Building): void {
+    localStorage.setItem('building', JSON.stringify(building));
+  }
 }

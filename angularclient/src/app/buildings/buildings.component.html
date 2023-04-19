@@ -37,44 +37,44 @@
                 </ng-container>
 
                 <ng-template #notSelected>
-                    <td [routerLink] = "['/buildings', building.id, 'apartments']">
-                        {{building.id}}
-                    </td>
-                    
-                    <td [routerLink] = "['/buildings', building.id, 'apartments']">
-                        {{building.address}}
-                    </td>  
-                    <td [routerLink] = "['/buildings', building.id, 'apartments']">
-                        {{building.numberApartments}}
-                    </td>  
-                    <td>
-                        <button type = "button"
-                                class = "delete-btn"
-                                (click) = "delete(building)">
-                            X
-                        </button>
-                    </td>
-            
-                    <td>
-                        <button type = "button"
-                                class = "edit-btn"
-                                (click) = "selectForEditing(building)"
-                                name = "edit">
-                                O
-                        </button>
-                    </td>
-                </ng-template>
+                        <td [routerLink] = "['/buildings', building.id, 'apartments']" (click) = "selectForCurrent(building)">
+                            {{building.id}}
+                        </td>
+                        
+                        <td [routerLink] = "['/buildings', building.id, 'apartments']" (click) = "selectForCurrent(building)">
+                            {{building.address}}
+                        </td>  
+                        <td [routerLink] = "['/buildings', building.id, 'apartments']" (click) = "selectForCurrent(building)">
+                            {{building.numberApartments}}
+                        </td>  
+                        <td>
+                            <button type = "button"
+                                    class = "delete-btn"
+                                    (click) = "delete(building)">
+                                X
+                            </button>
+                        </td>
 
-        </tr>
-
-            <tr class = "submit-row">
+                        
+                        <td>
+                            <button type = "button"
+                            class = "edit-btn"
+                            (click) = "selectForEditing(building)"
+                            name = "edit">
+                            O
+                            </button>
+                        </td>
+                    </ng-template>
+                </tr>
+                
+                <tr class = "submit-row">
                 <td>
                     <input type = "submit" value = "+" (click) = "buildingForm.valid ? handleFormSubmission('add', postform) : null">
                 </td>
                 <td>
                     <input  type = "text" 
-                            formControlName = "address"
-                            placeholder = "Add Building">
+                    formControlName = "address"
+                    placeholder = "Add Building">
                 </td>
                 <td></td>
                 <td></td>
