@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from '../services/payment.service';
+import { ApartmentService } from '../services/apartment.service';
 import { Payment } from '../models/payment';
 import { Apartment } from '../models/apartment';
 import { ActivatedRoute, RouterState } from '@angular/router';
@@ -16,6 +17,7 @@ export class PaymentsComponent implements OnInit {
 
 
   constructor(private paymentService: PaymentService,
+    private apartmentService: ApartmentService,
     private route: ActivatedRoute) {
      }
 
@@ -25,10 +27,10 @@ ngOnInit(): void {
   this.route.url.subscribe(p => {
     // Go to payment by building
     this.route.params.subscribe( params => {
-      this.apartmentId = params['apartmentId'];
+      this.apartment = this.apartmentService.getCurrentApartment()!;
       this.buildingId = params['buildingId'];
-      this.getByApartment(this.apartmentId);
-      this.paymentForm.get("apartmentId")?.setValue(this.apartmentId);
+      this.getByApartment(this.apartment);
+      this.paymentForm.get('apartmentId')?.setValue(this.apartment);
     })
   })
 
@@ -62,19 +64,10 @@ paymentForm = new FormGroup ({
   // Takes in selected building when edit button is hit.
   selectedPayment?: Payment;
   payments: Payment[] = [];
-  apartmentId: number = 0;
+  apartment!: Apartment;
   buildingId: number = 0;
 
-  getByApartment(apartmentId: number): void {
-
-    // Using as placeholder for Apartment object generated from ids.  
-    // Will be replaced with actual object.
-    let apartment: Apartment = {
-      id: apartmentId,
-      buildingId: this.buildingId,
-      number: "0",
-    }
-
+  getByApartment(apartment: Apartment): void {
     this.paymentService.getByApartment(apartment).subscribe(response => this.payments = response.body)
   }
 
@@ -140,7 +133,7 @@ paymentForm = new FormGroup ({
 
     let payment: Payment = {
       id: postform.value.id,
-      apartmentId: this.apartmentId,
+      apartmentId: this.apartment.id,
       buildingId: this.buildingId,
       amount: postform.value.amount,
       month: postform.value.month,

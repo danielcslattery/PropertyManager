@@ -51,11 +51,18 @@ export class ApartmentService {
     });
   }
 
+  // Store to and retreive the current building in local storage so it's available everywhere
   getCurrentApartment(): Apartment | undefined {
-    return this.currentApartment;
+    let string: string | null = localStorage.getItem('apartment');
+    if (string) {
+      let apartment: Apartment = JSON.parse(string) as Apartment;
+      return apartment;
+    } else {
+      return undefined;
+    }
   }
 
   setCurrentApartment(apartment: Apartment): void {
-    this.currentApartment = apartment;
+    localStorage.setItem('apartment', JSON.stringify(apartment));
   }
 }

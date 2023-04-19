@@ -38,10 +38,10 @@
                     </ng-container>
         
                     <ng-template #notSelected >
-                        <td [routerLink] = "['/buildings', apartment.buildingId, 'apartments', apartment.id]" >
+                        <td [routerLink] = "['/buildings', apartment.buildingId, 'apartments', apartment.id]" (click) = "selectForCurrent(apartment)">
                             {{apartment.id}}
                         </td>
-                        <td [routerLink] = "['/buildings', apartment.buildingId, 'apartments', apartment.id]">
+                        <td [routerLink] = "['/buildings', apartment.buildingId, 'apartments', apartment.id]" (click) = "selectForCurrent(apartment)">
                             {{apartment.number}}
                         </td>
                         <td>

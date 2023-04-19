@@ -8,7 +8,6 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http'
 })
 export class BuildingService {
   private HOST = 'http://localhost:8080';
-  private currentBuilding?: Building
 
   constructor(private http: HttpClient) {}
 
