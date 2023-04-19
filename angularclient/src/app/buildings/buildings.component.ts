@@ -117,4 +117,8 @@ export class BuildingsComponent implements OnInit {
 
     this.selectedBuilding = building;
   }
+
+  selectForCurrent(building: Building): void {
+    this.buildingService.setCurrentBuilding(building);
+  }
 }

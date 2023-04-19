@@ -3,6 +3,8 @@ import { ApartmentService } from '../services/apartment.service';
 import { Apartment } from '../models/apartment';
 import { ActivatedRoute, RouterState } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { Building } from '../models/building';
+import { BuildingService } from '../services/building.service';
 
 @Component({
   selector: 'app-apartments',
@@ -12,6 +14,7 @@ import { AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators
 export class ApartmentsComponent implements OnInit {
 
   constructor(private apartmentService: ApartmentService,
+              private buildingService: BuildingService,
               private route: ActivatedRoute) {
                }
 
@@ -21,9 +24,10 @@ export class ApartmentsComponent implements OnInit {
     this.route.url.subscribe(url => {
       // Go to apartments by building
       this.route.params.subscribe( params => {
-        this.buildingId = params['buildingId'];
-        this.getByBuilding(this.buildingId);
-        this.apartmentForm.get("buildingId")?.setValue(this.buildingId);
+        this.building = this.buildingService.getCurrentBuilding()!;
+        console.log("Building: ", this.building);
+        this.getByBuilding(this.building);
+        this.apartmentForm.get("buildingId")?.setValue(this.building.id);
       })
 
     })
@@ -52,10 +56,10 @@ export class ApartmentsComponent implements OnInit {
 
   apartments: Apartment[] = []
   apartmentsWithLatePayments: Apartment[] = []
-  buildingId: number = 0
+  building!: Building;
 
-  getByBuilding(buildingId: number): void {
-    this.apartmentService.getByBuilding(buildingId).subscribe(response => this.apartments = response.body)
+  getByBuilding(building: Building): void {
+    this.apartmentService.getByBuilding(building).subscribe(response => this.apartments = response.body)
   }
 
   delete(apartment: Apartment): void {
@@ -71,7 +75,7 @@ export class ApartmentsComponent implements OnInit {
 
     let apartment: Apartment = {
       id: this.apartmentForm.value.id,
-      buildingId: this.buildingId,
+      buildingId: this.building?.id,
       number: this.apartmentForm.value.number,
     };
 
@@ -117,7 +121,7 @@ export class ApartmentsComponent implements OnInit {
 
     let apartment: Apartment = {
       id: postform.value.id,
-      buildingId: this.buildingId,
+      buildingId: this.building.id,
       number: postform.value.number,
     };
 
